@@ -21,7 +21,7 @@ contract SnakeReproduction is SnakeCreator {
       return (_snake.readyTime <= now);
    }
     
-    function reproduction(uint _sourceSnakeId, uint _targetSnakeId) internal onlyOwnerOf(_sourceSnakeId) onlyOwnerOf(_targetSnakeId) {
+    function reproduction(uint _sourceSnakeId, uint _targetSnakeId) public onlyOwnerOf(_sourceSnakeId) onlyOwnerOf(_targetSnakeId) {
         Snake storage mySourceSnake = snakes[_sourceSnakeId];
         Snake storage myTargetSnake = snakes[_targetSnakeId];
         require(_isReady(mySourceSnake) && _isReady(myTargetSnake));
@@ -43,6 +43,13 @@ contract SnakeReproduction is SnakeCreator {
         
         childToParent[childId] = [_sourceSnakeId, _targetSnakeId];
    }
+   
+       function feeding() internal pure {
+            //   TODO: 
+            // 	- Schlange wird gefüttert. Schlangenfutter kaufen. 
+            //  => wird stärker oder länger. => Wertsteigerung 
+
+       }
    
     function substring(string str, uint startIndex, uint endIndex) internal pure returns (string) {
         bytes memory strBytes = bytes(str);
