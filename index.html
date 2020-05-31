@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <script language="javascript" type="text/javascript" src="./js/snakeCreatorABI.js"></script>
     <title>CryptoZombies front-end</title>
+    <script language="javascript" type="text/javascript" src="./src/js/snakeCreatorABI.js"></script>
 
 
 </head>
@@ -11,11 +11,15 @@
 <div id="snakes"></div>
 
 <script>
+
+    var version = web3.version.api;
+    console.log(version);
+
     let cryptoSnakes;
 
     function startApp() {
-        const cryptoSnakesAddress = "YOUR_CONTRACT_ADDRESS";
-        cryptoSnakes = new web3js.eth.Contract(cryptoSnakeABI, cryptoSnakesAddress);
+        const cryptoSnakesAddress = "0x1105f9111D05033790d9C75C051C730E76A844EB";
+        cryptoSnakes = web3.eth.contract(snakeCreatorABI, cryptoSnakesAddress);
 
     }
 
@@ -26,7 +30,6 @@
     function snakeToOwner(id) {
         return cryptoSnakes.methods.snakeToOwner(id).call()
     }
-
 
     function displaySnake(ids) {
         for (id of ids) {
