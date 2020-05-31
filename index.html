@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script language="javascript" type="text/javascript" src="./js/snakeCreatorABI.js"></script>
+    <title>CryptoZombies front-end</title>
+
+
+</head>
+<body>
+<div id="snakes"></div>
+
+<script>
+    let cryptoSnakes;
+
+    function startApp() {
+        const cryptoSnakesAddress = "YOUR_CONTRACT_ADDRESS";
+        cryptoSnakes = new web3js.eth.Contract(cryptoSnakeABI, cryptoSnakesAddress);
+
+    }
+
+    function getSnakeDetails(id) {
+        return cryptoSnakes.methods.snakes(id).call()
+    }
+
+    function snakeToOwner(id) {
+        return cryptoSnakes.methods.snakeToOwner(id).call()
+    }
+
+
+    function displaySnake(ids) {
+        for (id of ids) {
+            getSnakeDetails(id)
+                .then(function (snake) {
+                    document.getElementById("snakes").innerHTML = `
+                <div class="snakes">
+                        <ul>
+                        <li>Name: ${snake.name}</li>
+                    <li>DNA: ${snake.dna}</li>
+                    <li>Level: ${snake.level}</li>
+
+                    </ul>
+                    </div> `
+                });
+        }
+    }
+
+
+    window.addEventListener('load', function() {
+        if (typeof web3 !== 'undefined') {
+            document.writeln("Web3 is found")
+            web3js = new Web3(web3.currentProvider);
+        } else {
+            document.writeln("Web3 is NOT found !!!")
+        }
+        startApp()
+
+    })
+</script>
+</body>
+</html>

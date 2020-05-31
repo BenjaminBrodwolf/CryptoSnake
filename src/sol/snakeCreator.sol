@@ -29,6 +29,7 @@ contract SnakeCreator is Ownable {
   mapping (uint => address) public snakeToOwner;
   mapping (address => uint) ownerSnakeCount;
   mapping (uint => uint[2]) public childToParent;
+  mapping (address => bool) public gotInitialSnake;
   
  
   function _createSnake(string _name, uint _dna) internal returns(uint) {
@@ -45,11 +46,29 @@ contract SnakeCreator is Ownable {
     return rand % dnaModulus; //Damit Zahl 16 Stellen hat
   }
 
-  function createRandomSnake(string _name) public {
-    //require(ownerSnakeCount[msg.sender] == 0);
+  function createRandomSnake(string _name) private {
+    //require(gotInitialSnake[msg.sender]);
+
     uint randDna = _generateRandomDna(_name);
     randDna = randDna - randDna % 100; //macht letzte beiden Ziffern zu 00
     _createSnake(_name, randDna);
   }
+  
+  function createInitalSnake(string _name) public {
+    require(!gotInitialSnake[msg.sender]);
+    createRandomSnake(_name);
+    gotInitialSnake[msg.sender] = true;
+  }
+  
+    function createPayedSnake(string _name) public payable {
+    require(msg.value == 0.001 ether);  //Schlangenpreis
+    createRandomSnake(_name);
+
+  }
+  
+  
+  
+  
+  
 
 }
