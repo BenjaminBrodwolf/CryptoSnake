@@ -8,28 +8,54 @@
 
 </head>
 <body>
+
 <div id="snakes"></div>
 
+<button onclick="getOwner(0)">Click me</button>
 <script>
 
     var version = web3.version.api;
     console.log(version);
 
     let cryptoSnakes;
+    var userAccount;
 
     function startApp() {
-        const cryptoSnakesAddress = "0x1105f9111D05033790d9C75C051C730E76A844EB";
+        const cryptoSnakesAddress = "0xD4420BcCA566E682916a32CF11a047948C6A5AcB";
         cryptoSnakes = web3.eth.contract(snakeCreatorABI, cryptoSnakesAddress);
 
     }
+
 
     function getSnakeDetails(id) {
         return cryptoSnakes.methods.snakes(id).call()
     }
 
     function snakeToOwner(id) {
-        return cryptoSnakes.methods.snakeToOwner(id).call()
+        return cryptoSnakes.methods.snakeToOwner(id).send()
     }
+
+    function getOwner(id) {
+        snakeToOwner(id).then( result => {
+            console.log("Snake 15: " + JSON.stringify(result));
+        }).catch( err => {
+            console.log("Error:" + err);
+        })
+    }
+
+    function createInitalSnake(name) {
+        console.log("initial snake");
+        return cryptoSnakes.methods.createInitalSnake(name).send()
+    }
+
+
+
+    function createPayedSnake(name) {
+        return cryptoSnakes.methods.createPayedSnake(name).call()
+    }
+
+
+
 
     function displaySnake(ids) {
         for (id of ids) {
@@ -51,10 +77,11 @@
 
     window.addEventListener('load', function() {
         if (typeof web3 !== 'undefined') {
-            document.writeln("Web3 is found")
+            console.log("Web3 is found")
             web3js = new Web3(web3.currentProvider);
+
         } else {
-            document.writeln("Web3 is NOT found !!!")
+            console.log("Web3 is NOT found !!!")
         }
         startApp()
 

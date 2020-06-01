@@ -46,7 +46,7 @@ contract SnakeCreator is Ownable {
     return rand % dnaModulus; //Damit Zahl 16 Stellen hat
   }
 
-  function createRandomSnake(string _name) private {
+  function createRandomSnake(string _name) public {
     //require(gotInitialSnake[msg.sender]);
 
     uint randDna = _generateRandomDna(_name);
