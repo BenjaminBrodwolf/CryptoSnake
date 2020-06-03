@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <title>CryptoZombies front-end</title>
     <link rel="stylesheet" href="./css/bootstrap.min.css">
-    <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script language="javascript" type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script language="javascript" type="text/javascript" src="./src/js/snakeCreatorABI.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
     <script language="javascript" type="text/javascript" src="./src/js/bootstrap.bundle.min.js"></script>
@@ -15,8 +16,32 @@
 
 <div id="snakes"></div>
 
+<div class="container">
+    <div class="jumbotron">
+        <div class="card">
+            <div class="card-header">
+                create your own snake
+            </div>
+            <div class="card-body">
+                <p class="card-text">enter snake name</p>
+                <input id="snakeInputName" type="text" class="form-control">
+                <button id="createSnake" type="button" class="btn btn-primary" onclick="createPayedSnake()">create
+                    snake
+                </button>
+            </div>
+        </div>
+        <div class="card" style="width: 18rem;">
+            <div class="card-header">
+                Snakes
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="snakeItem"></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
 <button onclick="getOwner(0)">Click me</button>
-<button type="button" class="btn btn-primary">Primary</button>
 
 <script>
 
@@ -35,7 +60,10 @@
         //cryptoSnakes = web3js.eth.contract(snakeCreatorABI, cryptoSnakesAddress);
         //cryptoSnakes = new web3js.eth.Contract(snakeCreatorABI, cryptoSnakesAddress); //Alte Version mit fehler
         //cryptoSnakes =  web3.eth.contract(snakeCreatorABI, cryptoSnakesAddress);
-        cryptoSnakes = new web3js.eth.Contract(snakeCreatorABI, cryptoSnakesAddress, {gasPrice: '12345678', from: web3js.eth.accounts[0]});
+        cryptoSnakes = new web3js.eth.Contract(snakeCreatorABI, cryptoSnakesAddress, {
+            gasPrice: '12345678',
+            from: web3js.eth.accounts[0]
+        });
         console.log(cryptoSnakes);
     }
 
@@ -77,8 +105,11 @@
         return cryptoSnakes.methods.createInitalSnake(name).send()
     }
 
-    function createPayedSnake(name) {
-        return cryptoSnakes.methods.createPayedSnake(name).call()
+    function createPayedSnake() {
+        let name = document.getElementById("snakeInputName").value;
+        cryptoSnakes.methods.createPayedSnake(name).call()
+        const snake = getSnakeDetails(0);
+        console.log(snake);
     }
 
     window.addEventListener('load', function () {
