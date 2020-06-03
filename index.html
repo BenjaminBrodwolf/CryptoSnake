@@ -4,10 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <title>CryptoZombies front-end</title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
     <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script language="javascript" type="text/javascript" src="./src/js/snakeCreatorABI.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
-
+    <script language="javascript" type="text/javascript" src="./src/js/bootstrap.bundle.min.js"></script>
 </head>
 
 <body>
@@ -15,6 +16,7 @@
 <div id="snakes"></div>
 
 <button onclick="getOwner(0)">Click me</button>
+<button type="button" class="btn btn-primary">Primary</button>
 
 <script>
 
@@ -35,9 +37,6 @@
         //cryptoSnakes =  web3.eth.contract(snakeCreatorABI, cryptoSnakesAddress);
         cryptoSnakes = new web3js.eth.Contract(snakeCreatorABI, cryptoSnakesAddress, {gasPrice: '12345678', from: web3js.eth.accounts[0]});
         console.log(cryptoSnakes);
-
-
-
     }
 
     function displaySnake(ids) {
@@ -57,13 +56,9 @@
         }
     }
 
-
-
-
     function getSnakeDetails(id) {
         return cryptoSnakes.methods.snakes(id).call()
     }
-
 
     function snakeToOwner(id) {
         return cryptoSnakes.methods.snakeToOwner(id).call()
@@ -82,32 +77,15 @@
         return cryptoSnakes.methods.createInitalSnake(name).send()
     }
 
-
     function createPayedSnake(name) {
         return cryptoSnakes.methods.createPayedSnake(name).call()
     }
 
-
-
-
-
     window.addEventListener('load', function () {
         if (typeof web3 !== 'undefined') {
             console.log("Web3 is found")
-            //web3js = new Web3(web3.currentProvider);
-            //console.log("Accountcheck " + web3js.eth);
-
-            //const ethEnabled = () => {
-               // if    (window.ethereum) {
-                    web3js = new Web3(window.ethereum);
-                    window.ethereum.enable();
-                  //  return true;
-                //}
-                //return false;
-            //}
-
-
-
+            web3js = new Web3(window.ethereum);
+            window.ethereum.enable();
         } else {
             console.log("Web3 is NOT found !!!")
         }
