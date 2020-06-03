@@ -1,0 +1,19 @@
+{
+  "name": "gruppe4",
+  "version": "1.0.0",
+  "description": "Projekt blch KryptoSnakes",
+  "main": "init.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.fhnw.ch/blch/gruppe4.git"
+  },
+  "author": "Manuel Riedi, Pascal Andermatt, Benjamin Brodwolf",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^4.5.0",
+    "web3": "^1.2.8"
+  }
+}

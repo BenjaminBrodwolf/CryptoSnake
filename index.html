@@ -20,8 +20,7 @@
 
     window.ethereum.enable();
 
-
-
+    //Informations
     var version = web3.version.api;
     console.log(version);
 
@@ -30,12 +29,11 @@
     var userAccount;
 
     function startApp() {
-        const cryptoSnakesAddress = "0xE0fECD7E4637F4af37322b54940f7AD5c7b063bD";
+        const cryptoSnakesAddress = "0x95c9BcB7E052537B5d7Cb71Af5460c71048D597E";
         //cryptoSnakes = web3js.eth.contract(snakeCreatorABI, cryptoSnakesAddress);
         //cryptoSnakes = new web3js.eth.Contract(snakeCreatorABI, cryptoSnakesAddress); //Alte Version mit fehler
         //cryptoSnakes =  web3.eth.contract(snakeCreatorABI, cryptoSnakesAddress);
         cryptoSnakes = new web3js.eth.Contract(snakeCreatorABI, cryptoSnakesAddress, {gasPrice: '12345678', from: web3js.eth.accounts[0]});
-
         console.log(cryptoSnakes);
 
 
@@ -68,7 +66,6 @@
 
 
     function snakeToOwner(id) {
-        cryptoSnakes.from
         return cryptoSnakes.methods.snakeToOwner(id).call()
     }
 

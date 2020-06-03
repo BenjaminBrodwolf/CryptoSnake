@@ -54,7 +54,7 @@ contract SnakeCreator is Ownable {
     _createSnake(_name, randDna);
   }
   
- /* function createInitalSnake(string _name) public {
+ function createInitalSnake(string _name) public {
     require(!gotInitialSnake[msg.sender]);
     createRandomSnake(_name);
     gotInitialSnake[msg.sender] = true;
@@ -65,7 +65,6 @@ contract SnakeCreator is Ownable {
     createRandomSnake(_name);
 
   }
-  */
   
   
   
