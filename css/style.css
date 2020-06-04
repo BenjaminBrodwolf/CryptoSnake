@@ -1,0 +1,130 @@
+
+body {
+    background-color: powderblue;
+}
+
+main {
+    text-align: center;
+    background-color: whitesmoke;
+    border-radius: 1rem;
+    max-width: 40em;
+    width: auto;
+    margin: auto;
+    padding: 2em;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+    0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.oneline{
+    clear: both;
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.itemfieldset {
+    border: 4px solid cadetblue;
+    border-radius: 1rem;
+    background-color: rgba(255, 255, 255, .7);
+    padding: 10px;
+    margin: 0 0 40px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+    0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.itemfieldset:hover {
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.4),
+    0 6px 20px 0 rgba(0, 0, 0, 0.4);
+}
+
+.itemlegend {
+    background-color: white;
+    border: 4px solid cadetblue;
+    padding: 7px 20px;
+    border-radius: 1rem;
+    font-size: 1.2rem;
+    font-weight: 800;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+    0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+
+.info {
+    padding: 0 15px;
+    font-family: monospace;
+
+}
+
+.info fieldset {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #7a7e7e;
+    border-radius: 1rem;
+    background-color: rgba(255, 255, 255, .7);
+    margin-top: 10px;
+}
+
+.info legend {
+    border-radius: .7rem;
+    font-size: 1.2rem;
+    font-weight: 900;
+}
+
+h3 {
+    text-align: center;
+}
+
+h4 {
+    margin: 3px 15px 5px 5px;
+}
+
+p {
+    font-size: 1.1rem;
+}
+
+a {
+    text-decoration: none;
+}
+
+.toProjectContainer {
+    text-align: right;
+    margin: 10px;
+}
+
+
+ul {
+    margin-top: 5px;
+}
+
+li {
+    margin-bottom: 5px;
+}
+
+.button {
+    color: white;
+    padding: 7px 20px;
+    border-radius: 10rem;
+    text-transform: uppercase;
+    font-family: monospace;
+    font-size: 1.2rem;
+    font-weight: 800;
+    animation: buttonEffect;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+.button:hover {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+    0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+@keyframes buttonEffect {
+    0% {
+        background-color: #0cf;
+    }
+
+    100% {
+        background-color: #008fb3;
+    }
+}

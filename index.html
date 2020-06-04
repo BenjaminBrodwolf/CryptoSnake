@@ -13,9 +13,9 @@
 </head>
 
 <body>
-
+<main>
 <div id="snakes"></div>
-
+</main>
 <div class="container">
     <div class="jumbotron">
         <div class="card">
@@ -40,10 +40,10 @@
 
 <script>
     let cryptoSnakes;
-    var userAccount;
+    let userAccount;
 
     function startApp() {
-        const cryptoSnakesAddress = "0x5Fa49a5EefF5B4Cc4d363aa9C27C5705b1524D42";
+        const cryptoSnakesAddress = "0x1b1b1ad005c187B001821F2e03E4e1a401c94e58";
         cryptoSnakes = new window.web3.eth.Contract(snakeCreatorABI, cryptoSnakesAddress, {
             gasPrice: '12345678',
             from: window.web3.eth.accounts[0]

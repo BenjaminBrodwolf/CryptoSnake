@@ -66,7 +66,7 @@ contract SnakeCreator is Ownable {
 
   }
   
-  function getSnakesByOwner(address _owner) public view returns(uint[]) {
+  function getSnakesByOwner(address _owner) public view onlyOwner returns(uint[]) {
     uint[] memory snakesbyOwner = new uint[](ownerSnakeCount[_owner]);
     uint counter = 0;
     for (uint i = 0; i < snakes.length; i++) {
@@ -77,5 +77,10 @@ contract SnakeCreator is Ownable {
     }
     return snakesbyOwner;
   }
- 
+  
+  
+  
+  
+  
+
 }
