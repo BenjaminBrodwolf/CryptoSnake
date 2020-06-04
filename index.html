@@ -5,11 +5,10 @@
     <meta charset="UTF-8">
     <title>CryptoZombies front-end</title>
     <link rel="stylesheet" href="./css/bootstrap.min.css">
-    <script language="javascript" type="text/javascript"
-            src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script language="javascript" type="text/javascript" src="./src/js/snakeCreatorABI.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
-    <script language="javascript" type="text/javascript" src="./src/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="./src/js/external/http_cdnjs.cloudflare.com_ajax_libs_jquery_3.3.1_jquery.js"></script>
+    <script type="text/javascript" src="./src/js/snakeCreatorABI.js"></script>
+    <script type="text/javascript" src="./src/js/external/web3.min.js"></script>
+    <script type="text/javascript" src="./src/js/external/bootstrap.bundle.min.js"></script>
 </head>
 
 <body>
@@ -43,7 +42,7 @@
     var userAccount;
 
     function startApp() {
-        const cryptoSnakesAddress = "0x4a36D6ecF0ebdecB98Cda0151691fF9eCd87a944";
+        const cryptoSnakesAddress = "0x5Fa49a5EefF5B4Cc4d363aa9C27C5705b1524D42";
         cryptoSnakes = new window.web3.eth.Contract(snakeCreatorABI, cryptoSnakesAddress, {
             gasPrice: '12345678',
             from: window.web3.eth.accounts[0]
@@ -65,6 +64,7 @@
     }
 
     async function showAllSnakes() {
+        document.getElementById("snakes").innerHTML = ""
         let ids = await getSnakeByOwner(userAccount)
         displaySnakes(ids)
     }
@@ -94,7 +94,9 @@
     }
 
     function createInitialSnake(snakeName) {
-        return cryptoSnakes.methods.createInitalSnake(snakeName).send()
+        return cryptoSnakes.methods.createInitalSnake(snakeName).send({
+            from: userAccount
+        })
     }
 
     async function createPayedSnake() {
