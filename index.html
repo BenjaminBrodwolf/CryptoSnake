@@ -30,61 +30,50 @@
                 </button>
             </div>
         </div>
-        <div class="card" style="width: 18rem;">
-            <div class="card-header">
-                Snakes
-            </div>
-            <ul class="list-group list-group-flush">
-                <li class="snakeItem"></li>
-            </ul>
-        </div>
+        <button type="button" class="btn btn-danger" onclick="createInitialSnake('initialSnake')">create
+            initial snake
+        </button>
+        <button type="button" class="btn badge-dark" onclick="showAllSnakes()">show all snakes
+        </button>
     </div>
 </div>
 
-<button onclick="getOwner(0)">Click me</button>
-
 <script>
-
-    //window.ethereum.enable();
-
-    //Initial Logs
-    var version = window.web3.version.api;
-    console.log(version);
-
-
     let cryptoSnakes;
     var userAccount;
 
     function startApp() {
-        const cryptoSnakesAddress = "0x70b2742Bb45F5DD81D6D283487d0B906d70AE722";
+        const cryptoSnakesAddress = "0x4a36D6ecF0ebdecB98Cda0151691fF9eCd87a944";
         cryptoSnakes = new window.web3.eth.Contract(snakeCreatorABI, cryptoSnakesAddress, {
             gasPrice: '12345678',
             from: window.web3.eth.accounts[0]
         });
 
-
-        // userAccount = web3js.eth.accounts[0];
         window.web3.eth.getAccounts((err, res) => {
             console.log("user account: " + res[0])
             userAccount = res[0];
         });
-        console.log("User Account: " + userAccount);
-/*        var accountInterval = setInterval(function() {
 
-            if (web3.eth.accounts[0] !== userAccount) {
-                userAccount = web3.eth.accounts[0];
-
-                getSnakeByOwner(userAccount).then(displaySnake);
-            }
-        }, 100);*/
+        // var accountInterval = setInterval(function () {
+        //
+        //     if (getAccount() !== userAccount) {
+        //         userAccount = getAccount()
+        //
+        //        //  getSnakeByOwner(userAccount).then(displaySnakes);
+        //     }
+        // }, 100);
     }
 
+    async function showAllSnakes() {
+        let ids = await getSnakeByOwner(userAccount)
+        displaySnakes(ids)
+    }
 
-    function displaySnake(ids) {
-        for (id of ids) {
+    function displaySnakes(snakeIds) {
+        for (id of snakeIds) {
             getSnakeDetails(id)
                 .then(function (snake) {
-                    document.getElementById("snakes").innerHTML = `
+                    document.getElementById("snakes").innerHTML += `
                 <div>
                    <ul>
                     <li>Name: ${snake.name}</li>
@@ -96,70 +85,40 @@
         }
     }
 
-    function getSnakeDetails(id) {
-        return cryptoSnakes.methods.snakes(id).call()
+    function getSnakeDetails(snakeId) {
+        return cryptoSnakes.methods.snakes(snakeId).call();
     }
 
-    function snakeToOwner(id) {
-        return cryptoSnakes.methods.snakeToOwner(id).call()
+    async function getOwnerOfSnake(snakeId) {
+        return await cryptoSnakes.methods.snakeToOwner(snakeId).call()
     }
 
-    function getOwner(id) {
-        snakeToOwner(id).then(result => {
-            console.log("Snake 15: " + JSON.stringify(result));
-        }).catch(err => {
-            console.log("Error:" + err);
-        })
+    function createInitialSnake(snakeName) {
+        return cryptoSnakes.methods.createInitalSnake(snakeName).send()
     }
 
-    function createInitalSnake(name) {
-        console.log("initial snake");
-        return cryptoSnakes.methods.createInitalSnake(name).send()
-    }
-
-    function createPayedSnake() {
+    async function createPayedSnake() {
         let name = document.getElementById("snakeInputName").value;
-        cryptoSnakes.methods.createPayedSnake(name).send({ from: userAccount, value: window.web3.utils.toWei("0.001", "ether") });
-
-        getSnakeByOwner(userAccount).then(displaySnake);
-        //const snake = getSnakeDetails(1);
-        //console.log(snake);
+        await cryptoSnakes.methods.createPayedSnake(name).send({
+            from: userAccount,
+            value: window.web3.utils.toWei("0.001", "ether")
+        });
     }
 
     function getSnakeByOwner(owner) {
         return cryptoSnakes.methods.getSnakesByOwner(owner).call()
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
     window.addEventListener('load', function () {
 
-            if (window.ethereum) {
-                window.web3 = new Web3(window.ethereum);
-                window.ethereum.enable();
-                console.log("Web3 is found")
-            }else {
-                console.log("Web3 is NOT found !!!")
-            }
+        if (window.ethereum) {
+            window.web3 = new Web3(window.ethereum);
+            window.ethereum.enable();
+            console.log("Web3 is found")
+        } else {
+            console.log("Web3 is NOT found !!!")
+        }
 
-        //     if (typeof web3 !== 'undefined') {
-        //     console.log("Web3 is found")
-        //     //web3js = new Web3(window.ethereum);
-        //     web3js = new Web3(web3.currentProvider);
-        //     //window.ethereum.enable();
-        // } else {
-        //     console.log("Web3 is NOT found !!!")
-        // }
         startApp()
     })
 </script>
