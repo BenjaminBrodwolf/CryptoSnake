@@ -3,13 +3,13 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>CryptoZombies front-end</title>
+    <title>CryptoSnakes</title>
     <link rel="stylesheet" href="./css/bootstrap.min.css">
-    <script language="javascript" type="text/javascript"
-            src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script language="javascript" type="text/javascript" src="./src/js/snakeCreatorABI.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
-    <script language="javascript" type="text/javascript" src="./src/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="./src/js/external/http_cdnjs.cloudflare.com_ajax_libs_jquery_3.3.1_jquery.js"></script>
+    <script type="text/javascript" src="./src/js/snakeCreatorABI.js"></script>
+    <script type="text/javascript" src="./src/js/external/web3.min.js"></script>
+    <script type="text/javascript" src="./src/js/external/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="./src/js/snakeCreator.js"></script>
 </head>
 
 <body>
@@ -30,123 +30,50 @@
                 </button>
             </div>
         </div>
-        <div class="card" style="width: 18rem;">
-            <div class="card-header">
-                Snakes
-            </div>
-            <ul class="list-group list-group-flush">
-                <li class="snakeItem"></li>
-            </ul>
-        </div>
+        <button type="button" class="btn btn-danger" onclick="createInitialSnake('initialSnake')">create
+            initial snake
+        </button>
+        <button type="button" class="btn badge-dark" onclick="showAllSnakes()">show all snakes
+        </button>
     </div>
 </div>
 
-<button onclick="getOwner(0)">Click me</button>
-
 <script>
-
-    //window.ethereum.enable();
-
-    //Initial Logs
-    var version = web3.version.api;
-    console.log(version);
-
-
     let cryptoSnakes;
     var userAccount;
 
     function startApp() {
-        const cryptoSnakesAddress = "0xD42a0D1904a223E0Fe76dacA9d0D133A4c94077F";
-        cryptoSnakes = new web3js.eth.Contract(snakeCreatorABI, cryptoSnakesAddress, {
+        const cryptoSnakesAddress = "0x5Fa49a5EefF5B4Cc4d363aa9C27C5705b1524D42";
+        cryptoSnakes = new window.web3.eth.Contract(snakeCreatorABI, cryptoSnakesAddress, {
             gasPrice: '12345678',
-            from: web3js.eth.accounts[0]
+            from: window.web3.eth.accounts[0]
         });
 
+        window.web3.eth.getAccounts((err, res) => {
+            console.log("user account: " + res[0])
+            userAccount = res[0];
+        });
 
-        userAccount = web3js.eth.accounts[0];
-        console.log("User Account: " + userAccount);
-/*        var accountInterval = setInterval(function() {
-
-            if (web3.eth.accounts[0] !== userAccount) {
-                userAccount = web3.eth.accounts[0];
-
-                getSnakeByOwner(userAccount).then(displaySnake);
-            }
-        }, 100);*/
+        // var accountInterval = setInterval(function () {
+        //
+        //     if (getAccount() !== userAccount) {
+        //         userAccount = getAccount()
+        //
+        //        //  getSnakeByOwner(userAccount).then(displaySnakes);
+        //     }
+        // }, 100);
     }
-
-
-    function displaySnake(ids) {
-        for (id of ids) {
-            getSnakeDetails(id)
-                .then(function (snake) {
-                    document.getElementById("snakes").innerHTML = `
-                <div>
-                   <ul>
-                    <li>Name: ${snake.name}</li>
-                    <li>DNA: ${snake.dna}</li>
-                    <li>Level: ${snake.level}</li>
-                  </ul>
-                </div> `
-                });
-        }
-    }
-
-    function getSnakeDetails(id) {
-        return cryptoSnakes.methods.snakes(id).call()
-    }
-
-    function snakeToOwner(id) {
-        return cryptoSnakes.methods.snakeToOwner(id).call()
-    }
-
-    function getOwner(id) {
-        snakeToOwner(id).then(result => {
-            console.log("Snake 15: " + JSON.stringify(result));
-        }).catch(err => {
-            console.log("Error:" + err);
-        })
-    }
-
-    function createInitalSnake(name) {
-        console.log("initial snake");
-        return cryptoSnakes.methods.createInitalSnake(name).send()
-    }
-
-    function createPayedSnake() {
-        let name = document.getElementById("snakeInputName").value;
-        cryptoSnakes.methods.createPayedSnake(name).send({ from: userAccount, value: web3js.utils.toWei("0.001", "ether") });
-
-        //getSnakeByOwner(userAccount).then(displaySnake);
-        //const snake = getSnakeDetails(1);
-        //console.log(snake);
-    }
-
-    function getSnakeByOwner(owner) {
-        return cryptoSnakes.methods.getSnakesByOwner(owner).call()
-    }
-
-
-
-
-
-
-
-
-
-
-
-
 
     window.addEventListener('load', function () {
-        if (typeof web3 !== 'undefined') {
+
+        if (window.ethereum) {
+            window.web3 = new Web3(window.ethereum);
+            window.ethereum.enable();
             console.log("Web3 is found")
-            //web3js = new Web3(window.ethereum);
-            web3js = new Web3(web3.currentProvider);
-            //window.ethereum.enable();
         } else {
             console.log("Web3 is NOT found !!!")
         }
+
         startApp()
     })
 </script>
