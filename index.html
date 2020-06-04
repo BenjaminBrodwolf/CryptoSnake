@@ -6,10 +6,12 @@
     <title>CryptoSnakes</title>
     <link rel="stylesheet" href="./css/bootstrap.min.css">
     <script type="text/javascript" src="./src/js/external/http_cdnjs.cloudflare.com_ajax_libs_jquery_3.3.1_jquery.js"></script>
-    <script type="text/javascript" src="./src/js/snakeCreatorABI.js"></script>
+    <script type="text/javascript" src="./src/js/abi/snakeCreatorABI.js"></script>
+    <script type="text/javascript" src="./src/js/abi/SnakeReproductionABI.js"></script>
     <script type="text/javascript" src="./src/js/external/web3.min.js"></script>
     <script type="text/javascript" src="./src/js/external/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="./src/js/snakeCreator.js"></script>
+    <script type="text/javascript" src="./src/js/SnakeReproduction.js"></script>
 </head>
 
 <body>
@@ -35,6 +37,8 @@
         </button>
         <button type="button" class="btn badge-dark" onclick="showAllSnakes()">show all snakes
         </button>
+        <button type="button" class="btn badge-dark" onclick="pairSnakes(0,1)">pair snakes
+        </button>
     </div>
 </div>
 
@@ -43,8 +47,8 @@
     let userAccount;
 
     function startApp() {
-        const cryptoSnakesAddress = "0x1b1b1ad005c187B001821F2e03E4e1a401c94e58";
-        cryptoSnakes = new window.web3.eth.Contract(snakeCreatorABI, cryptoSnakesAddress, {
+        const cryptoSnakesAddress = "0xb2718A518D16dAc633939E39b0A2e8A14253e368";
+        cryptoSnakes = new window.web3.eth.Contract(snakeReproductionABI, cryptoSnakesAddress, {
             gasPrice: '12345678',
             from: window.web3.eth.accounts[0]
         });

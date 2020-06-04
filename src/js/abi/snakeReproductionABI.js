@@ -1,4 +1,4 @@
-const snakeCreatorABI = [
+const snakeReproductionABI = [
     {
         "constant": false,
         "inputs": [
@@ -45,6 +45,24 @@ const snakeCreatorABI = [
         "constant": false,
         "inputs": [],
         "name": "renounceOwnership",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "name": "_sourceSnakeId",
+                "type": "uint256"
+            },
+            {
+                "name": "_targetSnakeId",
+                "type": "uint256"
+            }
+        ],
+        "name": "reproduction",
         "outputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
