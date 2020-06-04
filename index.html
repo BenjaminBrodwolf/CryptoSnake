@@ -44,9 +44,6 @@
 <button onclick="getOwner(0)">Click me</button>
 
 <script>
-
-    //window.ethereum.enable();
-
     //Initial Logs
     var version = window.web3.version.api;
     console.log(version);
@@ -56,35 +53,33 @@
     var userAccount;
 
     function startApp() {
-        const cryptoSnakesAddress = "0x70b2742Bb45F5DD81D6D283487d0B906d70AE722";
+        const cryptoSnakesAddress = "0x4a36D6ecF0ebdecB98Cda0151691fF9eCd87a944";
         cryptoSnakes = new window.web3.eth.Contract(snakeCreatorABI, cryptoSnakesAddress, {
             gasPrice: '12345678',
             from: window.web3.eth.accounts[0]
         });
 
-
-        // userAccount = web3js.eth.accounts[0];
         window.web3.eth.getAccounts((err, res) => {
             console.log("user account: " + res[0])
             userAccount = res[0];
         });
-        console.log("User Account: " + userAccount);
-/*        var accountInterval = setInterval(function() {
+        /*        var accountInterval = setInterval(function() {
 
-            if (web3.eth.accounts[0] !== userAccount) {
-                userAccount = web3.eth.accounts[0];
+                    if (web3.eth.accounts[0] !== userAccount) {
+                        userAccount = web3.eth.accounts[0];
 
-                getSnakeByOwner(userAccount).then(displaySnake);
-            }
-        }, 100);*/
+                        getSnakeByOwner(userAccount).then(displaySnake);
+                    }
+                }, 100);*/
     }
 
 
     function displaySnake(ids) {
+        console.log("ids: " + ids)
         for (id of ids) {
             getSnakeDetails(id)
                 .then(function (snake) {
-                    document.getElementById("snakes").innerHTML = `
+                    document.getElementById("snakes").innerHTML += `
                 <div>
                    <ul>
                     <li>Name: ${snake.name}</li>
@@ -97,7 +92,7 @@
     }
 
     function getSnakeDetails(id) {
-        return cryptoSnakes.methods.snakes(id).call()
+        return cryptoSnakes.methods.snakes(id).call();
     }
 
     function snakeToOwner(id) {
@@ -117,49 +112,31 @@
         return cryptoSnakes.methods.createInitalSnake(name).send()
     }
 
-    function createPayedSnake() {
+    async function createPayedSnake() {
         let name = document.getElementById("snakeInputName").value;
-        cryptoSnakes.methods.createPayedSnake(name).send({ from: userAccount, value: window.web3.utils.toWei("0.001", "ether") });
+        await cryptoSnakes.methods.createPayedSnake(name).send({
+            from: userAccount,
+            value: window.web3.utils.toWei("0.001", "ether")
+        });
 
-        //getSnakeByOwner(userAccount).then(displaySnake);
-        //const snake = getSnakeDetails(1);
-        //console.log(snake);
+        let ids = await getSnakeByOwner(userAccount)
+        displaySnake(ids)
     }
 
     function getSnakeByOwner(owner) {
         return cryptoSnakes.methods.getSnakesByOwner(owner).call()
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
     window.addEventListener('load', function () {
 
-            if (window.ethereum) {
-                window.web3 = new Web3(window.ethereum);
-                window.ethereum.enable();
-                console.log("Web3 is found")
-            }else {
-                console.log("Web3 is NOT found !!!")
-            }
+        if (window.ethereum) {
+            window.web3 = new Web3(window.ethereum);
+            window.ethereum.enable();
+            console.log("Web3 is found")
+        } else {
+            console.log("Web3 is NOT found !!!")
+        }
 
-        //     if (typeof web3 !== 'undefined') {
-        //     console.log("Web3 is found")
-        //     //web3js = new Web3(window.ethereum);
-        //     web3js = new Web3(web3.currentProvider);
-        //     //window.ethereum.enable();
-        // } else {
-        //     console.log("Web3 is NOT found !!!")
-        // }
         startApp()
     })
 </script>
