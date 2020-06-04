@@ -1,8 +1,6 @@
-
-
 async function showAllSnakes() {
     document.getElementById("snakes").innerHTML = ""
-    let ids = testSnakes //await getSnakeByOwner(userAccount)
+    let ids = await getSnakeByOwner(userAccount)
     displaySnakes(ids)
 }
 
@@ -41,21 +39,21 @@ function displaySnakes(snakeIds) {
 
     let snakeList = ""
 
-    for (snake of snakeIds) {
+    for (id of snakeIds) {
         console.log(snake)
 
-        //getSnakeDetails(id)
-        //   .then(function (snake) {
+        getSnakeDetails(id)
+            .then(function (snake) {
 
-        const bodydna = coloringSnake(snake.dna)
-        console.log(bodydna)
-        let snakeBody = "";
+                const bodydna = coloringSnake(snake.dna)
+                console.log(bodydna)
+                let snakeBody = "";
 
-        bodydna.forEach( dna => {
-            snakeBody += `<div class="snakebody" style="background-color: ${dna}"></div>`
-        })
+                bodydna.forEach(dna => {
+                    snakeBody += `<div class="snakebody" style="background-color: ${dna}"></div>`
+                })
 
-        snakeList = `
+                snakeList = `
             <snake snakeid="${snake.snakeId}">
                 <fieldset class="itemfieldset">
                     <legend class="itemlegend">
@@ -80,14 +78,14 @@ function displaySnakes(snakeIds) {
           </fieldset>
         </snake>`
 
-        snakeView.innerHTML += snakeList;
+                snakeView.innerHTML += snakeList;
 
-        //});
+            });
     }
 }
 
 function getSnakeDetails(snakeId) {
-    return testSnakes //cryptoSnakes.methods.snakes(snakeId).call();
+    return cryptoSnakes.methods.snakes(snakeId).call();
 }
 
 async function getOwnerOfSnake(snakeId) {
@@ -129,25 +127,12 @@ const coloringSnake = dna => {
     chunks[5] = head.substring(1, 4)
     chunks.push(head.substring(4, 7))
 
-
     let c1 = chunks[0] + chunks[1]
     let c2 = chunks[1] + chunks[2]
     let c3 = chunks[2] + chunks[3]
     let c4 = chunks[3] + chunks[4]
     let c5 = chunks[4] + chunks[5]
     let c6 = chunks[5] + chunks[6]
-
-    // snakebodys[0].style.backgroundColor = "#" + c1;
-    // snakebodys[1].style.backgroundColor = "#" + newcolor(c1, c2)
-    // snakebodys[2].style.backgroundColor = "#" + c2;
-    // snakebodys[3].style.backgroundColor = "#" + newcolor(c2, c3)
-    // snakebodys[4].style.backgroundColor = "#" + c3;
-    // snakebodys[5].style.backgroundColor = "#" + newcolor(c3, c4)
-    // snakebodys[6].style.backgroundColor = "#" + c4;
-    // snakebodys[7].style.backgroundColor = "#" + newcolor(c4, c5)
-    // snakebodys[8].style.backgroundColor = "#" + c5;
-    // snakebodys[9].style.backgroundColor = "#" + newcolor(c5, c6)
-    // snakebodys[8].style.backgroundColor = "#" + c6;
 
     snakebodys.push("#" + c1)
     snakebodys.push("#" + newcolor(c1, c2))
