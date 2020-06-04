@@ -43,7 +43,7 @@
     var userAccount;
 
     function startApp() {
-        const cryptoSnakesAddress = "0x4a36D6ecF0ebdecB98Cda0151691fF9eCd87a944";
+        const cryptoSnakesAddress = "0x5Fa49a5EefF5B4Cc4d363aa9C27C5705b1524D42";
         cryptoSnakes = new window.web3.eth.Contract(snakeCreatorABI, cryptoSnakesAddress, {
             gasPrice: '12345678',
             from: window.web3.eth.accounts[0]
@@ -65,6 +65,7 @@
     }
 
     async function showAllSnakes() {
+        document.getElementById("snakes").innerHTML = ""
         let ids = await getSnakeByOwner(userAccount)
         displaySnakes(ids)
     }
@@ -94,7 +95,8 @@
     }
 
     function createInitialSnake(snakeName) {
-        return cryptoSnakes.methods.createInitalSnake(snakeName).send()
+        return cryptoSnakes.methods.createInitalSnake(snakeName).send({
+            from: userAccount})
     }
 
     async function createPayedSnake() {
