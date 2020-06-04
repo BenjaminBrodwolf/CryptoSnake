@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <title>CryptoSnakes</title>
     <link rel="stylesheet" href="./css/bootstrap.min.css">
+
+    <script src="src/js/utils.js"></script>
     <script type="text/javascript" src="./src/js/external/http_cdnjs.cloudflare.com_ajax_libs_jquery_3.3.1_jquery.js"></script>
     <script type="text/javascript" src="./src/js/abi/snakeCreatorABI.js"></script>
     <script type="text/javascript" src="./src/js/abi/SnakeReproductionABI.js"></script>
@@ -12,12 +14,17 @@
     <script type="text/javascript" src="./src/js/external/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="./src/js/snakeCreator.js"></script>
     <script type="text/javascript" src="./src/js/SnakeReproduction.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/snake.css">
+
 </head>
 
 <body>
-<main>
+
 <div id="snakes"></div>
-</main>
+
+
+
 <div class="container">
     <div class="jumbotron">
         <div class="card">
@@ -47,7 +54,7 @@
     let userAccount;
 
     function startApp() {
-        const cryptoSnakesAddress = "0xb2718A518D16dAc633939E39b0A2e8A14253e368";
+        const cryptoSnakesAddress = "0xfC713AAB72F97671bADcb14669248C4e922fe2Bb";
         cryptoSnakes = new window.web3.eth.Contract(snakeReproductionABI, cryptoSnakesAddress, {
             gasPrice: '12345678',
             from: window.web3.eth.accounts[0]
