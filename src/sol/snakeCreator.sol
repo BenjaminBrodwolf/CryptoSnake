@@ -60,10 +60,22 @@ contract SnakeCreator is Ownable {
     gotInitialSnake[msg.sender] = true;
   }
   
-    function createPayedSnake(string _name) public payable {
+ function createPayedSnake(string _name) public payable {
     require(msg.value == 0.001 ether);  //Schlangenpreis
     createRandomSnake(_name);
 
+  }
+  
+  function getSnakesByOwner(address _owner) public view onlyOwner returns(uint[]) {
+    uint[] memory snakesbyOwner = new uint[](ownerSnakeCount[_owner]);
+    uint counter = 0;
+    for (uint i = 0; i < snakes.length; i++) {
+      if (snakeToOwner[i] == _owner) {
+        snakesbyOwner[counter] = i;
+        counter++;
+      }
+    }
+    return snakesbyOwner;
   }
   
   
