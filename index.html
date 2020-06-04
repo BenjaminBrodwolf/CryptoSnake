@@ -5,11 +5,10 @@
     <meta charset="UTF-8">
     <title>CryptoZombies front-end</title>
     <link rel="stylesheet" href="./css/bootstrap.min.css">
-    <script language="javascript" type="text/javascript"
-            src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script language="javascript" type="text/javascript" src="./src/js/snakeCreatorABI.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
-    <script language="javascript" type="text/javascript" src="./src/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="./src/js/external/http_cdnjs.cloudflare.com_ajax_libs_jquery_3.3.1_jquery.js"></script>
+    <script type="text/javascript" src="./src/js/snakeCreatorABI.js"></script>
+    <script type="text/javascript" src="./src/js/external/web3.min.js"></script>
+    <script type="text/javascript" src="./src/js/external/bootstrap.bundle.min.js"></script>
 </head>
 
 <body>
@@ -96,7 +95,8 @@
 
     function createInitialSnake(snakeName) {
         return cryptoSnakes.methods.createInitalSnake(snakeName).send({
-            from: userAccount})
+            from: userAccount
+        })
     }
 
     async function createPayedSnake() {

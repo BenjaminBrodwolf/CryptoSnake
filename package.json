@@ -13,7 +13,5 @@
   "author": "Manuel Riedi, Pascal Andermatt, Benjamin Brodwolf",
   "license": "ISC",
   "dependencies": {
-    "bootstrap": "^4.5.0",
-    "web3": "^1.2.8"
   }
 }
