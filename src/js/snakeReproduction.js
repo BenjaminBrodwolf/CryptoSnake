@@ -42,7 +42,7 @@ const pairingClick = el => {
                 document.getElementById("snakeTwo").innerText = names[1]
 
                 pairingSnakes = selected
-
+                console.log(selected)
                 dialog.style.display = 'block';
                 backdrop.style.display = 'block';
             }
@@ -51,10 +51,12 @@ const pairingClick = el => {
 
 }
 
-const pairSnakes = async (sourceSnakeId, targetSnakeId) => {
-    const res = await cryptoSnakes.methods.reproduction(sourceSnakeId, targetSnakeId).send({
+const pairSnakes = async (sourceSnakeId = 0, targetSnakeId = 0) => {
+    console.log("pairSnakes")
+    await cryptoSnakes.methods.reproduction(sourceSnakeId, targetSnakeId).send({
         from: userAccount
     })
+
     pairingSnakes = []
     closeDialog()
     await showAllSnakes()

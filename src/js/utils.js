@@ -1,3 +1,11 @@
+const successCallback = (result) => {
+    console.log("It succeeded with " + result);
+}
+
+const failureCallback = (error) => {
+    console.log("It failed with " + error);
+}
+
 const newcolor = (color1, color2, percentage) => {
     color1 = color1 || '000000';
     color2 = color2 || 'ffffff';

@@ -44,7 +44,7 @@
         <button id="createSnake" type="button" class="button" onclick="createPayedSnake()">create
             snake
         </button>
-        <button id="createInitalSnake" style="display: none" type="button" class="button" onclick="createPayedSnake()">
+        <button id="createInitalSnake" style="display: none" type="button" class="button" onclick="createInitialSnake()">
             create
             Inital Snake
         </button>
@@ -55,12 +55,12 @@
         <label for="snakeInputName">Snake ID </label>
         <input id="snakeInputID" type="text" name="snakeInputName" class="form-control">
 
-        <button id="sendSnake" type="button" class="button" onclick="createPayedSnake()">
+        <button id="sendSnake" type="button" class="button" onclick="">
             Send
         </button>
     </div>
 </div>
-<button id="approveSnake" type="button" class="button" onclick="approveSnake()">Approve recieved Snake
+<button id="approveSnake" type="button" class="button" onclick="">Approve recieved Snake
 </button>
 
 
@@ -87,24 +87,22 @@
     let userAccount;
 
     const startApp = () => {
-        const cryptoSnakesAddress = "0x489d5368A6AF99Fefd7eD0fd76b159c9B4C81D07";
+        const cryptoSnakesAddress = "0xCBABc1456266d2008e6f22de0b2Cc678259671B7";
         cryptoSnakes = new window.web3.eth.Contract(snakeReproductionABI, cryptoSnakesAddress);
 
         window.web3.eth.getAccounts((err, res) => {
             console.log("user account: " + res[0])
             userAccount = res[0];
             startDisplay();
+
         });
     }
 
-    const startDisplay = () => {
-        if (!gotInitalSnake(userAccount)) {
-            console.log("Hat noch kein InitaSnake")
-            document.getElementById("createSnake").style.display = "none"
-            document.getElementById("createInitalSnake").style.display = "block"
-        }
 
-        showAllSnakes();
+
+    const startDisplay = async () => {
+        await showAllSnakes();
+        await initalSnakeCheck();
     }
 
     window.addEventListener('load', () => {
@@ -121,7 +119,6 @@
 
     const dialog = document.getElementById('pairingDialog');
     const backdrop = document.getElementById('backdrop');
-    const pairingConfirm = document.getElementById('pairingConfirm');
 </script>
 
 </body>

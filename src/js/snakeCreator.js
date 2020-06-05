@@ -30,6 +30,19 @@ const showAllSnakes = async () => {
     displaySnakes(ids)
 }
 
+const initalSnakeCheck = async () =>{
+    const haveInitialSnake = await gotInitalSnake(userAccount)
+    if (!haveInitialSnake) {
+        console.log("Hat noch kein InitialSnake")
+        document.getElementById("createSnake").style.display = "none"
+        document.getElementById("createInitalSnake").style.display = "block"
+    } else {
+        console.log("Hat bereits ein InitialSnake")
+        document.getElementById("createSnake").style.display = "block"
+        document.getElementById("createInitalSnake").style.display = "none"
+    }
+}
+
 const displaySnakes = snakeIds => {
     console.log("displaySnakes")
 
@@ -115,16 +128,18 @@ async function getOwnerOfSnake(snakeId) {
     return await cryptoSnakes.methods.snakeToOwner(snakeId).call()
 }
 
-const gotInitalSnake = async (address) => {
-    return await cryptoSnakes.methods.gotInitialSnake(address).call()
+const gotInitalSnake = (address) => {
+    return  cryptoSnakes.methods.gotInitialSnake(address).call()
 }
 
-const createInitialSnake = async snakeName => {
-    console.log("createInitialSnake: " + snakeName)
-    await cryptoSnakes.methods.createInitalSnake(snakeName).send({
+const createInitialSnake = async () => {
+    let name = document.getElementById("snakeInputName").value;
+    console.log("createInitialSnake: " + name)
+    await cryptoSnakes.methods.createInitalSnake(name).send({
         from: userAccount
     })
-    await showAllSnakes()
+    await initalSnakeCheck();
+    await showAllSnakes();
 }
 
 const createPayedSnake = async () => {
