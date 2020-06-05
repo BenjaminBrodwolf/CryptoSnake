@@ -32,6 +32,7 @@ const showAllSnakes = async () => {
 
 const displaySnakes = snakeIds => {
     console.log("displaySnakes")
+    console.log(snakeIds)
 
     const snakeView = document.getElementById("snakes")
     const snakesLength = snakeIds.length;
@@ -39,11 +40,12 @@ const displaySnakes = snakeIds => {
     snakeView.innerHTML = (snakesLength > 0) ? "" : "<h5>You have no Snakes yet. Create your initial Snake for free.</h5>"
 
     let snakeList = ""
+    let i = 0;
     for (id of snakeIds) {
 
         getSnakeDetails(id)
-            .then(function (snake) {
-
+            .then(snake => {
+                console.log(snakeIds[i])
                 const bodydna = coloringSnake(snake.dna)
 
                 const snakesvg = `<svg width="336" height="380" viewBox="130 100 400 500" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -65,7 +67,7 @@ const displaySnakes = snakeIds => {
                                         </svg>`;
 
                 snakeList = `
-                    <snake snakeid="${snake.snakeId}">
+                    <snake snakeid="${snakeIds[i]}">
                         <fieldset class="itemfieldset">
                             <legend class="itemlegend">
                                 ${snake.name}
@@ -77,17 +79,21 @@ const displaySnakes = snakeIds => {
             
                     <div class="info">
                         <fieldset>
-                            <p><span>Dna:</span> ${snake.dna} </p>
-                            <p><span>Level:</span> ${snake.level} </p>
+                            <p><span>ID:    </span> ${snakeIds[i]} </p>
+                            <p><span>DNA:   </span> ${snake.dna} </p>
+                            <p><span>Level: </span> ${snake.level} </p>
                         </fieldset>
                     </div>
                     
                     <div class="toProjectContainer">
                         <div style='float: left;'>
-                            <a class="button pair">Pairing</a>
+
+                            <button type="button" onclick="pairingClick(this)" class="button buttonpair">
+                            Pairing <span class="isPairing" style="visibility: hidden">O</span>
+                            </button> 
                         </div>
                         <div style='float: right;'>
-                            <a class="button levelup">Level Up</a>
+                            <a class="button">Level Up</a>
                         </div>
                     
                     </div>
@@ -95,6 +101,7 @@ const displaySnakes = snakeIds => {
                 </snake>`
 
                 snakeView.innerHTML += snakeList;
+                i++
             });
     }
 }
