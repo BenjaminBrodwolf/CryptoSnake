@@ -3,11 +3,11 @@ body {
     background-color: powderblue;
 }
 
-main {
-    text-align: center;
+#createBox {
+    /*text-align: center;*/
     background-color: whitesmoke;
     border-radius: 1rem;
-    max-width: 80%;
+    max-width: 40%;
     width: auto;
     padding: 1em;
     margin: auto auto 30px;
@@ -17,4 +17,20 @@ main {
 
 #snakeInputName{
     width: 500px;
+}
+
+.button {
+    margin: 5px;
+    cursor: pointer;
+    color: white;
+    padding: 7px 20px;
+    border-radius: 10rem;
+    text-transform: uppercase;
+    font-family: monospace;
+    font-size: 1.2rem;
+    font-weight: 800;
+    animation: buttonEffect;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
 }

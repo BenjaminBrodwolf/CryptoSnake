@@ -25,7 +25,7 @@ const testSnakes = [
     }
 ]
 
-async function showAllSnakes() {
+const showAllSnakes = async () => {
     let ids = await getSnakeByOwner(userAccount)
     displaySnakes(ids)
 }
@@ -43,9 +43,7 @@ const displaySnakes = snakeIds => {
         getSnakeDetails(id)
             .then(function (snake) {
 
-
                 const bodydna = coloringSnake(snake.dna)
-                console.log(bodydna)
 
                 const snakesvg = `<svg width="336" height="380" viewBox="130 100 400 500" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M411.86 160.456L426.397 149.267C432.738 155.173 443.761 170.644 437.126 185.275C428.833 203.564 443.164 169.284 411.86 160.456Z" fill="black"/>
@@ -61,8 +59,8 @@ const displaySnakes = snakeIds => {
                                             <path snakepart="7"  fill=${bodydna[6]}   d="M396.12 490.553C396.12 490.553 435.092 439.341 431.203 410.153C429.454 397.024 427.488 387.639 418.355 383.278C408.846 378.739 398.957 380.569 388.798 391.65C378.999 402.339 361.488 465.866 361.488 465.866C361.488 465.866 375.492 460.821 384.437 465.574C392.208 469.703 396.12 490.553 396.12 490.553Z" />
                                             <path snakepart="8"  fill=${bodydna[7]}   d="M324.519 550.475C324.519 550.475 382.834 519.745 393.251 491.987C397.937 479.501 400.662 470.295 394.742 462.793C388.578 454.982 379.066 452.745 364.939 458.717C351.312 464.478 305.929 514.698 305.929 514.698C305.929 514.698 320.561 515.66 326.131 523.442C330.969 530.202 324.519 550.475 324.519 550.475Z" />
                                             <path snakepart="9"  fill=${bodydna[8]}   d="M245.711 557.548C245.711 557.548 296.071 571.501 316.149 556.799C325.181 550.186 331.401 544.838 331.575 535.219C331.756 525.204 327.149 517.33 315.682 512.813C304.62 508.455 252.337 517.908 252.337 517.908C252.337 517.908 260.657 528.105 260.134 537.714C259.679 546.061 245.711 557.548 245.711 557.548Z" />
-                                            <path snakepart="10" fill=${bodydna[9]}    d="M176.92 529.03C176.92 529.03 217.331 561.662 241.231 557.775C251.982 556.026 259.69 554.161 263.545 546.213C267.558 537.939 266.397 529.453 257.71 520.905C249.331 512.66 198.177 498.743 198.177 498.743C198.177 498.743 201.82 510.714 197.652 518.507C194.03 525.277 176.92 529.03 176.92 529.03Z" />
-                                            <path snakepart="11" fill=${bodydna[10]}    d="M140.553 478.079C140.553 478.079 146.179 514.25 168.932 525.38C179.167 530.387 184.365 536.449 193.506 532.111C203.023 527.595 208.401 519.787 207.576 507.397C206.779 495.446 182.249 490.422 166.056 470.164C157.493 459.452 151.693 434.501 140.831 431.221C134.061 429.177 140.553 478.079 140.553 478.079Z" />
+                                            <path snakepart="10" fill=${bodydna[9]}   d="M176.92 529.03C176.92 529.03 217.331 561.662 241.231 557.775C251.982 556.026 259.69 554.161 263.545 546.213C267.558 537.939 266.397 529.453 257.71 520.905C249.331 512.66 198.177 498.743 198.177 498.743C198.177 498.743 201.82 510.714 197.652 518.507C194.03 525.277 176.92 529.03 176.92 529.03Z" />
+                                            <path snakepart="11" fill=${bodydna[10]}  d="M140.553 478.079C140.553 478.079 146.179 514.25 168.932 525.38C179.167 530.387 184.365 536.449 193.506 532.111C203.023 527.595 208.401 519.787 207.576 507.397C206.779 495.446 182.249 490.422 166.056 470.164C157.493 459.452 151.693 434.501 140.831 431.221C134.061 429.177 140.553 478.079 140.553 478.079Z" />
                                         </svg>`;
 
                 snakeList = `
@@ -84,7 +82,7 @@ const displaySnakes = snakeIds => {
                     </div>
                     
                     <div class="toProjectContainer">
-                        <a class="button">Level Up</a>
+                        <a class="buttonlevelup">Level Up</a>
                     </div>
                   </fieldset>
                 </snake>`
@@ -94,22 +92,27 @@ const displaySnakes = snakeIds => {
     }
 }
 
-function getSnakeDetails(snakeId) {
-    return cryptoSnakes.methods.snakes(snakeId).call();
+const getSnakeDetails = async snakeId => {
+    return await cryptoSnakes.methods.snakes(snakeId).call();
 }
 
 async function getOwnerOfSnake(snakeId) {
     return await cryptoSnakes.methods.snakeToOwner(snakeId).call()
 }
 
-function createInitialSnake(snakeName) {
-    console.log("createInitialSnake: " + snakeName)
-    return cryptoSnakes.methods.createInitalSnake(snakeName).send({
-        from: userAccount
-    })
+const gotInitalSnake = async (address)  => {
+    return await cryptoSnakes.methods.gotInitialSnake(address).call()
 }
 
-async function createPayedSnake() {
+const createInitialSnake = async snakeName => {
+    console.log("createInitialSnake: " + snakeName)
+    await cryptoSnakes.methods.createInitalSnake(snakeName).send({
+        from: userAccount
+    })
+    await showAllSnakes()
+}
+
+const createPayedSnake = async () => {
     console.log("createPayedSnake")
 
     let name = document.getElementById("snakeInputName").value;
@@ -117,14 +120,14 @@ async function createPayedSnake() {
         from: userAccount,
         value: window.web3.utils.toWei("0.001", "ether")
     });
+    await showAllSnakes()
+
 }
 
 function getSnakeByOwner(owner) {
     return cryptoSnakes.methods.getSnakesByOwner(owner).call()
 }
-function gotInitalSnake(owner) {
-    return cryptoSnakes.methods.gotInitialSnake(owner).call()
-}
+
 
 const coloringSnake = dna => {
 

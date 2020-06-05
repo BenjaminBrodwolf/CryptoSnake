@@ -1,5 +1,5 @@
 
-#snakes {
+#snakesview {
     text-align: center;
     background-color: whitesmoke;
     border-radius: 1rem;
@@ -112,7 +112,7 @@ li {
     margin-bottom: 5px;
 }
 
-.button {
+.buttonlevelup {
     cursor: pointer;
     color: white;
     padding: 7px 20px;

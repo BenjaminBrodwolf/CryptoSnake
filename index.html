@@ -7,7 +7,8 @@
     <link rel="stylesheet" href="./css/bootstrap.min.css">
 
     <script src="src/js/utils.js"></script>
-    <script type="text/javascript" src="./src/js/external/http_cdnjs.cloudflare.com_ajax_libs_jquery_3.3.1_jquery.js"></script>
+    <script type="text/javascript"
+            src="./src/js/external/http_cdnjs.cloudflare.com_ajax_libs_jquery_3.3.1_jquery.js"></script>
     <script type="text/javascript" src="./src/js/abi/snakeCreatorABI.js"></script>
     <script type="text/javascript" src="./src/js/abi/SnakeReproductionABI.js"></script>
     <script type="text/javascript" src="./src/js/external/web3.min.js"></script>
@@ -26,13 +27,19 @@
 </div>
 
 
-<main>
-    <input id="snakeInputName" type="text" class="form-control">
+<div id="createBox">
+
+   <input id="snakeInputName" type="text" class="form-control">
+
     <button id="createSnake" type="button" class="button" onclick="createPayedSnake()">create
         snake
     </button>
+    <button id="createInitalSnake" style="display: none" type="button" class="button" onclick="createPayedSnake()">
+        create
+        Inital Snake
+    </button>
 
-</main>
+</div>
 
 
 <div class="container">
@@ -57,7 +64,17 @@
 </div>
 
 
-<div id="snakes">
+
+
+<div id="snakesview">
+    <h5 style="float: left;
+    text-align:right;
+    width:50%;"> Your Snakes</h5>
+     <p style="float: left;
+    text-align:right;
+    width:50%; cursor: pointer " onclick="showAllSnakes()">Refresh list <span style="font-size: 2em">🗘</span>
+    </p>
+    <div id="snakes"> </div>
 </div>
 
 
@@ -65,7 +82,7 @@
     let cryptoSnakes;
     let userAccount;
 
-    const startApp = ()  => {
+    const startApp = () => {
         const cryptoSnakesAddress = "0x489d5368A6AF99Fefd7eD0fd76b159c9B4C81D07";
         cryptoSnakes = new window.web3.eth.Contract(snakeReproductionABI, cryptoSnakesAddress);
 
@@ -76,10 +93,14 @@
         });
     }
 
-    const startDisplay = () =>{
+    const startDisplay = () => {
+        if (!gotInitalSnake(userAccount)) {
+            console.log("Hat noch kein InitaSnake")
+            document.getElementById("createSnake").style.display = "none"
+            document.getElementById("createInitalSnake").style.display = "block"
+        }
 
         showAllSnakes();
-
     }
 
     window.addEventListener('load', () => {
