@@ -5,16 +5,29 @@
     <meta charset="UTF-8">
     <title>CryptoSnakes</title>
     <link rel="stylesheet" href="./css/bootstrap.min.css">
+
+    <script src="src/js/utils.js"></script>
     <script type="text/javascript" src="./src/js/external/http_cdnjs.cloudflare.com_ajax_libs_jquery_3.3.1_jquery.js"></script>
-    <script type="text/javascript" src="./src/js/snakeCreatorABI.js"></script>
+    <script type="text/javascript" src="./src/js/abi/snakeCreatorABI.js"></script>
+    <script type="text/javascript" src="./src/js/abi/SnakeReproductionABI.js"></script>
     <script type="text/javascript" src="./src/js/external/web3.min.js"></script>
     <script type="text/javascript" src="./src/js/external/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="./src/js/snakeCreator.js"></script>
+    <script type="text/javascript" src="./src/js/SnakeReproduction.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/snake.css">
+
 </head>
 
 <body>
 
-<div id="snakes"></div>
+<div style="text-align: center">
+    <h1>CryptoSnake</h1>
+</div>
+
+<div id="snakes">
+    <h5>You have no Snakes yet. Create your initial Snake for free.</h5>
+</div>
 
 <div class="container">
     <div class="jumbotron">
@@ -35,16 +48,18 @@
         </button>
         <button type="button" class="btn badge-dark" onclick="showAllSnakes()">show all snakes
         </button>
+        <button type="button" class="btn badge-dark" onclick="pairSnakes(0,1)">pair snakes
+        </button>
     </div>
 </div>
 
 <script>
     let cryptoSnakes;
-    var userAccount;
+    let userAccount;
 
     function startApp() {
-        const cryptoSnakesAddress = "0x5Fa49a5EefF5B4Cc4d363aa9C27C5705b1524D42";
-        cryptoSnakes = new window.web3.eth.Contract(snakeCreatorABI, cryptoSnakesAddress, {
+        const cryptoSnakesAddress = "0xfC713AAB72F97671bADcb14669248C4e922fe2Bb";
+        cryptoSnakes = new window.web3.eth.Contract(snakeReproductionABI, cryptoSnakesAddress, {
             gasPrice: '12345678',
             from: window.web3.eth.accounts[0]
         });
