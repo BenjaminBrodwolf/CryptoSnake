@@ -30,7 +30,7 @@ const showAllSnakes = async () => {
     displaySnakes(ids)
 }
 
-const initalSnakeCheck = async () =>{
+const initalSnakeCheck = async () => {
     const haveInitialSnake = await gotInitalSnake(userAccount)
     if (!haveInitialSnake) {
         console.log("Hat noch kein InitialSnake")
@@ -129,27 +129,35 @@ async function getOwnerOfSnake(snakeId) {
 }
 
 const gotInitalSnake = (address) => {
-    return  cryptoSnakes.methods.gotInitialSnake(address).call()
+    return cryptoSnakes.methods.gotInitialSnake(address).call()
 }
 
 const createInitialSnake = async () => {
-    let name = document.getElementById("snakeInputName").value;
-    console.log("createInitialSnake: " + name)
-    await cryptoSnakes.methods.createInitalSnake(name).send({
-        from: userAccount
-    })
+    let name = nameInputField.value;
+    if (name.length < 2) {
+        fireNotify(`Nameinput ist empty or to small`)
+    } else {
+        console.log("createInitialSnake: " + name)
+        await cryptoSnakes.methods.createInitalSnake(name).send({
+            from: userAccount
+        })
+    }
     await initalSnakeCheck();
     await showAllSnakes();
 }
 
 const createPayedSnake = async () => {
     console.log("createPayedSnake")
+    let name = nameInputField.value;
+    if (name.length < 2) {
+        fireNotify(`Nameinput ist empty or to small`)
 
-    let name = document.getElementById("snakeInputName").value;
-    await cryptoSnakes.methods.createPayedSnake(name).send({
-        from: userAccount,
-        value: window.web3.utils.toWei("0.001", "ether")
-    });
+    } else {
+        await cryptoSnakes.methods.createPayedSnake(name).send({
+            from: userAccount,
+            value: window.web3.utils.toWei("0.001", "ether")
+        });
+    }
     await showAllSnakes()
 
 }

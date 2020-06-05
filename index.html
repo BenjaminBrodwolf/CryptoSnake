@@ -11,12 +11,17 @@
     <script type="text/javascript" src="./src/js/external/web3.min.js"></script>
     <script type="text/javascript" src="./src/js/snakeCreator.js"></script>
     <script type="text/javascript" src="./src/js/SnakeReproduction.js"></script>
+    <script src="src/js/external/notify.js"></script>
+
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/snake.css">
+    <link rel="stylesheet" href="css/notify.css">
+
 </head>
 
 <body>
 <div id="backdrop"></div>
+<div id="notify"></div>
 
 <div id="pairingDialog">
     <h1>Pairing two snake:</h1>
@@ -98,8 +103,6 @@
         });
     }
 
-
-
     const startDisplay = async () => {
         await showAllSnakes();
         await initalSnakeCheck();
@@ -116,7 +119,7 @@
         startApp()
     })
 
-
+    const nameInputField= document.getElementById("snakeInputName");
     const dialog = document.getElementById('pairingDialog');
     const backdrop = document.getElementById('backdrop');
 </script>

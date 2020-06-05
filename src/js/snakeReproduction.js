@@ -53,10 +53,11 @@ const pairingClick = el => {
 
 const pairSnakes = async (sourceSnakeId = 0, targetSnakeId = 0) => {
     console.log("pairSnakes")
-    await cryptoSnakes.methods.reproduction(sourceSnakeId, targetSnakeId).send({
+    const res = await cryptoSnakes.methods.reproduction(sourceSnakeId, targetSnakeId).send({
         from: userAccount
     })
-
+    console.log(res)
+    fireNotify("Snake paired", "green")
     pairingSnakes = []
     closeDialog()
     await showAllSnakes()
