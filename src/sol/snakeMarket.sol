@@ -2,29 +2,17 @@ pragma solidity ^0.4.25;
 
 import "./snakeOwnership.sol";
 
-//contract SnakeOwnership {
-//
-//    function balanceOf(address _owner) external view returns (uint256) {}
-//
-//    function ownerOf(uint256 _tokenId) external view returns (address) {}
-//
-//    function transferFrom(address _from, address _to, uint256 _tokenId) external payable {}
-//
-//    function approve(address _approved, uint256 _tokenId) external payable onlyOwnerOf(_tokenId) {}
-//
-//}
-
 contract SnakeMarket {
-
-    SnakeOwnership snakeOwnership;
-    SnakeCreator snakeCreator;
 
     mapping(uint => address) snakeToSeller;
     mapping(uint => uint) snakeToPrice;
 
-    constructor() public {
-        snakeOwnership = new SnakeOwnership();
+    address addressSos;
+
+    function setAddressSnakeOwnership(address _addressSos) external {
+        addressSos = _addressSos;
     }
+
 
     function addSnakeToMarketplace(uint snakeId, uint price) external {
         // require sender muss Schlange besitzen
@@ -35,7 +23,7 @@ contract SnakeMarket {
     }
 
     function removeSnakeFromMarketplace(uint snakeId) external {
-        // require sender muss schlnage besitzen
+        // require sender muss schlange besitzen
         delete snakeToSeller[snakeId];
         delete snakeToPrice[snakeId];
     }
@@ -46,8 +34,13 @@ contract SnakeMarket {
 
         address seller = snakeToSeller[snakeId];
 
-        snakeOwnership.transferFrom(seller, msg.sender, snakeId);
+        callTransferFrom(seller, msg.sender, snakeId);
 
         seller.transfer(msg.value);
+    }
+
+    function callTransferFrom(address _from, address _to, uint256 _tokenId) external payable {
+        ERC721 snakeOwnership = ERC721(addressSos);
+        snakeOwnership.transferFrom(_from, _to, _tokenId);
     }
 }

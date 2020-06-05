@@ -14,7 +14,7 @@ contract SnakeReproduction is SnakeCreator {
     function _triggerCooldown(Snake storage _snake) internal {
         _snake.readyTime = uint32(now + cooldownTime);
     }
-
+    
 
     function _isReady(Snake storage _snake) internal view returns (bool) {
         return (_snake.readyTime <= now);
