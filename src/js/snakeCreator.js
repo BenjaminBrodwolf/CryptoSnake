@@ -26,24 +26,26 @@ const testSnakes = [
 ]
 
 async function showAllSnakes() {
-    document.getElementById("snakes").innerHTML = ""
     let ids = await getSnakeByOwner(userAccount)
     displaySnakes(ids)
 }
 
-function displaySnakes(snakeIds) {
+const displaySnakes = snakeIds => {
     console.log("displaySnakes")
 
     const snakeView = document.getElementById("snakes")
 
-    let snakeList = ""
+    snakeView.innerHTML = (snakeIds.length > 0) ? "" : "<h5>You have no Snakes yet. Create your initial Snake for free.</h5>"
 
+    let snakeList = ""
     for (id of snakeIds) {
 
         getSnakeDetails(id)
             .then(function (snake) {
 
+
                 const bodydna = coloringSnake(snake.dna)
+                console.log(bodydna)
 
                 const snakesvg = `<svg width="336" height="380" viewBox="130 100 400 500" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M411.86 160.456L426.397 149.267C432.738 155.173 443.761 170.644 437.126 185.275C428.833 203.564 443.164 169.284 411.86 160.456Z" fill="black"/>
@@ -76,14 +78,13 @@ function displaySnakes(snakeIds) {
             
                     <div class="info">
                         <fieldset>
-                            <p><span>Owner:</span> ${snake.owner} </p>
                             <p><span>Dna:</span> ${snake.dna} </p>
                             <p><span>Level:</span> ${snake.level} </p>
                         </fieldset>
                     </div>
                     
                     <div class="toProjectContainer">
-                        <a class="button"> Snake Level Up</a>
+                        <a class="button">Level Up</a>
                     </div>
                   </fieldset>
                 </snake>`
@@ -121,12 +122,13 @@ async function createPayedSnake() {
 function getSnakeByOwner(owner) {
     return cryptoSnakes.methods.getSnakesByOwner(owner).call()
 }
-
+function gotInitalSnake(owner) {
+    return cryptoSnakes.methods.gotInitialSnake(owner).call()
+}
 
 const coloringSnake = dna => {
 
-    const snakebodys = [] //document.getElementsByClassName("snakeview")[0].children
-
+    const snakebodys = []
     let chunks = [];
     for (let i = 0, charsLength = dna.length; i < charsLength; i += 3) {
         chunks.push(dna.substring(i, i + 3));
