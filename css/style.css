@@ -3,6 +3,14 @@ body {
     background-color: powderblue;
 }
 
+*, ::after, ::before{
+    box-sizing: border-box;
+}
+
+p, h1, h2, h3 ,h4, h5, label, legend{
+    font-family: 'Oswald', sans-serif;
+}
+
 #createBox {
     /*text-align: center;*/
     background-color: whitesmoke;
@@ -16,7 +24,7 @@ body {
 }
 
 #snakeInputName{
-    width: 500px;
+
 }
 
 .button {
@@ -29,8 +37,25 @@ body {
     font-family: monospace;
     font-size: 1.2rem;
     font-weight: 800;
+    line-height: inherit;
     animation: buttonEffect;
     animation-duration: 2s;
     animation-iteration-count: infinite;
     animation-direction: alternate;
+}
+
+.form-control{
+    display: block;
+    width: 100%;
+    height: calc(1.5em + .75rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }

@@ -34,8 +34,9 @@ const displaySnakes = snakeIds => {
     console.log("displaySnakes")
 
     const snakeView = document.getElementById("snakes")
-
-    snakeView.innerHTML = (snakeIds.length > 0) ? "" : "<h5>You have no Snakes yet. Create your initial Snake for free.</h5>"
+    const snakesLength = snakeIds.length;
+    document.getElementById("snakeamount").innerText = snakesLength;
+    snakeView.innerHTML = (snakesLength > 0) ? "" : "<h5>You have no Snakes yet. Create your initial Snake for free.</h5>"
 
     let snakeList = ""
     for (id of snakeIds) {
@@ -82,7 +83,13 @@ const displaySnakes = snakeIds => {
                     </div>
                     
                     <div class="toProjectContainer">
-                        <a class="buttonlevelup">Level Up</a>
+                        <div style='float: left;'>
+                            <a class="button pair">Pairing</a>
+                        </div>
+                        <div style='float: right;'>
+                            <a class="button levelup">Level Up</a>
+                        </div>
+                    
                     </div>
                   </fieldset>
                 </snake>`
@@ -100,7 +107,7 @@ async function getOwnerOfSnake(snakeId) {
     return await cryptoSnakes.methods.snakeToOwner(snakeId).call()
 }
 
-const gotInitalSnake = async (address)  => {
+const gotInitalSnake = async (address) => {
     return await cryptoSnakes.methods.gotInitialSnake(address).call()
 }
 
