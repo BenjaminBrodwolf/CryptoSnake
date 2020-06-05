@@ -10,10 +10,12 @@
     <script type="text/javascript" src="./src/js/external/http_cdnjs.cloudflare.com_ajax_libs_jquery_3.3.1_jquery.js"></script>
     <script type="text/javascript" src="./src/js/abi/snakeCreatorABI.js"></script>
     <script type="text/javascript" src="./src/js/abi/SnakeReproductionABI.js"></script>
+    <script type="text/javascript" src="./src/js/abi/snakeOwnershipABI.js"></script>
     <script type="text/javascript" src="./src/js/external/web3.min.js"></script>
     <script type="text/javascript" src="./src/js/external/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="./src/js/snakeCreator.js"></script>
     <script type="text/javascript" src="./src/js/SnakeReproduction.js"></script>
+    
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/snake.css">
 
@@ -66,8 +68,8 @@
     let userAccount;
 
     const startApp = ()  => {
-        const cryptoSnakesAddress = "0x489d5368A6AF99Fefd7eD0fd76b159c9B4C81D07";
-        cryptoSnakes = new window.web3.eth.Contract(snakeReproductionABI, cryptoSnakesAddress);
+        const cryptoSnakesAddress = "0xFAc39467b4CaB8dDC6d1f3340a4719829016826e";
+        cryptoSnakes = new window.web3.eth.Contract(snakeOwnershipABI, cryptoSnakesAddress);
 
         window.web3.eth.getAccounts((err, res) => {
             console.log("user account: " + res[0])
