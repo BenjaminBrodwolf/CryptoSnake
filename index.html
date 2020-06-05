@@ -21,13 +21,19 @@
 
 <body>
 
-<div style="text-align: center">
+<div style="text-align: center; padding-bottom: 30px;">
     <h1>CryptoSnake</h1>
 </div>
 
-<div id="snakes">
-    <h5>You have no Snakes yet. Create your initial Snake for free.</h5>
-</div>
+
+<main>
+    <input id="snakeInputName" type="text" class="form-control">
+    <button id="createSnake" type="button" class="button" onclick="createPayedSnake()">create
+        snake
+    </button>
+
+</main>
+
 
 <div class="container">
     <div class="jumbotron">
@@ -37,10 +43,7 @@
             </div>
             <div class="card-body">
                 <p class="card-text">enter snake name</p>
-                <input id="snakeInputName" type="text" class="form-control">
-                <button id="createSnake" type="button" class="btn btn-primary" onclick="createPayedSnake()">create
-                    snake
-                </button>
+
             </div>
         </div>
         <button type="button" class="btn btn-danger" onclick="createInitialSnake('initialSnake')">create
@@ -53,34 +56,33 @@
     </div>
 </div>
 
+
+<div id="snakes">
+</div>
+
+
 <script>
     let cryptoSnakes;
     let userAccount;
 
-    function startApp() {
-        const cryptoSnakesAddress = "0xfC713AAB72F97671bADcb14669248C4e922fe2Bb";
-        cryptoSnakes = new window.web3.eth.Contract(snakeReproductionABI, cryptoSnakesAddress, {
-            gasPrice: '12345678',
-            from: window.web3.eth.accounts[0]
-        });
+    const startApp = ()  => {
+        const cryptoSnakesAddress = "0x489d5368A6AF99Fefd7eD0fd76b159c9B4C81D07";
+        cryptoSnakes = new window.web3.eth.Contract(snakeReproductionABI, cryptoSnakesAddress);
 
         window.web3.eth.getAccounts((err, res) => {
             console.log("user account: " + res[0])
             userAccount = res[0];
+            startDisplay();
         });
-
-        // var accountInterval = setInterval(function () {
-        //
-        //     if (getAccount() !== userAccount) {
-        //         userAccount = getAccount()
-        //
-        //        //  getSnakeByOwner(userAccount).then(displaySnakes);
-        //     }
-        // }, 100);
     }
 
-    window.addEventListener('load', function () {
+    const startDisplay = () =>{
 
+        showAllSnakes();
+
+    }
+
+    window.addEventListener('load', () => {
         if (window.ethereum) {
             window.web3 = new Web3(window.ethereum);
             window.ethereum.enable();
@@ -88,9 +90,9 @@
         } else {
             console.log("Web3 is NOT found !!!")
         }
-
         startApp()
     })
+
 </script>
 
 </body>

@@ -3,3 +3,18 @@ body {
     background-color: powderblue;
 }
 
+main {
+    text-align: center;
+    background-color: whitesmoke;
+    border-radius: 1rem;
+    max-width: 80%;
+    width: auto;
+    padding: 1em;
+    margin: auto auto 30px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+    0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#snakeInputName{
+    width: 500px;
+}
