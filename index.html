@@ -4,72 +4,91 @@
 <head>
     <meta charset="UTF-8">
     <title>CryptoSnakes</title>
-    <link rel="stylesheet" href="./css/bootstrap.min.css">
 
     <script src="src/js/utils.js"></script>
-    <script type="text/javascript" src="./src/js/external/http_cdnjs.cloudflare.com_ajax_libs_jquery_3.3.1_jquery.js"></script>
     <script type="text/javascript" src="./src/js/abi/snakeCreatorABI.js"></script>
     <script type="text/javascript" src="./src/js/abi/SnakeReproductionABI.js"></script>
-    <script type="text/javascript" src="./src/js/abi/snakeOwnershipABI.js"></script>
     <script type="text/javascript" src="./src/js/external/web3.min.js"></script>
-    <script type="text/javascript" src="./src/js/external/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="./src/js/snakeCreator.js"></script>
     <script type="text/javascript" src="./src/js/SnakeReproduction.js"></script>
-    
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/snake.css">
-
 </head>
 
 <body>
+<div id="backdrop"></div>
+
+<div id="pairingDialog">
+    <h1>Pairing two snake:</h1>
+    <h3><span id="snakeOne"> </span></h3>
+    <h3>&</h3>
+    <h3> <span id="snakeTwo"> </span></h3>
+    <div class="dialog-actions">
+        <button type="button" class="btn-cancel" onclick="closeDialog()">Cancel</button>
+        <button type="button" class="btn-confirm" onclick="pairSnakes(pairingSnakes[0], pairingSnakes[1])"
+                id="pairingConfirm">Confirm
+        </button>
+    </div>
+</div>
 
 <div style="text-align: center; padding-bottom: 30px;">
     <h1>CryptoSnake</h1>
 </div>
 
+<div>
+    <div id="createBox">
+        <h4>Create New Snake</h4>
+        <label for="snakeInputName">Snake Name: </label>
+        <input id="snakeInputName" type="text" name="snakeInputName" class="form-control">
 
-<main>
-    <input id="snakeInputName" type="text" class="form-control">
-    <button id="createSnake" type="button" class="button" onclick="createPayedSnake()">create
-        snake
-    </button>
-
-</main>
-
-
-<div class="container">
-    <div class="jumbotron">
-        <div class="card">
-            <div class="card-header">
-                create your own snake
-            </div>
-            <div class="card-body">
-                <p class="card-text">enter snake name</p>
-
-            </div>
-        </div>
-        <button type="button" class="btn btn-danger" onclick="createInitialSnake('initialSnake')">create
-            initial snake
+        <button id="createSnake" type="button" class="button" onclick="createPayedSnake()">create
+            snake
         </button>
-        <button type="button" class="btn badge-dark" onclick="showAllSnakes()">show all snakes
+        <button id="createInitalSnake" style="display: none" type="button" class="button" onclick="createPayedSnake()">
+            create
+            Inital Snake
         </button>
-        <button type="button" class="btn badge-dark" onclick="pairSnakes(0,1)">pair snakes
+    </div>
+
+    <div id="sendSnakeBox">
+        <h4>Send Snake</h4>
+        <label for="snakeInputName">Snake ID </label>
+        <input id="snakeInputID" type="text" name="snakeInputName" class="form-control">
+
+        <button id="sendSnake" type="button" class="button" onclick="createPayedSnake()">
+            Send
         </button>
     </div>
 </div>
+<button id="approveSnake" type="button" class="button" onclick="approveSnake()">Approve recieved Snake
+</button>
 
 
-<div id="snakes">
+<div id="snakesview">
+    <p style="float: left; text-align:left; width:33.3333%;">
+        Snakes: <span id="snakeamount">0</span>
+    </p>
+
+    <h3 style="float: left; text-align:center; width:33.3333%;">
+        Your Snakes
+    </h3>
+
+    <p style="float: left; text-align:right; width:33.3333%; cursor: pointer " onclick="showAllSnakes()">
+        Refresh list <span style="font-size: 2em">🗘
+     </span>
+    </p>
+
+    <div id="snakes"></div>
+
 </div>
-
 
 <script>
     let cryptoSnakes;
     let userAccount;
 
-    const startApp = ()  => {
-        const cryptoSnakesAddress = "0xFAc39467b4CaB8dDC6d1f3340a4719829016826e";
-        cryptoSnakes = new window.web3.eth.Contract(snakeOwnershipABI, cryptoSnakesAddress);
+    const startApp = () => {
+        const cryptoSnakesAddress = "0x489d5368A6AF99Fefd7eD0fd76b159c9B4C81D07";
+        cryptoSnakes = new window.web3.eth.Contract(snakeReproductionABI, cryptoSnakesAddress);
 
         window.web3.eth.getAccounts((err, res) => {
             console.log("user account: " + res[0])
@@ -78,10 +97,14 @@
         });
     }
 
-    const startDisplay = () =>{
+    const startDisplay = () => {
+        if (!gotInitalSnake(userAccount)) {
+            console.log("Hat noch kein InitaSnake")
+            document.getElementById("createSnake").style.display = "none"
+            document.getElementById("createInitalSnake").style.display = "block"
+        }
 
         showAllSnakes();
-
     }
 
     window.addEventListener('load', () => {
@@ -95,6 +118,10 @@
         startApp()
     })
 
+
+    const dialog = document.getElementById('pairingDialog');
+    const backdrop = document.getElementById('backdrop');
+    const pairingConfirm = document.getElementById('pairingConfirm');
 </script>
 
 </body>

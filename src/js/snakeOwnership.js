@@ -1,5 +1,5 @@
-function pairSnakes(sourceSnakeId, targetSnakeId) {
-    return cryptoSnakes.methods.reproduction(sourceSnakeId, targetSnakeId).send({
+function approve(approvedAdress, tokenID) {
+    return cryptoSnakes.methods.approve(approvedAdress, tokenID).send({
         from: userAccount
     })
 }

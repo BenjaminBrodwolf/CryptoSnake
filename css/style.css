@@ -3,11 +3,19 @@ body {
     background-color: powderblue;
 }
 
-main {
-    text-align: center;
+*, ::after, ::before{
+    box-sizing: border-box;
+}
+
+p, h1, h2, h3 ,h4, h5, label, legend{
+    font-family: 'Oswald', sans-serif;
+}
+
+#createBox, #sendSnakeBox {
+    /*text-align: center;*/
     background-color: whitesmoke;
     border-radius: 1rem;
-    max-width: 80%;
+    max-width: 40%;
     width: auto;
     padding: 1em;
     margin: auto auto 30px;
@@ -15,6 +23,92 @@ main {
     0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-#snakeInputName{
-    width: 500px;
+
+
+.button {
+    margin: 5px;
+    cursor: pointer;
+    color: white;
+    padding: 7px 20px;
+    border-radius: 10rem;
+    text-transform: uppercase;
+    font-family: monospace;
+    font-size: 1.2rem;
+    font-weight: 800;
+    line-height: inherit;
+    animation: buttonEffect;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+.form-control{
+    display: block;
+    width: 100%;
+    height: calc(1.5em + .75rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+/* The Dialog */
+#pairingDialog {
+    display: none;
+    position: fixed;
+    z-index: 200;
+    top: 40%;
+    left: 40%;
+    width: 50%;
+    background: white;
+    box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.4);
+    padding: 1rem;
+}
+
+
+.dialog-actions{
+    text-align: right;
+}
+
+button.btn-cancel {
+    border-color: red;
+    color: red;
+}
+
+button.btn-cancel:hover,
+button.btn-cancel:active {
+    color: white;
+    background: red;
+}
+
+button.btn-confirm {
+    border-color: green;
+    color: green;
+}
+
+button.btn-confirm:hover,
+button.btn-confirm:active {
+    color: white;
+    background: green;
+}
+
+.backdrop {
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 100;
+}
+
+.open {
+    display: block;
 }
