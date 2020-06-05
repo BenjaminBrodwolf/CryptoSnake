@@ -16,38 +16,52 @@
 </head>
 
 <body>
+<div id="backdrop"></div>
+
+<div id="pairingDialog">
+    <h1>Pairing two snake:</h1>
+    <h3><span id="snakeOne"> </span></h3>
+    <h3>&</h3>
+    <h3> <span id="snakeTwo"> </span></h3>
+    <div class="dialog-actions">
+        <button type="button" class="btn-cancel" onclick="closeDialog()">Cancel</button>
+        <button type="button" class="btn-confirm" onclick="pairSnakes(pairingSnakes[0], pairingSnakes[1])"
+                id="pairingConfirm">Confirm
+        </button>
+    </div>
+</div>
 
 <div style="text-align: center; padding-bottom: 30px;">
     <h1>CryptoSnake</h1>
 </div>
 
+<div>
+    <div id="createBox">
+        <h4>Create New Snake</h4>
+        <label for="snakeInputName">Snake Name: </label>
+        <input id="snakeInputName" type="text" name="snakeInputName" class="form-control">
 
-<div id="createBox">
-    <label for="snakeInputName">Snake Name: </label>
-   <input id="snakeInputName" type="text" name="snakeInputName" class="form-control">
+        <button id="createSnake" type="button" class="button" onclick="createPayedSnake()">create
+            snake
+        </button>
+        <button id="createInitalSnake" style="display: none" type="button" class="button" onclick="createPayedSnake()">
+            create
+            Inital Snake
+        </button>
+    </div>
 
+    <div id="sendSnakeBox">
+        <h4>Send Snake</h4>
+        <label for="snakeInputName">Snake ID </label>
+        <input id="snakeInputID" type="text" name="snakeInputName" class="form-control">
 
-    <button id="createSnake" type="button" class="button" onclick="createPayedSnake()">create
-        snake
-    </button>
-    <button id="createInitalSnake" style="display: none" type="button" class="button" onclick="createPayedSnake()">
-        create
-        Inital Snake
-    </button>
+        <button id="sendSnake" type="button" class="button" onclick="createPayedSnake()">
+            Send
+        </button>
+    </div>
 </div>
-
-<button id="approveSnake" type="button" class="button" onclick="approveSnake()">create
-    snake
+<button id="approveSnake" type="button" class="button" onclick="approveSnake()">Approve recieved Snake
 </button>
-
-
-
-
-
-
-
-
-
 
 
 <div id="snakesview">
@@ -59,15 +73,14 @@
         Your Snakes
     </h3>
 
-     <p style="float: left; text-align:right; width:33.3333%; cursor: pointer " onclick="showAllSnakes()">
-         Refresh list <span style="font-size: 2em">🗘
+    <p style="float: left; text-align:right; width:33.3333%; cursor: pointer " onclick="showAllSnakes()">
+        Refresh list <span style="font-size: 2em">🗘
      </span>
     </p>
 
-    <div id="snakes"> </div>
+    <div id="snakes"></div>
 
 </div>
-
 
 <script>
     let cryptoSnakes;
@@ -105,6 +118,10 @@
         startApp()
     })
 
+
+    const dialog = document.getElementById('pairingDialog');
+    const backdrop = document.getElementById('backdrop');
+    const pairingConfirm = document.getElementById('pairingConfirm');
 </script>
 
 </body>

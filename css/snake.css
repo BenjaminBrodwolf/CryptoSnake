@@ -97,6 +97,10 @@ legend {
     font-weight: 900;
 }
 
+.pairingSelected {
+    background-color: #8fd19e;
+}
+
 h3 {
     text-align: center;
 }

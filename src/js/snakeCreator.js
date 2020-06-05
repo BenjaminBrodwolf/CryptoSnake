@@ -32,7 +32,6 @@ const showAllSnakes = async () => {
 
 const displaySnakes = snakeIds => {
     console.log("displaySnakes")
-    console.log(snakeIds)
 
     const snakeView = document.getElementById("snakes")
     const snakesLength = snakeIds.length;
@@ -41,11 +40,11 @@ const displaySnakes = snakeIds => {
 
     let snakeList = ""
     let i = 0;
+
     for (id of snakeIds) {
 
         getSnakeDetails(id)
             .then(snake => {
-                console.log(snakeIds[i])
                 const bodydna = coloringSnake(snake.dna)
 
                 const snakesvg = `<svg width="336" height="380" viewBox="130 100 400 500" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -88,12 +87,14 @@ const displaySnakes = snakeIds => {
                     <div class="toProjectContainer">
                         <div style='float: left;'>
 
-                            <button type="button" onclick="pairingClick(this)" class="button buttonpair">
-                            Pairing <span class="isPairing" style="visibility: hidden">O</span>
-                            </button> 
+                            <button type="button" onclick="pairingClick(this)" class="button">
+                                Pairing
+                             </button> 
                         </div>
                         <div style='float: right;'>
-                            <a class="button">Level Up</a>
+                             <button type="button" onclick="" class="button">
+                                Level UP
+                             </button> 
                         </div>
                     
                     </div>

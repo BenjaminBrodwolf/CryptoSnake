@@ -11,7 +11,7 @@ p, h1, h2, h3 ,h4, h5, label, legend{
     font-family: 'Oswald', sans-serif;
 }
 
-#createBox {
+#createBox, #sendSnakeBox {
     /*text-align: center;*/
     background-color: whitesmoke;
     border-radius: 1rem;
@@ -23,9 +23,7 @@ p, h1, h2, h3 ,h4, h5, label, legend{
     0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-#snakeInputName{
 
-}
 
 .button {
     margin: 5px;
@@ -58,4 +56,59 @@ p, h1, h2, h3 ,h4, h5, label, legend{
     border: 1px solid #ced4da;
     border-radius: .25rem;
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+/* The Dialog */
+#pairingDialog {
+    display: none;
+    position: fixed;
+    z-index: 200;
+    top: 40%;
+    left: 40%;
+    width: 50%;
+    background: white;
+    box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.4);
+    padding: 1rem;
+}
+
+
+.dialog-actions{
+    text-align: right;
+}
+
+button.btn-cancel {
+    border-color: red;
+    color: red;
+}
+
+button.btn-cancel:hover,
+button.btn-cancel:active {
+    color: white;
+    background: red;
+}
+
+button.btn-confirm {
+    border-color: green;
+    color: green;
+}
+
+button.btn-confirm:hover,
+button.btn-confirm:active {
+    color: white;
+    background: green;
+}
+
+.backdrop {
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 100;
+}
+
+.open {
+    display: block;
 }
