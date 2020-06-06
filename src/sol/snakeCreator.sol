@@ -49,7 +49,7 @@ contract SnakeCreator is Ownable {
     function createRandomSnake(string _name) public {
         //require(gotInitialSnake[msg.sender]);
         uint randDna = _generateRandomDna(_name);
-        randDna = randDna - randDna % 100; //Makes the last two digits 00 to identify the Kind of new generated snakes
+        randDna = randDna - randDna % 100; //Marks the last two digits with 00 to identify the Kind of new generated snakes
         _createSnake(_name, randDna);
     }
 
