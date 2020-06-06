@@ -6,7 +6,9 @@ import "github.com/Arachnid/solidity-stringutils/strings.sol";
 
 contract SnakeCreator is Ownable {
 
+    using SafeMath for uint256;
     using SafeMath32 for uint32;
+    using SafeMath16 for uint16;
     using strings for *;
 
     event NewSnake(uint snakeId, string name, uint dna);
