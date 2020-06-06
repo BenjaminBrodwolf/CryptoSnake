@@ -43,7 +43,7 @@ const initalSnakeCheck = async () => {
     }
 }
 
-const displaySnakes = snakeIds => {
+const displaySnakes = async snakeIds => {
     console.log("displaySnakes")
 
     const snakeView = document.getElementById("snakes")
@@ -56,11 +56,11 @@ const displaySnakes = snakeIds => {
 
     for (id of snakeIds) {
 
-        getSnakeDetails(id)
-            .then(snake => {
-                const bodydna = coloringSnake(snake.dna)
+        const snake = await getSnakeDetails(id)
 
-                const snakesvg = `<svg width="336" height="380" viewBox="130 100 400 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+        const bodydna = coloringSnake(snake.dna)
+
+        const snakesvg = `<svg width="336" height="380" viewBox="130 100 400 500" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M411.86 160.456L426.397 149.267C432.738 155.173 443.761 170.644 437.126 185.275C428.833 203.564 443.164 169.284 411.86 160.456Z" fill="black"/>
                                             <path d="M379.612 228.073C386.835 223.455 406.583 217.879 427.79 232.522C454.3 250.825 460.837 254.345 477.386 249.969C461.812 254.336 467.365 256.889 444.514 247.66C421.663 238.431 452.407 257.348 474.52 256.825C451.483 263.211 442.6 251.906 423.975 242.314C405.349 232.722 412.443 225.828 379.612 228.073Z" fill="black"/>
                                             <path d="M386.976 178.567L401.513 167.379C407.854 173.285 416.584 187.92 412.243 203.387C409.406 213.495 418.28 187.395 386.976 178.567Z" fill="black"/>
@@ -78,28 +78,31 @@ const displaySnakes = snakeIds => {
                                             <path snakepart="11" fill=${bodydna[10]}  d="M140.553 478.079C140.553 478.079 146.179 514.25 168.932 525.38C179.167 530.387 184.365 536.449 193.506 532.111C203.023 527.595 208.401 519.787 207.576 507.397C206.779 495.446 182.249 490.422 166.056 470.164C157.493 459.452 151.693 434.501 140.831 431.221C134.061 429.177 140.553 478.079 140.553 478.079Z" />
                                         </svg>`;
 
-                getParentNames(snakeIds[i]).then(res => {
-                    console.log(snakeIds[i])
-                    console.log(res)
-                    const names = res.split(";")
-                    console.log(names)
-                    let childOf = "--"
-                    if (names[0] != names[1]){
-                        childOf = `Child of ${names[0]} & ${names[1]}`
-                    }
+        const nameArray = await getParentNames(snakeIds[i])
 
-                    snakeList = `
+        console.log(snakeIds[i])
+        console.log(nameArray)
+        const names = nameArray.split(";")
+        console.log(names)
+        let childOf = "&nbsp;"
+        if (names[0] != names[1]) {
+            childOf = `Child of  <span style="font-weight: bold">${names[0]}</span>  & <span style="font-weight: bold">${names[1]}</span>`
+        }
+
+        snakeList = `
                     <snake snakeid="${snakeIds[i]}">
                         <fieldset class="itemfieldset">
                             <legend class="itemlegend">
                                 ${snake.name}
                             </legend>
-                   ${childOf}
                   <div class="snakeview">
                         ${snakesvg}
                    </div>
-            
+
                     <div class="info">
+                    
+                        <p style="font-size: 0.8rem"> ${childOf} </p>
+                        
                         <fieldset>
                             <p><span>ID:    </span> ${snakeIds[i]} </p>
                             <p><span>DNA:   </span> ${snake.dna} </p>
@@ -124,11 +127,9 @@ const displaySnakes = snakeIds => {
                   </fieldset>
                 </snake>`
 
-                    snakeView.innerHTML += snakeList;
-                    i++
-                });
+        snakeView.innerHTML += snakeList;
+        i++
 
-            })
 
     }
 }

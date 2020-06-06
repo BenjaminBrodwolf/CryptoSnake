@@ -9,21 +9,25 @@ body {
 
 p, h1, h2, h3 ,h4, h5, label, legend{
     font-family: 'Oswald', sans-serif;
+    margin: 0;
 }
+
 
 #createBox, #sendSnakeBox {
     /*text-align: center;*/
     background-color: whitesmoke;
     border-radius: 1rem;
-    max-width: 40%;
-    width: auto;
+    /*max-width: 70%;*/
+    /*width: auto;*/
     padding: 1em;
     margin: auto auto 30px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
     0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-
+.boxwrapper{
+    display: flex;
+}
 
 .button {
     margin: 5px;
