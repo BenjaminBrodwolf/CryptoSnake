@@ -22,7 +22,6 @@ const getPairSelected = () => {
     return [selectedSnakesIDs, selectedSnakesName]
 }
 
-
 const pairingClick = el => {
     let [selected, names] = getPairSelected();
 
@@ -48,7 +47,6 @@ const pairingClick = el => {
             }
         }
     }
-
 }
 
 const pairSnakes = async (sourceSnakeId = 0, targetSnakeId = 0) => {
@@ -61,4 +59,10 @@ const pairSnakes = async (sourceSnakeId = 0, targetSnakeId = 0) => {
     pairingSnakes = []
     closeDialog()
     await showAllSnakes()
+}
+
+//TODO: feedSnakes Methode hier implementieren
+function feedSnakes() {
+    //cryptoSnakes.methods.feeding(...)
+
 }
