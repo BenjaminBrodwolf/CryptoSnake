@@ -1,25 +1,16 @@
 const snakeCreatorABI = [
     {
-        "constant": true,
+        "constant": false,
         "inputs": [
             {
-                "name": "",
-                "type": "uint256"
-            },
-            {
-                "name": "",
-                "type": "uint256"
+                "name": "_name",
+                "type": "string"
             }
         ],
-        "name": "childToParent",
-        "outputs": [
-            {
-                "name": "",
-                "type": "uint256"
-            }
-        ],
+        "name": "createInitialSnake",
+        "outputs": [],
         "payable": false,
-        "stateMutability": "view",
+        "stateMutability": "nonpayable",
         "type": "function"
     },
     {
@@ -154,20 +145,6 @@ const snakeCreatorABI = [
         ],
         "payable": false,
         "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "constant": false,
-        "inputs": [
-            {
-                "name": "_name",
-                "type": "string"
-            }
-        ],
-        "name": "createInitalSnake",
-        "outputs": [],
-        "payable": false,
-        "stateMutability": "nonpayable",
         "type": "function"
     },
     {

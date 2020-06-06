@@ -1,5 +1,12 @@
 let pairingSnakes = [];
 
+
+const getParentNames = async childID =>{
+    console.log("getParents of ChildID: " + childID)
+    return await cryptoSnakes.methods.getNamesOfParents(childID).call();
+
+}
+
 const closeDialog = () => {
     dialog.style.display = 'none';
     backdrop.style.display = 'none';

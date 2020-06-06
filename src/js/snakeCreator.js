@@ -78,13 +78,23 @@ const displaySnakes = snakeIds => {
                                             <path snakepart="11" fill=${bodydna[10]}  d="M140.553 478.079C140.553 478.079 146.179 514.25 168.932 525.38C179.167 530.387 184.365 536.449 193.506 532.111C203.023 527.595 208.401 519.787 207.576 507.397C206.779 495.446 182.249 490.422 166.056 470.164C157.493 459.452 151.693 434.501 140.831 431.221C134.061 429.177 140.553 478.079 140.553 478.079Z" />
                                         </svg>`;
 
-                snakeList = `
+                getParentNames(snakeIds[i]).then(res => {
+                    console.log(snakeIds[i])
+                    console.log(res)
+                    const names = res.split(";")
+                    console.log(names)
+                    let childOf = "--"
+                    if (names[0] != names[1]){
+                        childOf = `Child of ${names[0]} & ${names[1]}`
+                    }
+
+                    snakeList = `
                     <snake snakeid="${snakeIds[i]}">
                         <fieldset class="itemfieldset">
                             <legend class="itemlegend">
                                 ${snake.name}
                             </legend>
-        
+                   ${childOf}
                   <div class="snakeview">
                         ${snakesvg}
                    </div>
@@ -114,9 +124,12 @@ const displaySnakes = snakeIds => {
                   </fieldset>
                 </snake>`
 
-                snakeView.innerHTML += snakeList;
-                i++
-            });
+                    snakeView.innerHTML += snakeList;
+                    i++
+                });
+
+            })
+
     }
 }
 
