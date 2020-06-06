@@ -14,7 +14,7 @@ contract SnakeMarket {
         _;
     }
 
-    function setAddressSnakeOwnership(address _addressSos) external {
+    function setAddressSnakeOwnership(address _addressSos) external onlyOwner {
         snakeOwnership = ERC721(_addressSos);
     }
 

@@ -8,7 +8,7 @@ contract SnakeCreator is Ownable {
 
     using SafeMath for uint256;
     using SafeMath32 for uint32;
-    using SafeMath16 for uint16;
+    using SafeMath16 for uint16; // TODO: Zeile am Schluss event. löschen, da bis jetzt nicht gebraucht
     using strings for *;
 
     event NewSnake(uint snakeId, string name, uint dna);
