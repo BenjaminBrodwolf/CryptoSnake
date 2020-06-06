@@ -138,7 +138,7 @@ const createInitialSnake = async () => {
         fireNotify(`Nameinput ist empty or to small`)
     } else {
         console.log("createInitialSnake: " + name)
-        await cryptoSnakes.methods.createInitalSnake(name).send({
+        await cryptoSnakes.methods.createInitialSnake(name).send({
             from: userAccount
         })
     }

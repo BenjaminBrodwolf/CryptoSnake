@@ -43,40 +43,37 @@ contract SnakeCreator is Ownable {
 
     function _generateRandomDna(string _str) private view returns (uint) {
         uint rand = uint(keccak256(abi.encodePacked(_str)));
-        return rand % dnaModulus;
-        //Damit Zahl 16 Stellen hat
+        return rand % dnaModulus; //To ensure 16 digits in DNA
     }
 
     function createRandomSnake(string _name) public {
         //require(gotInitialSnake[msg.sender]);
-
         uint randDna = _generateRandomDna(_name);
-        randDna = randDna - randDna % 100;
-        //macht letzte beiden Ziffern zu 00
+        randDna = randDna - randDna % 100; //Makes the last two digits 00 to identify the Kind of new generated snakes
         _createSnake(_name, randDna);
     }
 
-    function createInitalSnake(string _name) public {
+    //Initial snakes are free of charge and can only generated once per user.
+    function createInitialSnake(string _name) public {
         require(!gotInitialSnake[msg.sender]);
         createRandomSnake(_name);
         gotInitialSnake[msg.sender] = true;
     }
 
     function createPayedSnake(string _name) public payable {
-        require(msg.value == 0.001 ether);
-        //Schlangenpreis
+        require(msg.value == 0.001 ether); //Preis of one snake
         createRandomSnake(_name);
     }
 
     function getSnakesByOwner(address _owner) public view returns (uint[]) {
-        uint[] memory snakesbyOwner = new uint[](ownerSnakeCount[_owner]);
+        uint[] memory snakesByOwner = new uint[](ownerSnakeCount[_owner]);
         uint counter = 0;
         for (uint i = 0; i < snakes.length; i++) {
             if (snakeToOwner[i] == _owner) {
-                snakesbyOwner[counter] = i;
+                snakesByOwner[counter] = i;
                 counter++;
             }
         }
-        return snakesbyOwner;
+        return snakesByOwner;
     }
 }

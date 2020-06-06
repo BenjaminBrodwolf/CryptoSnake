@@ -14,7 +14,6 @@ contract SnakeReproduction is SnakeCreator {
     function _triggerCooldown(Snake storage _snake) internal {
         _snake.readyTime = uint32(now + cooldownTime);
     }
-    
 
     function _isReady(Snake storage _snake) internal view returns (bool) {
         return (_snake.readyTime <= now);
@@ -25,13 +24,11 @@ contract SnakeReproduction is SnakeCreator {
         Snake storage myTargetSnake = snakes[_targetSnakeId];
         require(_isReady(mySourceSnake) && _isReady(myTargetSnake));
 
-
         uint8 len1 = uint8(mySourceSnake.name.toSlice().len() / 2);
         uint8 len2 = uint8(myTargetSnake.name.toSlice().len());
 
         string memory sub1 = substring(mySourceSnake.name, 0, len1);
         string memory sub2 = substring(myTargetSnake.name, (len2 / 2), len2);
-
 
         string memory childName = sub1.toSlice().concat(sub2.toSlice());
 
@@ -42,6 +39,8 @@ contract SnakeReproduction is SnakeCreator {
         uint childId = _createSnake(childName, newDna);
 
         childToParent[childId] = [_sourceSnakeId, _targetSnakeId];
+
+
     }
 
     function feeding() internal pure {
