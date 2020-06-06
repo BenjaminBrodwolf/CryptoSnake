@@ -4,7 +4,7 @@ import "./erc721.sol";
 import "./safeMath.sol";
 import "./snakeReproduction.sol";
 
-contract SnakeOwnership is SnakeReproduction, ERC721 {
+contract    is SnakeReproduction, ERC721 {
 
     using SafeMath for uint256;
 

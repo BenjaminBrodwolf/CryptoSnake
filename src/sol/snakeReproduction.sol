@@ -47,7 +47,6 @@ contract SnakeReproduction is SnakeCreator {
         //   TODO:
         // 	- Schlange wird gefüttert. Schlangenfutter kaufen.
         //  => wird stärker oder länger. => Wertsteigerung
-
     }
 
     //To connect two snake names
