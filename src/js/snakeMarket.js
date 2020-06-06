@@ -13,7 +13,8 @@ const removeSnakeFromMarketplace = async () => {
 
 const buySnake = async () => {
     let snakeId = null; //TODO: connect with input field
-    await cryptoSnakes.methods.buySnake(snakeId).send({from: userAccount, value: window.web3.utils.toWei("0.001", "ether") //TODO: wie werden die ether hier übergeben?
+    let preis = null; //TODO: connect with input field
+    await cryptoSnakes.methods.buySnake(snakeId).send({from: userAccount, value: window.web3.utils.toWei(preis, "ether") //TODO: wie werden die ether hier übergeben?
     });
     console.log("Bought Snake " + snakeId)
 };

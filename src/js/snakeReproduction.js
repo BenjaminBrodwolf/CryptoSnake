@@ -68,8 +68,8 @@ const pairSnakes = async (sourceSnakeId = 0, targetSnakeId = 0) => {
     await showAllSnakes()
 }
 
-//TODO: feedSnakes Methode hier implementieren
-function feedSnakes() {
-    //cryptoSnakes.methods.feeding(...)
-
-}
+const buySnakeFood = async () => {
+    let secretIngredient = null; //TODO: connect with input field
+    await cryptoSnakes.methods.buySnakeFood(secretIngredient).send({from: userAccount, value: window.web3.utils.toWei("0.001", "ether")});
+    console.log("Food gekauft ")
+};
