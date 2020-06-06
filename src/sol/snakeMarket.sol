@@ -2,7 +2,7 @@ pragma solidity ^0.4.25;
 
 import "./snakeOwnership.sol";
 
-contract SnakeMarket {
+contract SnakeMarket is Ownable {
 
     mapping(uint => address) snakeToSeller;
     mapping(uint => uint) snakeToPrice;
