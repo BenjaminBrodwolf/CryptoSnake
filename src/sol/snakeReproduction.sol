@@ -5,6 +5,8 @@ import "./snakeCreator.sol";
 contract SnakeReproduction is SnakeCreator {
 
     using strings for *;
+    
+    mapping(uint => uint[2]) public childToParent;
 
     modifier onlyOwnerOf(uint _snakeId) {
         require(msg.sender == snakeToOwner[_snakeId]);
@@ -49,7 +51,7 @@ contract SnakeReproduction is SnakeCreator {
         //  => wird stärker oder länger. => Wertsteigerung
     }
 
-    //To connect two snake names
+    //To connect the name of two snakes
     function substring(string str, uint startIndex, uint endIndex) internal pure returns (string) {
         bytes memory strBytes = bytes(str);
         bytes memory result = new bytes(endIndex - startIndex);
@@ -58,5 +60,16 @@ contract SnakeReproduction is SnakeCreator {
         }
 
         return string(result);
+    }
+    
+    function getNamesOfParents(uint childId) public view returns (string) {
+        uint[2] memory parentsIDs = childToParent[childId];
+        string memory snakeName1 = snakes[parentsIDs[0]].name;
+        string memory snakeName2 = snakes[parentsIDs[1]].name;
+        
+        string memory deliminator = ";";
+
+        return snakeName1.toSlice().concat(deliminator.toSlice()).toSlice().concat(snakeName2.toSlice());
+        
     }
 }

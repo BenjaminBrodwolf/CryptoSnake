@@ -28,7 +28,6 @@ contract SnakeCreator is Ownable {
 
     mapping(uint => address) public snakeToOwner;
     mapping(address => uint) ownerSnakeCount;
-    mapping(uint => uint[2]) public childToParent;
     mapping(address => bool) public gotInitialSnake;
 
 
