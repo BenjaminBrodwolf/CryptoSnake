@@ -32,8 +32,9 @@ contract SnakeMarket is Ownable {
         require(snakeToSeller[snakeId] != 0 && msg.value == snakeToPrice[snakeId]);
 
         address seller = snakeToSeller[snakeId];
+        address buyer = msg.sender;
 
-        snakeOwnership.transferFrom(seller, msg.sender, snakeId);
+        snakeOwnership.transferFrom(seller, buyer, snakeId);
 
         seller.transfer(msg.value);
     }

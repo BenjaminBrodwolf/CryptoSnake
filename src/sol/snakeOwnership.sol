@@ -23,7 +23,6 @@ contract SnakeOwnership is SnakeReproduction, ERC721 {
         ownerSnakeCount[msg.sender] = ownerSnakeCount[msg.sender].sub(1);
         snakeToOwner[_tokenId] = _to;
         emit Transfer(_from, _to, _tokenId);
-        //TODO: event. implement event
     }
 
     function transferFrom(address _from, address _to, uint256 _tokenId) external payable {
@@ -34,6 +33,5 @@ contract SnakeOwnership is SnakeReproduction, ERC721 {
     function approve(address _approved, uint256 _tokenId) external payable onlyOwnerOf(_tokenId) {
         snakeApprovals[_tokenId] = _approved;
         emit Approval(msg.sender, _approved, _tokenId);
-        //TODO: implement event
     }
 }

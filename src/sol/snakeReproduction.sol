@@ -31,6 +31,10 @@ contract SnakeReproduction is SnakeCreator {
     function _isReady(Snake storage _snake) internal view returns (bool) {
         return (_snake.readyTime <= now);
     }
+    
+    function isSnakeReady(uint snakeId) public view returns (bool) {
+        return snakes[snakeId].readyTime <= now;
+    }
 
     function reproduction(uint _sourceSnakeId, uint _targetSnakeId) public onlyOwnerOf(_sourceSnakeId) onlyOwnerOf(_targetSnakeId) {
         Snake storage mySourceSnake = snakes[_sourceSnakeId];
@@ -59,11 +63,13 @@ contract SnakeReproduction is SnakeCreator {
     function feeding(uint snakeFoodId, uint snakeId) internal {
         require(snakeToOwner[snakeId] == msg.sender && snakeFoodToOwner[snakeFoodId] == msg.sender);
 
+        // TODO: use safemath ?
         snakes[snakeId].level += snakeFoods[snakeFoodId].levelUp;
         delete snakeFoodToOwner[snakeFoodId];
     }
 
     function buySnakeFood(string secretIngredient) external payable returns (uint) {
+        // TODO: Preis anpassen
         require(msg.value == 0.001 ether);
         uint rand = uint(keccak256(abi.encodePacked(secretIngredient)));
         uint8 levelup = uint8((rand % 5) + 1);
