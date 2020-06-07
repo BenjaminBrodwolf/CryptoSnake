@@ -3,7 +3,7 @@ let pairingSnakes = [];
 
 const getParentNames = async childID =>{
     console.log("getParents of ChildID: " + childID)
-    return await cryptoSnakes.methods.getNamesOfParents(childID).call();
+    return await cryptoSnakeReproduction.methods.getNamesOfParents(childID).call();
 
 }
 
@@ -58,7 +58,7 @@ const pairingClick = el => {
 
 const pairSnakes = async (sourceSnakeId = 0, targetSnakeId = 0) => {
     console.log("pairSnakes")
-    const res = await cryptoSnakes.methods.reproduction(sourceSnakeId, targetSnakeId).send({
+    const res = await cryptoSnakeReproduction.methods.reproduction(sourceSnakeId, targetSnakeId).send({
         from: userAccount
     })
     console.log(res)
@@ -70,6 +70,6 @@ const pairSnakes = async (sourceSnakeId = 0, targetSnakeId = 0) => {
 
 const buySnakeFood = async () => {
     let secretIngredient = null; //TODO: connect with input field
-    await cryptoSnakes.methods.buySnakeFood(secretIngredient).send({from: userAccount, value: window.web3.utils.toWei("0.001", "ether")});
+    await cryptoSnakeReproduction.methods.buySnakeFood(secretIngredient).send({from: userAccount, value: window.web3.utils.toWei("0.001", "ether")});
     console.log("Food gekauft ")
 };

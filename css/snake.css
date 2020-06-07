@@ -1,5 +1,5 @@
 
-#snakesview {
+#snakesview, #marketview {
     text-align: center;
     background-color: whitesmoke;
     border-radius: 1rem;
@@ -118,14 +118,17 @@ a {
 }
 
 .toProjectContainer {
-    /*text-align: right;*/
+    text-align: center;
     padding: 5px;
     margin: 10px;
     width: 95%;
-    display:inline-block;
 
+    display:flow-root;
     white-space: nowrap;
+}
 
+.toProjectContainer input{
+    width: auto;
 }
 
 

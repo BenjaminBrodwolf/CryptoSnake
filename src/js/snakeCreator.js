@@ -80,17 +80,14 @@ const displaySnakes = async snakeIds => {
 
         const nameArray = await getParentNames(snakeIds[i])
 
-        console.log(snakeIds[i])
-        console.log(nameArray)
         const names = nameArray.split(";")
-        console.log(names)
         let childOf = "&nbsp;"
         if (names[0] != names[1]) {
             childOf = `Child of  <span style="font-weight: bold">${names[0]}</span>  & <span style="font-weight: bold">${names[1]}</span>`
         }
-
+        const snakeID = snakeIds[i];
         snakeList = `
-                    <snake snakeid="${snakeIds[i]}">
+                    <snake snakeid="${snakeID}">
                         <fieldset class="itemfieldset">
                             <legend class="itemlegend">
                                 ${snake.name}
@@ -100,11 +97,10 @@ const displaySnakes = async snakeIds => {
                    </div>
 
                     <div class="info">
-                    
                         <p style="font-size: 0.8rem"> ${childOf} </p>
                         
                         <fieldset>
-                            <p><span>ID:    </span> ${snakeIds[i]} </p>
+                            <p><span>ID:    </span> ${snakeID} </p>
                             <p><span>DNA:   </span> ${snake.dna} </p>
                             <p><span>Level: </span> ${snake.level} </p>
                         </fieldset>
@@ -112,18 +108,41 @@ const displaySnakes = async snakeIds => {
                     
                     <div class="toProjectContainer">
                         <div style='float: left;'>
-
                             <button type="button" onclick="pairingClick(this)" class="button">
                                 Pairing
                              </button> 
                         </div>
                         <div style='float: right;'>
                              <button type="button" onclick="" class="button">
-                                Level UP
+                                Feed
                              </button> 
                         </div>
-                    
                     </div>
+                    
+                    <hr>
+                    
+                     <div class="toProjectContainer">
+                     <h4>Sell Snake on Marktplace</h4>
+                        <div style='display: flex'>
+                             <label for="sellPriceInput">Sell price:</label>
+                             <input  type="number" name="sellPriceInput" class="form-control">
+                             <button type="button" onclick="addSnakeToMarketplace(this, ${snakeID})" class="button">Sell</button> 
+
+                         </div>
+                       </div>
+                       
+                    <hr>
+
+                    <div class="toProjectContainer">
+                     <h4>Send Snake to someone</h4>
+                        <div style='display: flex'>
+                             <label for="newOwnerAddressInput">New Owner Address:</label>
+                             <input  type="text" name="newOwnerAddressInput" class="form-control">
+                             <button type="button" onclick="" class="button">Send</button> 
+
+                        </div>
+                    </div>
+              
                   </fieldset>
                 </snake>`
 
@@ -135,15 +154,15 @@ const displaySnakes = async snakeIds => {
 }
 
 const getSnakeDetails = async snakeId => {
-    return await cryptoSnakes.methods.snakes(snakeId).call();
+    return await cryptoSnakeReproduction.methods.snakes(snakeId).call();
 }
 
 async function getOwnerOfSnake(snakeId) {
-    return await cryptoSnakes.methods.snakeToOwner(snakeId).call()
+    return await cryptoSnakeReproduction.methods.snakeToOwner(snakeId).call()
 }
 
 const gotInitalSnake = (address) => {
-    return cryptoSnakes.methods.gotInitialSnake(address).call()
+    return cryptoSnakeReproduction.methods.gotInitialSnake(address).call()
 }
 
 const createInitialSnake = async () => {
@@ -152,7 +171,7 @@ const createInitialSnake = async () => {
         fireNotify(`Nameinput ist empty or to small`)
     } else {
         console.log("createInitialSnake: " + name)
-        await cryptoSnakes.methods.createInitialSnake(name).send({
+        await cryptoSnakeReproduction.methods.createInitialSnake(name).send({
             from: userAccount
         })
     }
@@ -167,7 +186,7 @@ const createPayedSnake = async () => {
         fireNotify(`Nameinput ist empty or to small`)
 
     } else {
-        await cryptoSnakes.methods.createPayedSnake(name).send({
+        await cryptoSnakeReproduction.methods.createPayedSnake(name).send({
             from: userAccount,
             value: window.web3.utils.toWei("0.001", "ether")
         });
@@ -177,9 +196,8 @@ const createPayedSnake = async () => {
 }
 
 function getSnakeByOwner(owner) {
-    return cryptoSnakes.methods.getSnakesByOwner(owner).call()
+    return cryptoSnakeReproduction.methods.getSnakesByOwner(owner).call()
 }
-
 
 const coloringSnake = dna => {
 

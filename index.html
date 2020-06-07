@@ -5,12 +5,18 @@
     <meta charset="UTF-8">
     <title>CryptoSnakes</title>
 
-    <script src="src/js/utils.js"></script>
+    <script type="text/javascript" src="./src/js/external/web3.min.js"></script>
+
+
     <script type="text/javascript" src="./src/js/abi/snakeCreatorABI.js"></script>
     <script type="text/javascript" src="./src/js/abi/SnakeReproductionABI.js"></script>
-    <script type="text/javascript" src="./src/js/external/web3.min.js"></script>
+    <script src="src/js/abi/snakeMarketABI.js"></script>
+
     <script type="text/javascript" src="./src/js/snakeCreator.js"></script>
     <script type="text/javascript" src="./src/js/SnakeReproduction.js"></script>
+    <script type="text/javascript" src="src/js/snakeMarket.js"></script>
+
+    <script src="src/js/utils.js"></script>
     <script src="src/js/external/notify.js"></script>
 
     <link rel="stylesheet" href="css/style.css">
@@ -43,6 +49,8 @@
 <div class="boxwrapper">
     <div id="createBox">
         <h4>Create New Snake</h4>
+        <p>Input the Name of your new Snake.</p>
+        <br>
         <label for="snakeInputName">Snake Name: </label>
         <input id="snakeInputName" type="text" name="snakeInputName" class="form-control">
 
@@ -50,23 +58,22 @@
             snake
         </button>
         <button id="createInitalSnake" style="display: none" type="button" class="button" onclick="createInitialSnake()">
-            create
-            Inital Snake
+            create Inital Snake
         </button>
     </div>
 
-    <div id="sendSnakeBox">
-        <h4>Send Snake</h4>
-        <label for="snakeInputName">Snake ID </label>
+    <div id="receiveSnakeBox">
+        <h4>Receive Snake</h4>
+        <p>Input the Address of the Owner you receiving the snake.</p>
+        <br>
+        <label for="snakeInputName">Address of the old Snake-Owner:</label>
         <input id="snakeInputID" type="text" name="snakeInputName" class="form-control">
 
-        <button id="sendSnake" type="button" class="button" onclick="">
-            Send
+        <button id="recieveSnake" type="button" class="button" onclick="">
+            Receive
         </button>
     </div>
 </div>
-<button id="approveSnake" type="button" class="button" onclick="">Approve recieved Snake
-</button>
 
 
 <div id="snakesview">
@@ -74,9 +81,9 @@
         Snakes: <span id="snakeamount">0</span>
     </p>
 
-    <h3 style="float: left; text-align:center; width:33.3333%;">
+    <h2 style="float: left; text-align:center; width:33.3333%;">
         Your Snakes
-    </h3>
+    </h2>
 
     <p style="float: left; text-align:right; width:33.3333%; cursor: pointer " onclick="showAllSnakes()">
         Refresh list <span style="font-size: 2em">🗘
@@ -87,13 +94,36 @@
 
 </div>
 
+
+<div id="marketview">
+    <p style="float: left; text-align:left; width:33.3333%;">
+        Snakes: <span id="snakesMarketAmount">0</span>
+    </p>
+
+    <h2 style="float: left; text-align:center; width:33.3333%;">
+        All Snakes on Marketplace
+    </h2>
+
+    <p style="float: left; text-align:right; width:33.3333%; cursor: pointer " onclick="showAllMarketSnakes()">
+        Refresh list <span style="font-size: 2em">🗘
+     </span>
+    </p>
+
+    <div id="marketplace"></div>
+
+</div>
+
 <script>
-    let cryptoSnakes;
+    let cryptoSnakeReproduction;
+    let cryptoSnakeMarket;
     let userAccount;
 
     const startApp = () => {
-        const cryptoSnakesAddress = "0xCBABc1456266d2008e6f22de0b2Cc678259671B7";
-        cryptoSnakes = new window.web3.eth.Contract(snakeReproductionABI, cryptoSnakesAddress);
+        const contractSnakeReproduction = "0xAb816A0B6c8fBCdd98eecFC8C34B0B25A6b890ab";
+        const contractMarket = "0x3fA2E03D17dC4693d9b5Efc3835D1Cc4EA6EA350";
+
+        cryptoSnakeReproduction = new window.web3.eth.Contract(snakeReproductionABI, contractSnakeReproduction);
+        cryptoSnakeMarket = new window.web3.eth.Contract(snakeMarketABI, contractMarket);
 
         window.web3.eth.getAccounts((err, res) => {
             console.log("user account: " + res[0])

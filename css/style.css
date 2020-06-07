@@ -13,7 +13,7 @@ p, h1, h2, h3 ,h4, h5, label, legend{
 }
 
 
-#createBox, #sendSnakeBox {
+#createBox, #receiveSnakeBox {
     /*text-align: center;*/
     background-color: whitesmoke;
     border-radius: 1rem;
