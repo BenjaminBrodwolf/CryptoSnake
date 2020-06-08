@@ -25,5 +25,11 @@ const buySnake = async () => {
     console.log("Bought Snake " + snakeId)
 };
 
+const showAllMarketSnakes = async () => {
+    let ids = await getSnakeByOwner(userAccount)
+    displaySnakes(ids)
+}
 
-
+function getSnakeByMarket(owner) {
+    return cryptoSnakeMarket.methods.getSnakesByOwner(owner).call()
+}

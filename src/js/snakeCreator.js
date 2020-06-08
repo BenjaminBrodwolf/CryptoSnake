@@ -125,7 +125,7 @@ const displaySnakes = async snakeIds => {
                      <h4>Sell Snake on Marktplace</h4>
                         <div style='display: flex'>
                              <label for="sellPriceInput">Sell price:</label>
-                             <input  type="number" name="sellPriceInput" class="form-control">
+                             <input  type="number" step="0.01" name="sellPriceInput" class="form-control" placeholder="e.g. 0.01">
                              <button type="button" onclick="addSnakeToMarketplace(this, ${snakeID})" class="button">Sell</button> 
 
                          </div>
@@ -137,7 +137,7 @@ const displaySnakes = async snakeIds => {
                      <h4>Send Snake to someone</h4>
                         <div style='display: flex'>
                              <label for="newOwnerAddressInput">New Owner Address:</label>
-                             <input  type="text" name="newOwnerAddressInput" class="form-control">
+                             <input  type="text" name="newOwnerAddressInput" class="form-control" placeholder="Account Address">
                              <button type="button" onclick="" class="button">Send</button> 
 
                         </div>

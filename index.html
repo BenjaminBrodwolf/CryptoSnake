@@ -52,7 +52,7 @@
         <p>Input the Name of your new Snake.</p>
         <br>
         <label for="snakeInputName">Snake Name: </label>
-        <input id="snakeInputName" type="text" name="snakeInputName" class="form-control">
+        <input id="snakeInputName" type="text" name="snakeInputName" class="form-control" placeholder="New Snake name">
 
         <button id="createSnake" type="button" class="button" onclick="createPayedSnake()">create
             snake
@@ -67,7 +67,7 @@
         <p>Input the Address of the Owner you receiving the snake.</p>
         <br>
         <label for="snakeInputName">Address of the old Snake-Owner:</label>
-        <input id="snakeInputID" type="text" name="snakeInputName" class="form-control">
+        <input id="snakeInputID" type="text" name="snakeInputName" class="form-control" placeholder="Account Address">
 
         <button id="recieveSnake" type="button" class="button" onclick="">
             Receive
@@ -119,8 +119,8 @@
     let userAccount;
 
     const startApp = () => {
-        const contractSnakeReproduction = "0xAb816A0B6c8fBCdd98eecFC8C34B0B25A6b890ab";
-        const contractMarket = "0x3fA2E03D17dC4693d9b5Efc3835D1Cc4EA6EA350";
+        const contractSnakeReproduction = "0x181715FADdFF3B4eEF13949AC55717631aEEBbf0";
+        const contractMarket = "0x85A2f50FD450253b97FFe0D0017a1Cc7C3838677";
 
         cryptoSnakeReproduction = new window.web3.eth.Contract(snakeReproductionABI, contractSnakeReproduction);
         cryptoSnakeMarket = new window.web3.eth.Contract(snakeMarketABI, contractMarket);
