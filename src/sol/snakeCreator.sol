@@ -22,6 +22,9 @@ contract SnakeCreator is Ownable {
         uint dna;
         uint32 level;
         uint32 readyTime;
+        bool isOnMarket; // TODO: schlange kann nur verändert werden wenn sie nicht auf dem markt ist
+        // TODO: modifier bauen, damit schlange nur verändert werden kann wenn sie nicht auf dem markt ist
+        // TODO: schlange muss blockiert werden wenn sie auf dem markt ist, einzige Option ist evtl. preisänderung oder remove from marketplace sonst nicht
     }
 
     Snake[] public snakes;
@@ -33,7 +36,7 @@ contract SnakeCreator is Ownable {
 
     function _createSnake(string _name, uint _dna) internal returns (uint) {
         require(bytes(_name).length >= 3);
-        uint id = snakes.push(Snake(_name, _dna, 1, uint32(now + cooldownTime))) - 1;
+        uint id = snakes.push(Snake(_name, _dna, 1, uint32(now + cooldownTime), false)) - 1;
         snakeToOwner[id] = msg.sender;
         ownerSnakeCount[msg.sender] = ownerSnakeCount[msg.sender].add(1);
         emit NewSnake(id, _name, _dna);
