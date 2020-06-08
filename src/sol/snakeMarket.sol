@@ -4,8 +4,12 @@ import "./snakeOwnership.sol";
 
 contract SnakeMarket is Ownable {
 
-    mapping(uint => address) snakeToSeller;
-    mapping(uint => uint) snakeToPrice;
+    mapping(uint => address) private snakeToSeller;
+    mapping(uint => uint) private snakeToPrice;
+    mapping(uint => uint) private snakeToMarket;
+
+    uint countOfSnakesOnMarket;
+    uint[] snakesOnMarket;
 
     ERC721 snakeOwnership;
 
@@ -19,13 +23,34 @@ contract SnakeMarket is Ownable {
     }
 
     function addSnakeToMarketplace(uint snakeId, uint price) external ownerOfSnake(snakeId) {
+        uint marketId = snakesOnMarket.push(snakeId);
+        snakeToMarket[snakeId] = marketId;
         snakeToSeller[snakeId] = msg.sender;
         snakeToPrice[snakeId] = price;
+        countOfSnakesOnMarket += 1;
     }
 
     function removeSnakeFromMarketplace(uint snakeId) external ownerOfSnake(snakeId) {
+        removeSnakeIdFromMarketplace(snakeId);
+    }
+
+    function removeSnakeIdFromMarketplace(uint snakeId) private {
+        swapAndDelete(snakeId);
         delete snakeToSeller[snakeId];
         delete snakeToPrice[snakeId];
+        countOfSnakesOnMarket -= 1;
+    }
+
+    function swapAndDelete(uint snakeId) private {
+        uint index = snakeToMarket[snakeId];
+        uint lastElement = snakesOnMarket[snakesOnMarket.length - 1];
+        snakesOnMarket[index] = lastElement;
+
+        delete snakesOnMarket[snakesOnMarket.length - 1];
+        snakesOnMarket.length--;
+        // TODO: muss man das machen oder geschieht das automatisch ??
+        delete snakeToMarket[snakeId];
+        snakeToMarket[lastElement] = index;
     }
 
     function buySnake(uint snakeId) external payable {
@@ -35,7 +60,23 @@ contract SnakeMarket is Ownable {
         address buyer = msg.sender;
 
         snakeOwnership.transferFrom(seller, buyer, snakeId);
-
+        removeSnakeIdFromMarketplace(snakeId);
         seller.transfer(msg.value);
+    }
+
+    function getPriceOfSnake(uint snakeId) public view returns (uint){
+        return snakeToPrice[snakeId];
+    }
+
+    function getAllSnakeIdsFromMarketplace() external view returns (uint[]){
+        uint[] memory snakesFromMarketplace = new uint[](snakesOnMarket.length);
+        uint counter = 0;
+        for (uint i = 0; i < snakesOnMarket.length; i++) {
+
+            snakesFromMarketplace[counter] = snakesOnMarket[i];
+            counter++;
+
+        }
+        return snakesFromMarketplace;
     }
 }
