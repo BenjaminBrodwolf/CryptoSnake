@@ -12,7 +12,7 @@ const fireNotify = (message, color = "#ff5417") => {
         notify.style.webkitAnimation = 'none';
         setTimeout(function() {
             notify.style.webkitAnimation = '';
-        }, 10);
+        }, 30);
     }
 
     notify.innerText = message;

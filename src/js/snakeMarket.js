@@ -45,28 +45,14 @@ const displaySnakesOnMarket = async () => {
                         </fieldset>
                     </div>
                     
-                    <div class="toProjectContainer">
-                        <div style='float: left;'>
-                            <button type="button" onclick="pairingClick(this)" class="button">
-                                Pairing
-                             </button> 
-                        </div>
-                        <div style='float: right;'>
-                             <button type="button" onclick="" class="button">
-                                Feed
-                             </button> 
-                        </div>
-                    </div>
-                    
+                                      
                     <hr>
                     
 
                     <div class="toProjectContainer">
-                     <h4>Send Snake to someone</h4>
+                     <h4>Buy Snake</h4>
                         <div style='display: flex'>
-<!--                             <label for="newOwnerAddressInput">New Owner Address:</label>-->
-                             <input type="text" name="newOwnerAddressInput" class="form-control" placeholder="New Owner Account Address">
-                             <button type="button" onclick="transferSnakeTo(this, ${snakeID})" class="button">Send</button> 
+                             <button type="button" onclick="" class="button">Buy</button> 
 
                         </div>
                     </div>

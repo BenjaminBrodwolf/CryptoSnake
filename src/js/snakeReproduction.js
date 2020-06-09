@@ -32,7 +32,13 @@ const deselectAllSelectedSnakes = async () =>{
     }
 }
 
-const pairingClick = el => {
+const pairingClick = async (el, snakeId) => {
+    console.log(snakeId)
+    if (! await isSnakeReady(snakeId)){
+        fireNotify(`Snake is not ready for pairing`)
+        return
+    }
+
     let [selected, names] = getPairSelected();
 
     const snake = el.parentNode.parentNode.parentElement;
@@ -79,6 +85,11 @@ const pairSnakes = async (sourceSnakeId = 0, targetSnakeId = 0) => {
     fireNotify("New Snake created", "green")
 }
 
+const isSnakeReady = snakedId => {
+    return cryptoSnakeOwnership.methods.isSnakeReady(snakeId).call()
+};
+
+
 const buySnakeFood = async () => {
     let secretIngredient = null; //TODO: connect with input field
     await cryptoSnakeOwnership.methods.buySnakeFood(secretIngredient).send({from: userAccount, value: window.web3.utils.toWei("0.001", "ether")});
@@ -92,10 +103,6 @@ const feeding = async () => {
     console.log("Gefüttert ")
 };
 
-const isSnakeReady =  el => {
-    let snakeId = null; //TODO: connect with input field
-    return cryptoSnakeOwnership.methods.isSnakeReady(snakeId).call()
-};
 
 
 
