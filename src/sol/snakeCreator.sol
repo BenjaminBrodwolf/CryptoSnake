@@ -32,6 +32,14 @@ contract SnakeCreator is Ownable {
     mapping(uint => address) public snakeToOwner;
     mapping(address => uint) ownerSnakeCount;
     mapping(address => bool) public gotInitialSnake;
+    
+    mapping(uint => Snake) public snakeIdToSnake;
+    
+    
+    function updateIsOnMarket (uint snakeId, bool isOnMarket) external {
+        //snakeIdToSnake[snakeId].isOnMarket = isOnMarket;
+        snakes[snakeId].isOnMarket = isOnMarket;
+    }
 
 
     function _createSnake(string _name, uint _dna) internal returns (uint) {
@@ -77,5 +85,9 @@ contract SnakeCreator is Ownable {
             }
         }
         return snakesByOwner;
+    }
+    
+    function isSnakeOnMarket(uint snakeId) external view returns(bool) {
+        return snakes[snakeId].isOnMarket;
     }
 }

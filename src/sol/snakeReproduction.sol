@@ -22,6 +22,12 @@ contract SnakeReproduction is SnakeCreator {
         require(msg.sender == snakeToOwner[_snakeId]);
         _;
     }
+    
+        modifier snakeNotOnMarket(uint _snakeId) {
+        require(!snakes[_snakeId].isOnMarket);
+        _;
+    }
+    
 
     //Prevents a snakes to be paired in short succession
     function _triggerCooldown(Snake storage _snake) internal {
@@ -36,18 +42,12 @@ contract SnakeReproduction is SnakeCreator {
         return snakes[snakeId].readyTime <= now;
     }
 
-    function reproduction(uint _sourceSnakeId, uint _targetSnakeId) public onlyOwnerOf(_sourceSnakeId) onlyOwnerOf(_targetSnakeId) {
+    function reproduction(uint _sourceSnakeId, uint _targetSnakeId) public onlyOwnerOf(_sourceSnakeId) onlyOwnerOf(_targetSnakeId) snakeNotOnMarket(_sourceSnakeId) snakeNotOnMarket(_targetSnakeId)    {
         Snake storage mySourceSnake = snakes[_sourceSnakeId];
         Snake storage myTargetSnake = snakes[_targetSnakeId];
         require(_isReady(mySourceSnake) && _isReady(myTargetSnake));
-
-        //Takes the first half of the name of one snake and the last half of the name of the second snake.
-        //Than it joins the halves to a single name, the child's name.
-        uint len1 = uint8(mySourceSnake.name.toSlice().len() / 2);
-        uint len2 = uint8(myTargetSnake.name.toSlice().len());
-        string memory sub1 = substring(mySourceSnake.name, 0, len1);
-        string memory sub2 = substring(myTargetSnake.name, (len2 / 2), len2);
-        string memory childName = sub1.toSlice().concat(sub2.toSlice());
+        
+        string memory childName = _getChildName(mySourceSnake, myTargetSnake);
 
         uint newDna = (mySourceSnake.dna + myTargetSnake.dna) / 2;
         newDna = newDna - newDna % 100 + 42;
@@ -59,8 +59,20 @@ contract SnakeReproduction is SnakeCreator {
         _triggerCooldown(mySourceSnake);
         _triggerCooldown(myTargetSnake);
     }
+    
+    //Takes the first half of the name of one snake and the last half of the name of the second snake.
+    //Than it joins the halves to a single name, the child's name.
+    function _getChildName(Snake mySourceSnake, Snake myTargetSnake) private pure returns (string){
+        uint len1 = uint8(mySourceSnake.name.toSlice().len() / 2);
+        uint len2 = uint8(myTargetSnake.name.toSlice().len());
+        string memory sub1 = substring(mySourceSnake.name, 0, len1);
+        string memory sub2 = substring(myTargetSnake.name, (len2 / 2), len2);
+        string memory childName = sub1.toSlice().concat(sub2.toSlice());
+        
+        return childName;
+    }
 
-    function feeding(uint snakeFoodId, uint snakeId) internal {
+    function feeding(uint snakeFoodId, uint snakeId) internal snakeNotOnMarket(snakeId) {
         require(snakeToOwner[snakeId] == msg.sender && snakeFoodToOwner[snakeFoodId] == msg.sender);
 
         // TODO: use safemath ?
