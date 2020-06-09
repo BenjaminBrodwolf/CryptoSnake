@@ -54,7 +54,7 @@ const displaySnakesOnMarket = async () => {
                     <div class="toProjectContainer">
                      <h4>Buy Snake</h4>
                         <div style='display: flex'>
-                             <button type="button" onclick="buySnake(this, ${snakeID})" class="button">Buy</button> 
+                             <button type="button" onclick="buyTheSnake(${snakeID})" class="button">Buy</button> 
                         </div>
                     </div>
               
@@ -80,7 +80,7 @@ const addSnakeToMarketplace = async (element, snakeId) => {
     if (price < 0) {
         fireNotify("Price must be higher then 0")
     } else {
-        await cryptoSnakeMarket.methods.addSnakeToMarketplace(snakeId, price).send({from: userAccount});
+        await cryptoSnakeMarket.methods.addSnakeToMarketplace(snakeId, window.web3.utils.toWei(price, "ether") ).send({from: userAccount});
         console.log("Added Snake " + snakeId + " to market")
         fireNotify("Added Snake " + snakeId + " to market", "green")
         await displaySnakesOnMarket()
@@ -95,18 +95,19 @@ const removeSnakeFromMarketplace = async () => {
     console.log("Removed Snake " + snakeId + " from market")
 };
 
-const buySnake = async (el, snakeId) => {
-    console.log("BEFORE")
-    const price = await getPriceOfSnake()
-    console.log("The Prise is: " + price)
+const buyTheSnake = async snakeId => {
+    console.log("buyTheSnake")
+    const priis = await getPriceOfSnake(snakeId)
+    console.log(priis)
     await cryptoSnakeMarket.methods.buySnake(snakeId).send({
-        from: userAccount, value: window.web3.utils.toWei(price, "ether") //TODO: wie werden die ether hier übergeben?
+        from: userAccount,
+        value: window.web3.utils.toWei(priis, "ether") //TODO: wie werden die ether hier übergeben?
     });
     console.log("Bought Snake " + snakeId)
 };
 
-const getPriceOfSnake = snakeId => {
-    return cryptoSnakeMarket.methods.getPriceOfSnake(snakeId).call();
+const getPriceOfSnake = async snakeId => {
+    return await cryptoSnakeMarket.methods.getPriceOfSnake(snakeId).call()
 }
 
 const getAllSnakeIdsFromMarketplace = () => {

@@ -28,6 +28,7 @@ const testSnakes = [
 
 
 
+
 const showAllSnakes = async () => {
     let ids = await getSnakeByOwner(userAccount)
     displaySnakes(ids)
@@ -54,12 +55,15 @@ const displaySnakes = async snakeIds => {
     document.getElementById("snakeamount").innerText = snakesLength;
     snakeView.innerHTML = (snakesLength > 0) ? "" : "<h5>You have no Snakes yet. Create your initial Snake for free.</h5>"
 
+    let marketSnakesIds = await getAllSnakeIdsFromMarketplace();
+    marketSnakesIds = marketSnakesIds.map(id => parseInt(id))
+    console.log(marketSnakesIds)
+
     let snakeList = ""
     let i = 0;
 
     for (id of snakeIds) {
         const snake = await getSnakeDetails(id)
-
         const snakesvg = await drawSnake(snake);
 
         const nameArray = await getParentNames(snakeIds[i])
@@ -69,7 +73,10 @@ const displaySnakes = async snakeIds => {
         if (names[0] != names[1]) {
             childOf = `Child of  <span style="font-weight: bold">${names[0]}</span>  & <span style="font-weight: bold">${names[1]}</span>`
         }
-        const snakeID = snakeIds[i];
+        const snakeID = parseInt(snakeIds[i]);
+        const isOnMarket = marketSnakesIds.includes(snakeID)
+
+
         snakeList = `
                     <snake snakeid="${snakeID}">
                         <fieldset class="itemfieldset">
@@ -77,6 +84,9 @@ const displaySnakes = async snakeIds => {
                                 ${snake.name}
                             </legend>
                   <div class="snakeview">
+                  
+                  ${ isOnMarket ? '<span class="isOnMarket">Is on Market</span>' : '' }
+                  
                         ${snakesvg}
                    </div>
 
@@ -90,9 +100,10 @@ const displaySnakes = async snakeIds => {
                         </fieldset>
                     </div>
                     
+
                     <div class="toProjectContainer">
                         <div style='float: left;'>
-                            <button type="button" onclick="pairingClick(this, ${snakeID})" class="button">
+                         <button type="button" onclick="pairingClick(this, ${snakeID})" class="button" > 
                                 Pairing
                              </button> 
                         </div>
@@ -108,8 +119,7 @@ const displaySnakes = async snakeIds => {
                      <div class="toProjectContainer">
                      <h4>Sell Snake on Marktplace</h4>
                         <div style='display: flex'>
-<!--                             <label for="sellPriceInput">Sell price:</label>-->
-                             <input step="0.01" lang="de-DE" type="number" name="sellPriceInput" class="form-control" placeholder="Sll price e.g. 0.01">
+                             <input step="0.01" lang="de-DE" type="number" name="sellPriceInput" class="form-control" placeholder="Sell price e.g. 0.01">
                              <button type="button" onclick="addSnakeToMarketplace(this, ${snakeID})" class="button">Sell</button> 
 
                          </div>
@@ -120,10 +130,18 @@ const displaySnakes = async snakeIds => {
                     <div class="toProjectContainer">
                      <h4>Send Snake to someone</h4>
                         <div style='display: flex'>
-<!--                             <label for="newOwnerAddressInput">New Owner Address:</label>-->
-                             <input type="text" name="newOwnerAddressInput" class="form-control" placeholder="New Owner Account Address">
+                             <input type="text" name="newOwnerAddressInput" class="form-control" placeholder="New Account Address">
                              <button type="button" onclick="transferSnakeTo(this, ${snakeID})" class="button">Send</button> 
+                        </div>
+                    </div>
+                    
+                      <hr>
 
+                    <div class="toProjectContainer">
+                     <h4>Approve received Snake</h4>
+                        <div style='display: flex'>
+                             <input type="text" name="newOwnerAddressInput" class="form-control" placeholder="Address of rec. Account">
+                             <button type="button" onclick="approve(this, ${snakeID})" class="button">Approve</button> 
                         </div>
                     </div>
               
@@ -131,6 +149,8 @@ const displaySnakes = async snakeIds => {
                 </snake>`
 
         snakeView.innerHTML += snakeList;
+        // console.log(snakeView.querySelectorAll("input"))
+
         i++
 
 
