@@ -10,6 +10,11 @@
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
     0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+#marketview{
+    background-color: #eabbbb;
+
+}
+
 snake{
     min-width: 40px;
     float: left;
@@ -18,7 +23,7 @@ snake{
 }
 
 
-#snakes:after {
+#snakes:after, #marketview:after {
     content: "";
     display: table;
     clear: both;
@@ -120,7 +125,7 @@ a {
 }
 
 .toProjectContainer {
-    text-align: center;
+    text-align: left;
     padding: 5px;
     margin: 10px;
     width: 95%;

@@ -1,3 +1,88 @@
+const displaySnakesOnMarket = async () => {
+    console.log("display all Snake on Market")
+
+    const marketView = document.getElementById("marketplace");
+    const marketSnakesIds = await getAllSnakeIdsFromMarketplace();
+    console.log(marketSnakesIds)
+    const snakesMarketLength = marketSnakesIds.length;
+    document.getElementById("snakesMarketAmount").innerText = snakesMarketLength;
+    marketView.innerHTML = (snakesMarketLength > 0) ? "" : "<h5>There are no Snakes on sell.</h5>"
+
+    let snakeList = ""
+    let i = 0;
+
+    for (id of marketSnakesIds) {
+        const snakeID = marketSnakesIds[i];
+
+        const snake = await getSnakeDetails(id)
+
+        const snakesvg = await drawSnake(snake);
+
+        const nameArray = await getParentNames(snakeID)
+
+        const names = nameArray.split(";")
+        let childOf = "&nbsp;"
+        if (names[0] != names[1]) {
+            childOf = `Child of  <span style="font-weight: bold">${names[0]}</span>  & <span style="font-weight: bold">${names[1]}</span>`
+        }
+        snakeList = `
+                    <snake snakeid="${snakeID}">
+                        <fieldset class="itemfieldset">
+                            <legend class="itemlegend">
+                                ${snake.name}
+                            </legend>
+                  <div class="snakeview">
+                        ${snakesvg}
+                   </div>
+
+                    <div class="info">
+                        <p style="font-size: 0.8rem"> ${childOf} </p>
+                        
+                        <fieldset>
+                            <p><span>ID:    </span> ${snakeID} </p>
+                            <p><span>DNA:   </span> ${snake.dna} </p>
+                            <p><span>Level: </span> ${snake.level} </p>
+                        </fieldset>
+                    </div>
+                    
+                    <div class="toProjectContainer">
+                        <div style='float: left;'>
+                            <button type="button" onclick="pairingClick(this)" class="button">
+                                Pairing
+                             </button> 
+                        </div>
+                        <div style='float: right;'>
+                             <button type="button" onclick="" class="button">
+                                Feed
+                             </button> 
+                        </div>
+                    </div>
+                    
+                    <hr>
+                    
+
+                    <div class="toProjectContainer">
+                     <h4>Send Snake to someone</h4>
+                        <div style='display: flex'>
+<!--                             <label for="newOwnerAddressInput">New Owner Address:</label>-->
+                             <input type="text" name="newOwnerAddressInput" class="form-control" placeholder="New Owner Account Address">
+                             <button type="button" onclick="transferSnakeTo(this, ${snakeID})" class="button">Send</button> 
+
+                        </div>
+                    </div>
+              
+                  </fieldset>
+                </snake>`
+
+        marketView.innerHTML += snakeList;
+        i++
+
+
+    }
+}
+
+
+
 // ----------------- CONTRACT FUNCTION ---------------
 
 
@@ -10,6 +95,9 @@ const addSnakeToMarketplace = async (element, snakeId) => {
     } else {
         await cryptoSnakeMarket.methods.addSnakeToMarketplace(snakeId, price).send({from: userAccount});
         console.log("Added Snake " + snakeId + " to market")
+        fireNotify("Added Snake " + snakeId + " to market", "green")
+        await displaySnakesOnMarket()
+
     }
 
 };
@@ -34,8 +122,8 @@ const getPriceOfSnake = async () => {
     await cryptoSnakeMarket.methods.getPriceOfSnake(snakeId).call();
 }
 
-const getAllSnakeIdsFromMarketplace = async () => {
-    await cryptoSnakeMarket.methods.getAllSnakeIdsFromMarketplace().call();
+const getAllSnakeIdsFromMarketplace = () => {
+    return cryptoSnakeMarket.methods.getAllSnakeIdsFromMarketplace().call();
 }
 
 

@@ -6,7 +6,8 @@
     <title>CryptoSnakes</title>
 
     <script type="text/javascript" src="./src/js/external/web3.min.js"></script>
-
+    <script src="src/js/utils.js"></script>
+    <script src="src/js/external/notify.js"></script>
 
     <script type="text/javascript" src="./src/js/abi/snakeCreatorABI.js"></script>
     <script type="text/javascript" src="./src/js/abi/SnakeReproductionABI.js"></script>
@@ -19,8 +20,7 @@
     <script type="text/javascript" src="src/js/snakeOwnership.js"></script>
 
 
-    <script src="src/js/utils.js"></script>
-    <script src="src/js/external/notify.js"></script>
+
 
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/snake.css">
@@ -106,10 +106,10 @@
     </p>
 
     <h2 style="float: left; text-align:center; width:33.3333%;">
-        All Snakes on Marketplace
+        Snakes Marketplace
     </h2>
 
-    <p style="float: left; text-align:right; width:33.3333%; cursor: pointer " onclick="showAllMarketSnakes()">
+    <p style="float: left; text-align:right; width:33.3333%; cursor: pointer " onclick="displaySnakesOnMarket()">
         Refresh list <span style="font-size: 2em">🗘
      </span>
     </p>
@@ -125,7 +125,7 @@
 
     const startApp = () => {
         const contractSnakeOwnership = "0xB0aCfba148345314dD507c109643aC279dc84f82";
-        const contractMarket = "0xDb9d14BF67dFa5b7E350Adf9B8f580171e716286";
+        const contractMarket = "0x1f0B68986af2e370814D6D6B457D68cC1D0dd261";
 
         cryptoSnakeOwnership = new window.web3.eth.Contract(snakeOwnershipABI, contractSnakeOwnership);
         cryptoSnakeMarket = new window.web3.eth.Contract(snakeMarketABI, contractMarket);
@@ -142,6 +142,7 @@
 
     const startDisplay = async () => {
         await showAllSnakes();
+        await displaySnakesOnMarket()
         await initalSnakeCheck();
     }
 

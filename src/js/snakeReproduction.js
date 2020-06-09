@@ -92,9 +92,9 @@ const feeding = async () => {
     console.log("Gefüttert ")
 };
 
-const isSnakeReady = async () => {
+const isSnakeReady =  el => {
     let snakeId = null; //TODO: connect with input field
-    await cryptoSnakeOwnership.methods.isSnakeReady(snakeId).call()
+    return cryptoSnakeOwnership.methods.isSnakeReady(snakeId).call()
 };
 
 
