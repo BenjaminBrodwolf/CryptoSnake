@@ -26,9 +26,6 @@ const testSnakes = [
 ]
 
 
-
-
-
 const showAllSnakes = async () => {
     let ids = await getSnakeByOwner(userAccount)
     displaySnakes(ids)
@@ -75,9 +72,92 @@ const displaySnakes = async snakeIds => {
         }
         const snakeID = parseInt(snakeIds[i]);
         const isOnMarket = marketSnakesIds.includes(snakeID)
+        const sellPrice = isOnMarket ? `<p class="isOnMarket">Is on Market <br> Price: ${ await getPriceOfSnake(snakeID)} ETH </p>` : ''
 
 
-        snakeList = `
+        const pairFeedContainer = `
+                    <div class="toProjectContainer">
+                        <div style='float: left;'>
+                         <button type="button" onclick="pairingClick(this, ${snakeID})" class="button" > 
+                                Pairing
+                             </button> 
+                        </div>
+                        <div style='float: right;'>
+                             <button type="button" onclick="" class="button">
+                                Feed
+                             </button> 
+                        </div>
+                    </div>`
+
+        const pairFeedContainerNOT = `
+                    <div class="toProjectContainer">
+                        <div style='float: left;'>
+                         <button type="button" class="button" disabled> 
+                                Pairing
+                             </button> 
+                        </div>
+                        <div style='float: right;'>
+                             <button type="button" class="button" disabled>
+                                Feed
+                             </button> 
+                        </div>
+                    </div>`
+
+        const sellSnakeContainer = `
+                     <div class="toProjectContainer">
+                        <h4>Sell Snake on Marktplace</h4>
+                        <div style='display: flex'>
+                             <input step="0.01" lang="de-DE" type="number" name="sellPriceInput" class="form-control" placeholder="Sell price e.g. 0.01">
+                             <button type="button" onclick="addSnakeToMarketplace(this, ${snakeID})" class="button" >Sell</button> 
+                         </div>
+                     </div>`
+
+        const sellSnakeContainerNOT = `
+                     <div class="toProjectContainer">
+                        <h4>Sell Snake on Marktplace</h4>
+                        <div style='display: flex'>
+                             <input step="0.01" lang="de-DE" type="number" name="sellPriceInput" class="form-control" placeholder="Sell price e.g. 0.01" disabled>
+                             <button type="button" class="button" disabled>Sell</button> 
+                         </div>
+                     </div>`
+
+        const sendToContainer = `
+                     <div class="toProjectContainer">
+                        <h4>Send Snake to someone</h4>
+                        <div style='display: flex'>
+                             <input type="text" name="newOwnerAddressInput" class="form-control" placeholder="New Account Address">
+                             <button type="button" onclick="transferSnakeTo(this, ${snakeID})" class="button" >Send</button> 
+                        </div>
+                    </div>`
+
+        const sendToContainerNOT = `
+                     <div class="toProjectContainer">
+                        <h4>Send Snake to someone</h4>
+                        <div style='display: flex'>
+                             <input type="text" name="newOwnerAddressInput" class="form-control" placeholder="New Account Address" disabled>
+                             <button type="button" class="button" disabled>Send</button> 
+                        </div>
+                    </div>`
+
+        const approveContainer = `
+                     <div class="toProjectContainer">
+                        <h4>Approve received Snake</h4>
+                        <div style='display: flex'>
+                             <input type="text" name="newOwnerAddressInput" class="form-control" placeholder="Address of rec. Account">
+                             <button type="button" onclick="approve(this, ${snakeID})" class="button">Approve</button> 
+                        </div>
+                    </div>`
+
+        const approveContainerNOT = `
+                     <div class="toProjectContainer">
+                        <h4>Approve received Snake</h4>
+                        <div style='display: flex'>
+                             <input type="text" name="newOwnerAddressInput" class="form-control" placeholder="Address of rec. Account" disabled>
+                             <button type="button"  class="button" disabled>Approve</button> 
+                        </div>
+                    </div>`
+
+            snakeList = `
                     <snake snakeid="${snakeID}">
                         <fieldset class="itemfieldset">
                             <legend class="itemlegend">
@@ -85,7 +165,7 @@ const displaySnakes = async snakeIds => {
                             </legend>
                   <div class="snakeview">
                   
-                  ${ isOnMarket ? '<span class="isOnMarket">Is on Market</span>' : '' }
+                  ${sellPrice}
                   
                         ${snakesvg}
                    </div>
@@ -101,56 +181,24 @@ const displaySnakes = async snakeIds => {
                     </div>
                     
 
-                    <div class="toProjectContainer">
-                        <div style='float: left;'>
-                         <button type="button" onclick="pairingClick(this, ${snakeID})" class="button" > 
-                                Pairing
-                             </button> 
-                        </div>
-                        <div style='float: right;'>
-                             <button type="button" onclick="" class="button">
-                                Feed
-                             </button> 
-                        </div>
-                    </div>
-                    
+                    ${isOnMarket ? pairFeedContainerNOT : pairFeedContainer}
+
                     <hr>
                     
-                     <div class="toProjectContainer">
-                     <h4>Sell Snake on Marktplace</h4>
-                        <div style='display: flex'>
-                             <input step="0.01" lang="de-DE" type="number" name="sellPriceInput" class="form-control" placeholder="Sell price e.g. 0.01">
-                             <button type="button" onclick="addSnakeToMarketplace(this, ${snakeID})" class="button">Sell</button> 
+                     ${isOnMarket ? sellSnakeContainerNOT : sellSnakeContainer}
 
-                         </div>
-                       </div>
-                       
                     <hr>
+                     ${isOnMarket ? sendToContainerNOT : sendToContainer}
 
-                    <div class="toProjectContainer">
-                     <h4>Send Snake to someone</h4>
-                        <div style='display: flex'>
-                             <input type="text" name="newOwnerAddressInput" class="form-control" placeholder="New Account Address">
-                             <button type="button" onclick="transferSnakeTo(this, ${snakeID})" class="button">Send</button> 
-                        </div>
-                    </div>
-                    
-                      <hr>
 
-                    <div class="toProjectContainer">
-                     <h4>Approve received Snake</h4>
-                        <div style='display: flex'>
-                             <input type="text" name="newOwnerAddressInput" class="form-control" placeholder="Address of rec. Account">
-                             <button type="button" onclick="approve(this, ${snakeID})" class="button">Approve</button> 
-                        </div>
-                    </div>
-              
+                     <hr>
+                     ${isOnMarket ? approveContainerNOT : approveContainer}
+
+
                   </fieldset>
                 </snake>`
 
         snakeView.innerHTML += snakeList;
-        // console.log(snakeView.querySelectorAll("input"))
-
         i++
 
 

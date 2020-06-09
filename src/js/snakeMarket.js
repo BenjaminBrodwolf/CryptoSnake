@@ -106,8 +106,8 @@ const buyTheSnake = async snakeId => {
     console.log("Bought Snake " + snakeId)
 };
 
-const getPriceOfSnake = async snakeId => {
-    return await cryptoSnakeMarket.methods.getPriceOfSnake(snakeId).call()
+const getPriceOfSnake = snakeId => {
+    return cryptoSnakeMarket.methods.getPriceOfSnake(snakeId).call()
 }
 
 const getAllSnakeIdsFromMarketplace = () => {
