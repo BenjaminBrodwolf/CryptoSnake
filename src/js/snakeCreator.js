@@ -92,7 +92,7 @@ const displaySnakes = async snakeIds => {
                     
                     <div class="toProjectContainer">
                         <div style='float: left;'>
-                            <button type="button" onclick="pairingClick(this)" class="button">
+                            <button type="button" onclick="pairingClick(this, ${snakeID})" class="button">
                                 Pairing
                              </button> 
                         </div>
