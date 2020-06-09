@@ -114,10 +114,9 @@ const displaySnakes = async snakeIds => {
 
         const sellSnakeContainerNOT = `
                      <div class="toProjectContainer">
-                        <h4>Sell Snake on Marktplace</h4>
+                        <h4>Take Snake back from Market</h4>
                         <div style='display: flex'>
-                             <input step="0.01" lang="de-DE" type="number" name="sellPriceInput" class="form-control" placeholder="Sell price e.g. 0.01" disabled>
-                             <button type="button" class="button" disabled>Sell</button> 
+                             <button type="button" onclick="removeSnakeFromMarketplace(${snakeID})" class="button" >revoke</button> 
                          </div>
                      </div>`
 
