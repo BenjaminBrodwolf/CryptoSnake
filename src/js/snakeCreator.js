@@ -138,7 +138,7 @@ const displaySnakes = async snakeIds => {
                         <div style='display: flex'>
                              <label for="newOwnerAddressInput">New Owner Address:</label>
                              <input type="text" name="newOwnerAddressInput" class="form-control" placeholder="Account Address">
-                             <button type="button" onclick="transferSnakeTo(this)" class="button">Send</button> 
+                             <button type="button" onclick="transferSnakeTo(this, ${snakeID})" class="button">Send</button> 
 
                         </div>
                     </div>
@@ -205,13 +205,18 @@ const gotInitalSnake = (address) => {
 
 const createInitialSnake = async () => {
     let name = nameInputField.value;
+    nameInputField.value = ""
+
+    fireNotify(`Don't forget: Accept in the metamask.`, "blue")
+
     if (name.length < 2) {
-        fireNotify(`Nameinput ist empty or to small`)
+        fireNotify(`Nameinput ist empty or to small`, "red")
     } else {
         console.log("createInitialSnake: " + name)
         await cryptoSnakeOwnership.methods.createInitialSnake(name).send({
             from: userAccount
         })
+        fireNotify(`Welcome new Snake ${name}`, "green")
     }
     await initalSnakeCheck();
     await showAllSnakes();
@@ -220,14 +225,19 @@ const createInitialSnake = async () => {
 const createPayedSnake = async () => {
     console.log("createPayedSnake")
     let name = nameInputField.value;
+    nameInputField.value = ""
+
+    fireNotify(`Don't forget: Accept in the metamask.`, "blue")
+
     if (name.length < 2) {
         fireNotify(`Nameinput ist empty or to small`)
-
     } else {
         await cryptoSnakeOwnership.methods.createPayedSnake(name).send({
             from: userAccount,
             value: window.web3.utils.toWei("0.001", "ether")
         });
+        fireNotify(`Welcome new Snake ${name}`, "green")
+
     }
     await showAllSnakes()
 

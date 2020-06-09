@@ -6,11 +6,11 @@ const approve = async el => {
     })
 }
 
-const transferSnakeTo = async el => {
+const transferSnakeTo = async (el, snakeID) => {
     const inputField =  el.previousElementSibling.value;
     console.log(inputField)
-    await cryptoSnakeOwnership.methods.transferFrom(userAccount, inputField).send({
+    await cryptoSnakeOwnership.methods.transferFrom(userAccount, inputField, snakeID).send({
         from: userAccount
     })
-    fireNotify("Snake send to:" + tokenID)
+    fireNotify("Snake send to:" + inputField)
 }

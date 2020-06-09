@@ -17,6 +17,7 @@ snake{
     padding: 10px;
 }
 
+
 #snakes:after {
     content: "";
     display: table;
@@ -46,8 +47,9 @@ snake{
 }
 
 .itemfieldset:hover {
-    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.4),
-    0 6px 20px 0 rgba(0, 0, 0, 0.4);
+    /*background-color: rgba(0, 0, 0, 0.1);*/
+    box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.7),
+    0 15px 20px 0 rgba(0, 0, 0, 0.7);
 }
 
 

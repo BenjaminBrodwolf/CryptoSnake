@@ -16,6 +16,8 @@
     <script type="text/javascript" src="./src/js/snakeCreator.js"></script>
     <script type="text/javascript" src="./src/js/SnakeReproduction.js"></script>
     <script type="text/javascript" src="src/js/snakeMarket.js"></script>
+    <script type="text/javascript" src="src/js/snakeOwnership.js"></script>
+
 
     <script src="src/js/utils.js"></script>
     <script src="src/js/external/notify.js"></script>
@@ -45,6 +47,8 @@
 
 <div style="text-align: center; padding-bottom: 30px;">
     <h1>CryptoSnake</h1>
+    <br>
+    <p>Your User-Account: <span style="font-weight: bold" id="userAccountCode"></span></p>
 </div>
 
 <div class="boxwrapper">
@@ -120,8 +124,8 @@
     let userAccount;
 
     const startApp = () => {
-        const contractSnakeOwnership = "0xa6BE2332d1A30bbdA21562dE949e0bd984A002a0";
-        const contractMarket = "0x4d7005Ce26D4EC1f0ddCb18cBDa5b854d6873578";
+        const contractSnakeOwnership = "0xB0aCfba148345314dD507c109643aC279dc84f82";
+        const contractMarket = "0xDb9d14BF67dFa5b7E350Adf9B8f580171e716286";
 
         cryptoSnakeOwnership = new window.web3.eth.Contract(snakeOwnershipABI, contractSnakeOwnership);
         cryptoSnakeMarket = new window.web3.eth.Contract(snakeMarketABI, contractMarket);
@@ -129,6 +133,8 @@
         window.web3.eth.getAccounts((err, res) => {
             console.log("user account: " + res[0])
             userAccount = res[0];
+
+            document.getElementById("userAccountCode").innerText = userAccount;
             startDisplay();
 
         });
