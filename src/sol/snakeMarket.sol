@@ -52,6 +52,7 @@ contract SnakeMarket is Ownable {
     }
 
     function swapAndDelete(uint snakeId) private {
+        
         uint index = snakeToMarket[snakeId];
         uint lastElement = snakesOnMarket[snakesOnMarket.length - 1];
         snakesOnMarket[index] = lastElement;
