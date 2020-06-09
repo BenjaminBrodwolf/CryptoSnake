@@ -54,7 +54,6 @@ const displaySnakes = async snakeIds => {
 
     let marketSnakesIds = await getAllSnakeIdsFromMarketplace();
     marketSnakesIds = marketSnakesIds.map(id => parseInt(id))
-    console.log(marketSnakesIds)
 
     let snakeList = ""
     let i = 0;
@@ -73,7 +72,6 @@ const displaySnakes = async snakeIds => {
         const snakeID = parseInt(snakeIds[i]);
         const isOnMarket = marketSnakesIds.includes(snakeID)
         const sellPrice = isOnMarket ? `<p class="isOnMarket">Is on Market <br> Price: ${ await getPriceOfSnake(snakeID)} ETH </p>` : ''
-
 
         const pairFeedContainer = `
                     <div class="toProjectContainer">
@@ -206,7 +204,6 @@ const displaySnakes = async snakeIds => {
 
 
 // ----------------- CONTRACT FUNCTION ---------------
-
 
 const getSnakeDetails = async snakeId => {
     return await cryptoSnakeOwnership.methods.snakes(snakeId).call();
