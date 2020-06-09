@@ -2,9 +2,14 @@ const displaySnakesOnMarket = async () => {
     console.log("display all Snake on Market")
 
     const marketView = document.getElementById("marketplace");
+
     const marketSnakesIds = await getAllSnakeIdsFromMarketplace();
-    console.log(marketSnakesIds)
+    let currentUserSnakeIDs = await getSnakeByOwner(userAccount);
+    currentUserSnakeIDs = currentUserSnakeIDs.map(id => parseInt(id))
+
+
     const snakesMarketLength = marketSnakesIds.length;
+
     document.getElementById("snakesMarketAmount").innerText = snakesMarketLength;
     marketView.innerHTML = (snakesMarketLength > 0) ? "" : "<h5>There are no Snakes on sell.</h5>"
 
@@ -13,21 +18,24 @@ const displaySnakesOnMarket = async () => {
 
     for (id of marketSnakesIds) {
         const snakeID = marketSnakesIds[i];
+        const isOnMarket = currentUserSnakeIDs.includes(snakeID)
 
-        const snake = await getSnakeDetails(id)
+        if (!isOnMarket) {
 
-        const snakesvg = await drawSnake(snake);
+            const snake = await getSnakeDetails(id)
 
-        const nameArray = await getParentNames(snakeID)
+            const snakesvg = await drawSnake(snake);
 
-        const priceOfSnake = await getPriceOfSnake(snakeID)
+            const nameArray = await getParentNames(snakeID)
 
-        const names = nameArray.split(";")
-        let childOf = "&nbsp;"
-        if (names[0] != names[1]) {
-            childOf = `Child of  <span style="font-weight: bold">${names[0]}</span>  & <span style="font-weight: bold">${names[1]}</span>`
-        }
-        snakeList = `
+            const priceOfSnake = await getPriceOfSnake(snakeID)
+
+            const names = nameArray.split(";")
+            let childOf = "&nbsp;"
+            if (names[0] != names[1]) {
+                childOf = `Child of  <span style="font-weight: bold">${names[0]}</span>  & <span style="font-weight: bold">${names[1]}</span>`
+            }
+            snakeList = `
                     <snake snakeid="${snakeID}">
                         <fieldset class="itemfieldset">
                             <legend class="itemlegend">
@@ -61,13 +69,11 @@ const displaySnakesOnMarket = async () => {
                   </fieldset>
                 </snake>`
 
-        marketView.innerHTML += snakeList;
+            marketView.innerHTML += snakeList;
+        }
         i++
-
-
     }
 }
-
 
 
 // ----------------- CONTRACT FUNCTION ---------------
@@ -80,7 +86,7 @@ const addSnakeToMarketplace = async (element, snakeId) => {
     if (price < 0) {
         fireNotify("Price must be higher then 0")
     } else {
-        await cryptoSnakeMarket.methods.addSnakeToMarketplace(snakeId, window.web3.utils.toWei(price.toString(), "ether") ).send({from: userAccount});
+        await cryptoSnakeMarket.methods.addSnakeToMarketplace(snakeId, window.web3.utils.toWei(price.toString(), "ether")).send({from: userAccount});
         console.log("Added Snake " + snakeId + " to market")
         fireNotify("Added Snake " + snakeId + " to market", "green")
         await displaySnakesOnMarket()
