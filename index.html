@@ -68,15 +68,11 @@
     </div>
 
     <div id="receiveSnakeBox">
-        <h4>Receive Snake</h4>
-        <p>Input the Address of the Owner you receiving the snake.</p>
+        <h4>Your received Snakes</h4>
+        <p>Click on Snakes-Name which you wanna receive.</p>
         <br>
-        <label for="snakeInputName">Address of the old Snake-Owner:</label>
-        <input id="snakeInputID" type="text" name="snakeInputName" class="form-control" placeholder="Account Address">
+        <div id="receiveList"></div>
 
-        <button id="recieveSnake" type="button" class="button" onclick="transferSnakeTo(this, ${snakeID})">
-            Receive
-        </button>
     </div>
 </div>
 
@@ -124,8 +120,8 @@
     let userAccount;
 
     const startApp = () => {
-        const contractSnakeOwnership = "0xfe0fB6D4f259d8bE23b101D38c179005EcE520e2";
-        const contractMarket = "0xe698B468f0eCF5c7f7E8353548073352728ab8E7";
+        const contractSnakeOwnership = "0xa8eBD28f6fe31a3F00928b7C01E8574B1c98830D";
+        const contractMarket = "0x2e9b4055D0d6ED3De52c91F34485FFe02404dDf7";
 
         cryptoSnakeOwnership = new window.web3.eth.Contract(snakeOwnershipABI, contractSnakeOwnership);
         cryptoSnakeMarket = new window.web3.eth.Contract(snakeMarketABI, contractMarket);
@@ -144,6 +140,7 @@
         await showAllSnakes();
         await displaySnakesOnMarket()
         await initalSnakeCheck();
+        await createReceiveList();
 
         cryptoSnakeOwnership.events.NewSnake()
             .on("data", function(event) {
@@ -156,6 +153,7 @@
             .on("data", function(event) {
                 const approv = event.returnValues;
                 console.log("A new Approval!", approv._owner, approv._approved, approv._tokenId);
+                createReceiveList();
             }).on("error", console.error);
 
     }

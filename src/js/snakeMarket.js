@@ -75,8 +75,7 @@ const displaySnakesOnMarket = async () => {
 
 const addSnakeToMarketplace = async (element, snakeId) => {
     const inputField = element.previousElementSibling;
-    const price = inputField.value.toString()
-    console.log(snakeId)
+    const price = inputField.value
     console.log(price)
     if (price < 0) {
         fireNotify("Price must be higher then 0")
@@ -85,9 +84,7 @@ const addSnakeToMarketplace = async (element, snakeId) => {
         console.log("Added Snake " + snakeId + " to market")
         fireNotify("Added Snake " + snakeId + " to market", "green")
         await displaySnakesOnMarket()
-
     }
-
 };
 
 const removeSnakeFromMarketplace = async snakeId => {
@@ -118,8 +115,4 @@ const getPriceOfSnake = snakeId => {
 const getAllSnakeIdsFromMarketplace = () => {
     return cryptoSnakeMarket.methods.getAllSnakeIdsFromMarketplace().call();
 }
-
-
-
-
 
