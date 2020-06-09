@@ -8,7 +8,7 @@ contract SnakeOwnership is SnakeReproduction, ERC721 {
 
     using SafeMath for uint256;
 
-    mapping(uint => address) snakeApprovals;
+    mapping(uint => address) public snakeApprovals;
     mapping(address => uint) receiverToApprovalsCount;
     mapping(uint => uint) snakeToApprovedId;
     
