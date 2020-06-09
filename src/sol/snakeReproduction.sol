@@ -24,7 +24,7 @@ contract SnakeReproduction is SnakeCreator {
     }
     
         modifier snakeNotOnMarket(uint _snakeId) {
-        require(!snakes[_snakeId].isOnMarket);
+        require(!snakeToIsOnMarket[_snakeId]);
         _;
     }
     

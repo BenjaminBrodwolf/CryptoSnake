@@ -28,14 +28,14 @@ contract SnakeMarket is Ownable {
     }
 
     function addSnakeToMarketplace(uint snakeId, uint price) public {
-        //require(!snakeCreator.isOnMarket(snakeId));
+        require(!snakeCreator.isOnMarket(snakeId));
         uint marketId = snakesOnMarket.push(snakeId);
         snakeToMarket[snakeId] = marketId;
         snakeToSeller[snakeId] = msg.sender;
         snakeToPrice[snakeId] = price;
         countOfSnakesOnMarket += 1;
         
-        //snakeCreator.updateIsOnMarket(snakeId, true);
+        snakeCreator.updateIsOnMarket(snakeId, true);
     }
 
     function removeSnakeFromMarketplace(uint snakeId) external ownerOfSnake(snakeId) {
