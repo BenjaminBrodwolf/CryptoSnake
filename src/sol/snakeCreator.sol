@@ -22,9 +22,6 @@ contract SnakeCreator is Ownable {
         uint dna;
         uint32 level;
         uint32 readyTime;
-        bool isOnMarket; // TODO: schlange kann nur verändert werden wenn sie nicht auf dem markt ist
-        // TODO: modifier bauen, damit schlange nur verändert werden kann wenn sie nicht auf dem markt ist
-        // TODO: schlange muss blockiert werden wenn sie auf dem markt ist, einzige Option ist evtl. preisänderung oder remove from marketplace sonst nicht
     }
 
     Snake[] public snakes;
@@ -33,21 +30,22 @@ contract SnakeCreator is Ownable {
     mapping(address => uint) ownerSnakeCount;
     mapping(address => bool) public gotInitialSnake;
     
-    mapping(uint => Snake) public snakeIdToSnake;
+    mapping(uint => bool) public snakeToIsOnMarket;
     
     
     function updateIsOnMarket (uint snakeId, bool isOnMarket) public {
-        snakes[snakeId].isOnMarket = isOnMarket;
+        snakeToIsOnMarket[snakeId] = isOnMarket;
+        //snakes[snakeId].isOnMarket = isOnMarket;
     }
     
     function isOnMarket (uint snakeId) public view returns(bool) {
-      return snakes[snakeId].isOnMarket;
+      return snakeToIsOnMarket[snakeId];
     }
 
 
     function _createSnake(string _name, uint _dna) internal returns (uint) {
         require(bytes(_name).length >= 3);
-        uint id = snakes.push(Snake(_name, _dna, 1, uint32(now + cooldownTime), false)) - 1;
+        uint id = snakes.push(Snake(_name, _dna, 1, uint32(now + cooldownTime))) - 1;
         snakeToOwner[id] = msg.sender;
         ownerSnakeCount[msg.sender] = ownerSnakeCount[msg.sender].add(1);
         emit NewSnake(id, _name, _dna);
@@ -90,7 +88,5 @@ contract SnakeCreator is Ownable {
         return snakesByOwner;
     }
     
-    function isSnakeOnMarket(uint snakeId) external view returns(bool) {
-        return snakes[snakeId].isOnMarket;
-    }
+  
 }
