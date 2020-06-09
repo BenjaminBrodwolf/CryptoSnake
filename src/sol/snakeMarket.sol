@@ -27,8 +27,8 @@ contract SnakeMarket is Ownable {
         snakeCreator = SnakeCreator(_addressSc);
     }
 
-    function addSnakeToMarketplace(uint snakeId, uint price) external ownerOfSnake(snakeId) {
-        require(!snakeCreator.isOnMarket(snakeId));
+    function addSnakeToMarketplace(uint snakeId, uint price) public {
+        //require(!snakeCreator.isOnMarket(snakeId));
         uint marketId = snakesOnMarket.push(snakeId);
         snakeToMarket[snakeId] = marketId;
         snakeToSeller[snakeId] = msg.sender;
