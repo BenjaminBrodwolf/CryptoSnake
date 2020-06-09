@@ -147,7 +147,7 @@ const snakeReproductionABI = [
         "type": "function"
     },
     {
-        "constant": false,
+        "constant": true,
         "inputs": [
             {
                 "name": "snakeId",
@@ -162,7 +162,7 @@ const snakeReproductionABI = [
             }
         ],
         "payable": false,
-        "stateMutability": "nonpayable",
+        "stateMutability": "view",
         "type": "function"
     },
     {

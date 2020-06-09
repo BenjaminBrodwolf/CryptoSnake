@@ -40,7 +40,7 @@ contract SnakeCreator is Ownable {
         snakes[snakeId].isOnMarket = isOnMarket;
     }
     
-    function isOnMarket (uint snakeId) public returns(bool) {
+    function isOnMarket (uint snakeId) public view returns(bool) {
       return snakes[snakeId].isOnMarket;
     }
 
