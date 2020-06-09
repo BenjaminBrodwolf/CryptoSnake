@@ -57,7 +57,6 @@ contract SnakeMarket is Ownable {
         snakesOnMarket[index] = lastElement;
 
         delete snakesOnMarket[snakesOnMarket.length - 1];
-        snakesOnMarket.length--;
         // TODO: muss man das machen oder geschieht das automatisch ??
         delete snakeToMarket[snakeId];
         snakeToMarket[lastElement] = index;
@@ -83,7 +82,7 @@ contract SnakeMarket is Ownable {
     function getAllSnakeIdsFromMarketplace() external view returns (uint[]){
         uint[] memory snakesFromMarketplace = new uint[](snakesOnMarket.length);
         uint counter = 0;
-        for (uint i = 0; i < snakesOnMarket.length; i++) {
+        for (uint i = 0; i < snakesFromMarketplace.length; i++) {
 
             snakesFromMarketplace[counter] = snakesOnMarket[i];
             counter++;
