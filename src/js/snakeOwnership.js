@@ -1,7 +1,7 @@
 const approve = async el => {
     const inputField =  el.previousElementSibling.value;
     console.log(inputField)
-    return cryptoSnakeReproduction.methods.approve(inputField, userAccount).send({
+    return cryptoSnakeOwnership.methods.approve(inputField, userAccount).send({
         from: userAccount
     })
 }
@@ -9,7 +9,7 @@ const approve = async el => {
 const transferSnakeTo = async el => {
     const inputField =  el.previousElementSibling.value;
     console.log(inputField)
-    await cryptoSnakeReproduction.methods.transferFrom(userAccount, inputField).send({
+    await cryptoSnakeOwnership.methods.transferFrom(userAccount, inputField).send({
         from: userAccount
     })
     fireNotify("Snake send to:" + tokenID)

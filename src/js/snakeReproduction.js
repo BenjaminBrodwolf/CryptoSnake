@@ -69,13 +69,13 @@ const pairingClick = el => {
 
 const getParentNames = async childID =>{
     console.log("getParents of ChildID: " + childID)
-    return await cryptoSnakeReproduction.methods.getNamesOfParents(childID).call();
+    return await cryptoSnakeOwnership.methods.getNamesOfParents(childID).call();
 }
 
 const pairSnakes = async (sourceSnakeId = 0, targetSnakeId = 0) => {
     console.log("pairSnakes")
     closeDialog()
-    const res = await cryptoSnakeReproduction.methods.reproduction(sourceSnakeId, targetSnakeId).send({
+    const res = await cryptoSnakeOwnership.methods.reproduction(sourceSnakeId, targetSnakeId).send({
         from: userAccount
     })
     console.log(res)
