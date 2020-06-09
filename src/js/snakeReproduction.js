@@ -86,7 +86,7 @@ const pairSnakes = async (sourceSnakeId = 0, targetSnakeId = 0) => {
 }
 
 const isSnakeReady = snakedId => {
-    return cryptoSnakeOwnership.methods.isSnakeReady(snakeId).call()
+    return cryptoSnakeOwnership.methods.isSnakeReady(snakedId).call()
 };
 
 

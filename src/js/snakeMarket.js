@@ -20,6 +20,8 @@ const displaySnakesOnMarket = async () => {
 
         const nameArray = await getParentNames(snakeID)
 
+        const priceOfSnake = await getPriceOfSnake(snakeID)
+
         const names = nameArray.split(";")
         let childOf = "&nbsp;"
         if (names[0] != names[1]) {
@@ -47,13 +49,12 @@ const displaySnakesOnMarket = async () => {
                     
                                       
                     <hr>
-                    
-
+                    <h4>Price: </h4>
+                    <h3> ${priceOfSnake} </h3>
                     <div class="toProjectContainer">
                      <h4>Buy Snake</h4>
                         <div style='display: flex'>
-                             <button type="button" onclick="" class="button">Buy</button> 
-
+                             <button type="button" onclick="buySnake(this, ${snakeID})" class="button">Buy</button> 
                         </div>
                     </div>
               
@@ -94,18 +95,16 @@ const removeSnakeFromMarketplace = async () => {
     console.log("Removed Snake " + snakeId + " from market")
 };
 
-const buySnake = async () => {
-    let snakeId = null; //TODO: connect with input field
-    let preis = null; //TODO: connect with input field
+const buySnake = async (el, snakeId) => {
+    const price = await getPriceOfSnake()
     await cryptoSnakeMarket.methods.buySnake(snakeId).send({
-        from: userAccount, value: window.web3.utils.toWei(preis, "ether") //TODO: wie werden die ether hier übergeben?
+        from: userAccount, value: window.web3.utils.toWei(price, "ether") //TODO: wie werden die ether hier übergeben?
     });
     console.log("Bought Snake " + snakeId)
 };
 
-const getPriceOfSnake = async () => {
-    let snakeId = null; //TODO: connect with input field
-    await cryptoSnakeMarket.methods.getPriceOfSnake(snakeId).call();
+const getPriceOfSnake = snakeId=> {
+    return cryptoSnakeMarket.methods.getPriceOfSnake(snakeId).call();
 }
 
 const getAllSnakeIdsFromMarketplace = () => {
