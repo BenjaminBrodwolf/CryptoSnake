@@ -73,6 +73,7 @@ const displaySnakesOnMarket = async () => {
         }
         i++
     }
+    await displaySnakes();
 }
 
 
@@ -94,6 +95,8 @@ const addSnakeToMarketplace = async (element, snakeId) => {
 };
 
 const removeSnakeFromMarketplace = async snakeId => {
+    console.log("Remov Snake " + snakeId + " from market")
+
     await cryptoSnakeMarket.methods.removeSnakeFromMarketplace(snakeId).call();
     console.log("Removed Snake " + snakeId + " from market")
     fireNotify("Removed Snake " + snakeId + " from market", "green")

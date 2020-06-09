@@ -25,9 +25,10 @@ const receiveSnakeFrom = async el => {
     await showAllSnakes()
 }
 
-const approve = async (receiveAddress, snakeID)  => {
-
-    await cryptoSnakeOwnership.methods.approve(receiveAddress, snakeID).send({
+const approve = async (el, snakeID)  => {
+    const inputField =  el.previousElementSibling.value;
+   console.log(inputField)
+    await cryptoSnakeOwnership.methods.approve(inputField, snakeID).send({
         from: userAccount
     })
     fireNotify("Snake recieved from: \n" + inputField)
