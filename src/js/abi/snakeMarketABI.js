@@ -3,15 +3,11 @@ const snakeMarketABI = [
         "constant": false,
         "inputs": [
             {
-                "name": "snakeId",
-                "type": "uint256"
-            },
-            {
-                "name": "price",
-                "type": "uint256"
+                "name": "_addressSc",
+                "type": "address"
             }
         ],
-        "name": "addSnakeToMarketplace",
+        "name": "setAddressSnakeCreator",
         "outputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
@@ -32,17 +28,22 @@ const snakeMarketABI = [
         "type": "function"
     },
     {
-        "constant": false,
+        "constant": true,
         "inputs": [
             {
                 "name": "snakeId",
                 "type": "uint256"
             }
         ],
-        "name": "removeSnakeFromMarketplace",
-        "outputs": [],
+        "name": "getPriceOfSnake",
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256"
+            }
+        ],
         "payable": false,
-        "stateMutability": "nonpayable",
+        "stateMutability": "view",
         "type": "function"
     },
     {
@@ -55,14 +56,56 @@ const snakeMarketABI = [
         "type": "function"
     },
     {
-        "constant": false,
-        "inputs": [
+        "constant": true,
+        "inputs": [],
+        "name": "owner",
+        "outputs": [
             {
-                "name": "_addressSc",
+                "name": "",
                 "type": "address"
             }
         ],
-        "name": "setAddressSnakeCreator",
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [],
+        "name": "isOwner",
+        "outputs": [
+            {
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [],
+        "name": "getAllSnakeIdsFromMarketplace",
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256[]"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "name": "snakeId",
+                "type": "uint256"
+            }
+        ],
+        "name": "removeSnakeFromMarketplace",
         "outputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
@@ -97,6 +140,24 @@ const snakeMarketABI = [
         "type": "function"
     },
     {
+        "constant": false,
+        "inputs": [
+            {
+                "name": "snakeId",
+                "type": "uint256"
+            },
+            {
+                "name": "price",
+                "type": "uint256"
+            }
+        ],
+        "name": "addSnakeToMarketplace",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
         "anonymous": false,
         "inputs": [
             {
@@ -112,66 +173,5 @@ const snakeMarketABI = [
         ],
         "name": "OwnershipTransferred",
         "type": "event"
-    },
-    {
-        "constant": true,
-        "inputs": [],
-        "name": "getAllSnakeIdsFromMarketplace",
-        "outputs": [
-            {
-                "name": "",
-                "type": "uint256[]"
-            }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "constant": true,
-        "inputs": [
-            {
-                "name": "snakeId",
-                "type": "uint256"
-            }
-        ],
-        "name": "getPriceOfSnake",
-        "outputs": [
-            {
-                "name": "",
-                "type": "uint256"
-            }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "constant": true,
-        "inputs": [],
-        "name": "isOwner",
-        "outputs": [
-            {
-                "name": "",
-                "type": "bool"
-            }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "constant": true,
-        "inputs": [],
-        "name": "owner",
-        "outputs": [
-            {
-                "name": "",
-                "type": "address"
-            }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
     }
 ]
