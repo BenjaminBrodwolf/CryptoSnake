@@ -45,6 +45,8 @@ contract SnakeOwnership is SnakeReproduction, ERC721 {
     function approve(address _approved, uint256 _tokenId) external payable onlyOwnerOf(_tokenId) {
         snakeApprovals[_tokenId] = _approved;
         receiverToApprovalsCount[_approved] += 1;
+        uint approvedId = approvedSnakes.push(_tokenId);
+        snakeToApprovedId[_tokenId] = approvedId;
         emit Approval(msg.sender, _approved, _tokenId);
     }
     
