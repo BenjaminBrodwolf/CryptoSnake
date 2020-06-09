@@ -56,7 +56,6 @@ contract SnakeOwnership is SnakeReproduction, ERC721 {
         approvedSnakes[index] = lastElement;
 
         delete approvedSnakes[approvedSnakes.length - 1];
-        approvedSnakes.length--;
         // TODO: muss man das machen oder geschieht das automatisch ??
         delete snakeToApprovedId[snakeId];
         snakeToApprovedId[lastElement] = index;
