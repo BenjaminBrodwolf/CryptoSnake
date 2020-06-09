@@ -35,7 +35,5 @@ contract SnakeOwnership is SnakeReproduction, ERC721 {
         emit Approval(msg.sender, _approved, _tokenId);
     }
     
-    function isSnakeOnMarket(uint snakeId) external view returns(bool) {
-        return snakes[snakeId].isOnMarket;
-    }
+ 
 }

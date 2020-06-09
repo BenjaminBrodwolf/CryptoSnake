@@ -72,7 +72,7 @@ contract SnakeReproduction is SnakeCreator {
         return childName;
     }
 
-    function feeding(uint snakeFoodId, uint snakeId) internal snakeNotOnMarket(snakeId) {
+    function feeding(uint snakeFoodId, uint snakeId) external snakeNotOnMarket(snakeId) {
         require(snakeToOwner[snakeId] == msg.sender && snakeFoodToOwner[snakeFoodId] == msg.sender);
 
         // TODO: use safemath ?

@@ -73,3 +73,19 @@ const buySnakeFood = async () => {
     await cryptoSnakeReproduction.methods.buySnakeFood(secretIngredient).send({from: userAccount, value: window.web3.utils.toWei("0.001", "ether")});
     console.log("Food gekauft ")
 };
+
+const feeding = async () => {
+    let snakeFoodId = null; //TODO: connect with input field
+    let snakeId = null; //TODO: connect with input field
+    await cryptoSnakeReproduction.methods.feeding(snakeFoodId, snakeId).send({from: userAccount});
+    console.log("Gefüttert ")
+};
+
+const isSnakeReady = async () => {
+    let snakeId = null; //TODO: connect with input field
+    await cryptoSnakeReproduction.methods.isSnakeReady(snakeId).call()
+};
+
+
+
+
