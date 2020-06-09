@@ -75,12 +75,13 @@ const displaySnakesOnMarket = async () => {
 
 const addSnakeToMarketplace = async (element, snakeId) => {
     const inputField = element.previousElementSibling;
-    const price = parseFloat(inputField.value)
+    const price = inputField.value.toString()
     console.log(snakeId)
+    console.log(price)
     if (price < 0) {
         fireNotify("Price must be higher then 0")
     } else {
-        await cryptoSnakeMarket.methods.addSnakeToMarketplace(snakeId, window.web3.utils.toWei(price, "ether") ).send({from: userAccount});
+        await cryptoSnakeMarket.methods.addSnakeToMarketplace(snakeId, window.web3.utils.toWei(price.toString(), "ether") ).send({from: userAccount});
         console.log("Added Snake " + snakeId + " to market")
         fireNotify("Added Snake " + snakeId + " to market", "green")
         await displaySnakesOnMarket()
