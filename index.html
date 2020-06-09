@@ -10,12 +10,12 @@
 
     <script type="text/javascript" src="./src/js/abi/snakeCreatorABI.js"></script>
     <script type="text/javascript" src="./src/js/abi/SnakeReproductionABI.js"></script>
+    <script type="text/javascript" src="./src/js/abi/snakeOwnershipABI.js"></script>
     <script src="src/js/abi/snakeMarketABI.js"></script>
 
     <script type="text/javascript" src="./src/js/snakeCreator.js"></script>
     <script type="text/javascript" src="./src/js/SnakeReproduction.js"></script>
     <script type="text/javascript" src="src/js/snakeMarket.js"></script>
-    <script type="text/javascript" src="src/js/snakeOwnership.js"></script>
 
     <script src="src/js/utils.js"></script>
     <script src="src/js/external/notify.js"></script>
@@ -115,16 +115,16 @@
 </div>
 
 <script>
-    let cryptoSnakeReproduction;
+    let cryptoSnakeOwnership;
     let cryptoSnakeMarket;
     let userAccount;
 
     const startApp = () => {
-        const contractSnakeReproduction = "0x47Eb896b848cC206F8b5eC405915b7b9D0D6a260";
-        const contractMarket            = "0x7B1fb7bf9b16F96A092802a2767b9B927de6D00F";
+        const contractSnakeOwnership = "0xB0aCfba148345314dD507c109643aC279dc84f82";
+        const contractMarket = "0xDb9d14BF67dFa5b7E350Adf9B8f580171e716286";
 
-        cryptoSnakeReproduction = new window.web3.eth.Contract(snakeReproductionABI, contractSnakeReproduction);
-        cryptoSnakeMarket       = new window.web3.eth.Contract(snakeMarketABI, contractMarket);
+        cryptoSnakeOwnership = new window.web3.eth.Contract(snakeOwnershipABI, contractSnakeOwnership);
+        cryptoSnakeMarket = new window.web3.eth.Contract(snakeMarketABI, contractMarket);
 
         window.web3.eth.getAccounts((err, res) => {
             console.log("user account: " + res[0])

@@ -12,6 +12,7 @@ contract SnakeMarket is Ownable {
     uint[] snakesOnMarket;
 
     ERC721 snakeOwnership;
+    SnakeCreator snakeCreator;
 
     modifier ownerOfSnake(uint snakeId) {
         require(snakeOwnership.ownerOf(snakeId) == msg.sender);
@@ -21,17 +22,26 @@ contract SnakeMarket is Ownable {
     function setAddressSnakeOwnership(address _addressSos) external onlyOwner {
         snakeOwnership = ERC721(_addressSos);
     }
+    
+    function setAddressSnakeCreator(address _addressSc) external onlyOwner {
+        snakeCreator = SnakeCreator(_addressSc);
+    }
 
     function addSnakeToMarketplace(uint snakeId, uint price) external ownerOfSnake(snakeId) {
+        require(!snakeCreator.isSnakeOnMarket(snakeId));
         uint marketId = snakesOnMarket.push(snakeId);
         snakeToMarket[snakeId] = marketId;
         snakeToSeller[snakeId] = msg.sender;
         snakeToPrice[snakeId] = price;
         countOfSnakesOnMarket += 1;
+        
+        snakeCreator.updateIsOnMarket(snakeId, true);
     }
 
     function removeSnakeFromMarketplace(uint snakeId) external ownerOfSnake(snakeId) {
         removeSnakeIdFromMarketplace(snakeId);
+        
+        snakeCreator.updateIsOnMarket(snakeId, false);
     }
 
     function removeSnakeIdFromMarketplace(uint snakeId) private {
@@ -62,6 +72,8 @@ contract SnakeMarket is Ownable {
         snakeOwnership.transferFrom(seller, buyer, snakeId);
         removeSnakeIdFromMarketplace(snakeId);
         seller.transfer(msg.value);
+        
+        snakeCreator.updateIsOnMarket(snakeId, false);
     }
 
     function getPriceOfSnake(uint snakeId) public view returns (uint){

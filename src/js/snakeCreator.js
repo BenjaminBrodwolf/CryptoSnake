@@ -192,15 +192,15 @@ const coloringSnake = dna => {
 
 
 const getSnakeDetails = async snakeId => {
-    return await cryptoSnakeReproduction.methods.snakes(snakeId).call();
+    return await cryptoSnakeOwnership.methods.snakes(snakeId).call();
 }
 
 const getOwnerOfSnake = async snakeId => {
-    return await cryptoSnakeReproduction.methods.snakeToOwner(snakeId).call()
+    return await cryptoSnakeOwnership.methods.snakeToOwner(snakeId).call()
 }
 
 const gotInitalSnake = (address) => {
-    return cryptoSnakeReproduction.methods.gotInitialSnake(address).call()
+    return cryptoSnakeOwnership.methods.gotInitialSnake(address).call()
 }
 
 const createInitialSnake = async () => {
@@ -209,7 +209,7 @@ const createInitialSnake = async () => {
         fireNotify(`Nameinput ist empty or to small`)
     } else {
         console.log("createInitialSnake: " + name)
-        await cryptoSnakeReproduction.methods.createInitialSnake(name).send({
+        await cryptoSnakeOwnership.methods.createInitialSnake(name).send({
             from: userAccount
         })
     }
@@ -224,7 +224,7 @@ const createPayedSnake = async () => {
         fireNotify(`Nameinput ist empty or to small`)
 
     } else {
-        await cryptoSnakeReproduction.methods.createPayedSnake(name).send({
+        await cryptoSnakeOwnership.methods.createPayedSnake(name).send({
             from: userAccount,
             value: window.web3.utils.toWei("0.001", "ether")
         });
@@ -234,7 +234,7 @@ const createPayedSnake = async () => {
 }
 
 function getSnakeByOwner(owner) {
-    return cryptoSnakeReproduction.methods.getSnakesByOwner(owner).call()
+    return cryptoSnakeOwnership.methods.getSnakesByOwner(owner).call()
 }
 
 

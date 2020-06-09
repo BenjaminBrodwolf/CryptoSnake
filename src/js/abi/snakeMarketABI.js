@@ -3,6 +3,20 @@ const snakeMarketABI = [
         "constant": false,
         "inputs": [
             {
+                "name": "_addressSc",
+                "type": "address"
+            }
+        ],
+        "name": "setAddressSnakeCreator",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
                 "name": "snakeId",
                 "type": "uint256"
             }

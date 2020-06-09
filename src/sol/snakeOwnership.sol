@@ -34,4 +34,6 @@ contract SnakeOwnership is SnakeReproduction, ERC721 {
         snakeApprovals[_tokenId] = _approved;
         emit Approval(msg.sender, _approved, _tokenId);
     }
+    
+ 
 }

@@ -11,6 +11,7 @@ const addSnakeToMarketplace = async (element, snakeId) => {
         await cryptoSnakeMarket.methods.addSnakeToMarketplace(snakeId, price).send({from: userAccount});
         console.log("Added Snake " + snakeId + " to market")
     }
+
 };
 
 const removeSnakeFromMarketplace = async () => {
@@ -27,6 +28,17 @@ const buySnake = async () => {
     });
     console.log("Bought Snake " + snakeId)
 };
+
+const getPriceOfSnake = async () => {
+    let snakeId = null; //TODO: connect with input field
+    await cryptoSnakeMarket.methods.getPriceOfSnake(snakeId).call();
+}
+
+const getAllSnakeIdsFromMarketplace = async () => {
+    await cryptoSnakeMarket.methods.getAllSnakeIdsFromMarketplace().call();
+}
+
+
 
 
 
