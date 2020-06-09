@@ -1,5 +1,24 @@
 const snakeCreatorABI = [
     {
+        "constant": true,
+        "inputs": [
+            {
+                "name": "snakeId",
+                "type": "uint256"
+            }
+        ],
+        "name": "isSnakeOnMarket",
+        "outputs": [
+            {
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
         "constant": false,
         "inputs": [
             {
@@ -38,6 +57,10 @@ const snakeCreatorABI = [
             {
                 "name": "readyTime",
                 "type": "uint32"
+            },
+            {
+                "name": "isOnMarket",
+                "type": "bool"
             }
         ],
         "payable": false,
@@ -56,6 +79,24 @@ const snakeCreatorABI = [
         "outputs": [],
         "payable": true,
         "stateMutability": "payable",
+        "type": "function"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "name": "snakeId",
+                "type": "uint256"
+            },
+            {
+                "name": "isOnMarket",
+                "type": "bool"
+            }
+        ],
+        "name": "updateIsOnMarket",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
         "type": "function"
     },
     {
@@ -160,6 +201,41 @@ const snakeCreatorABI = [
             {
                 "name": "",
                 "type": "uint256[]"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "name": "snakeIdToSnake",
+        "outputs": [
+            {
+                "name": "name",
+                "type": "string"
+            },
+            {
+                "name": "dna",
+                "type": "uint256"
+            },
+            {
+                "name": "level",
+                "type": "uint32"
+            },
+            {
+                "name": "readyTime",
+                "type": "uint32"
+            },
+            {
+                "name": "isOnMarket",
+                "type": "bool"
             }
         ],
         "payable": false,
