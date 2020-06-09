@@ -7,6 +7,7 @@ const displaySnakesOnMarket = async () => {
     let currentUserSnakeIDs = await getSnakeByOwner(userAccount);
     currentUserSnakeIDs = currentUserSnakeIDs.map(id => parseInt(id))
 
+    console.log(currentUserSnakeIDs)
 
     const snakesMarketLength = marketSnakesIds.length;
 
@@ -17,8 +18,10 @@ const displaySnakesOnMarket = async () => {
     let i = 0;
 
     for (id of marketSnakesIds) {
-        const snakeID = marketSnakesIds[i];
+        const snakeID = parseInt(marketSnakesIds[i]);
+
         const isOnMarket = currentUserSnakeIDs.includes(snakeID)
+        console.log(isOnMarket)
 
         if (!isOnMarket) {
 

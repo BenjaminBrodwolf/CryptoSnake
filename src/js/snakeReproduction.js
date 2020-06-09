@@ -68,7 +68,7 @@ const pairingClick = async (el, snakeId) => {
 // ----------------- CONTRACT FUNCTION ---------------
 
 const getParentNames = async childID =>{
-    console.log("getParents of ChildID: " + childID)
+    // console.log("getParents of ChildID: " + childID)
     return await cryptoSnakeOwnership.methods.getNamesOfParents(childID).call();
 }
 

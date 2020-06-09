@@ -1,23 +1,25 @@
 const createReceiveList = async () =>{
     const receiveList = document.getElementById("receiveList");
 
-    const ids = await getListOfReceivedSnakeIDs();
+    let ids = await getListOfReceivedSnakeIDs();
+    ids = ids.map(e => parseInt(e))
     console.log(ids)
 
     if (ids.length > 0 ){
         let i =0
 
-        for (id in ids) {
+        for (let id in ids) {
             console.log(ids[i])
-            console.log(id)
+            console.log(ids)
 
             const snake = await getSnakeDetails(id)
-            receiveList.innerHTML += `<p onclick='receiveSnakeFrom(${ids[i]})'> ${snake.name} </p>`
+            console.log(snake)
+            receiveList.innerHTML += `<p style="font-weight: bold; cursor: pointer" onclick='receiveSnakeFrom(${id})'> ${snake.name} </p>`
             i++;
         }
 
     } else {
-        receiveList.innerHTML = '<p>"There are no received Snakes for you"</p>'
+        receiveList.innerHTML = '<h4 style="font-weight: bold;">There are no received Snakes for you </h4>'
     }
 
 }
@@ -61,8 +63,9 @@ const transferSnakeTo = async (el, snakeID) => {
 
 
 
-const getListOfReceivedSnakeIDs = () =>{
-    return cryptoSnakeOwnership.methods.getAllAprovedSnakes(userAccount).call()
+const getListOfReceivedSnakeIDs = async () =>{
+    console.log(userAccount)
+    return await cryptoSnakeOwnership.methods.getAllAprovedSnakes(userAccount).call()
 }
 
 const getAddressToReceivedSnakeID = snakeId =>{
