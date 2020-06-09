@@ -111,7 +111,7 @@ const buyTheSnake = async snakeId => {
     const price = await getPriceOfSnake(snakeId)
     await cryptoSnakeMarket.methods.buySnake(snakeId).send({
         from: userAccount,
-        value: window.web3.utils.toWei("0.001", "ether") //TODO: wie werden die ether hier übergeben?
+        value: window.web3.utils.toWei(price, "ether") //TODO: wie werden die ether hier übergeben?
     });
     console.log("Bought Snake " + snakeId)
     fireNotify("Bought Snake " + snakeId, "green")
