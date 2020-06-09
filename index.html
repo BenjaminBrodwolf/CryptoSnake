@@ -15,6 +15,7 @@
     <script type="text/javascript" src="./src/js/snakeCreator.js"></script>
     <script type="text/javascript" src="./src/js/SnakeReproduction.js"></script>
     <script type="text/javascript" src="src/js/snakeMarket.js"></script>
+    <script type="text/javascript" src="src/js/snakeOwnership.js"></script>
 
     <script src="src/js/utils.js"></script>
     <script src="src/js/external/notify.js"></script>
@@ -119,11 +120,11 @@
     let userAccount;
 
     const startApp = () => {
-        const contractSnakeReproduction = "0x94CFc9a7F2508C7B950B128A52cCBd51E660AC3E";
-        const contractMarket = "0x7B1fb7bf9b16F96A092802a2767b9B927de6D00F";
+        const contractSnakeReproduction = "0x47Eb896b848cC206F8b5eC405915b7b9D0D6a260";
+        const contractMarket            = "0x7B1fb7bf9b16F96A092802a2767b9B927de6D00F";
 
         cryptoSnakeReproduction = new window.web3.eth.Contract(snakeReproductionABI, contractSnakeReproduction);
-        cryptoSnakeMarket = new window.web3.eth.Contract(snakeMarketABI, contractMarket);
+        cryptoSnakeMarket       = new window.web3.eth.Contract(snakeMarketABI, contractMarket);
 
         window.web3.eth.getAccounts((err, res) => {
             console.log("user account: " + res[0])

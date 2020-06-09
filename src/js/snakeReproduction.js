@@ -1,12 +1,5 @@
 let pairingSnakes = [];
 
-
-const getParentNames = async childID =>{
-    console.log("getParents of ChildID: " + childID)
-    return await cryptoSnakeReproduction.methods.getNamesOfParents(childID).call();
-
-}
-
 const closeDialog = () => {
     dialog.style.display = 'none';
     backdrop.style.display = 'none';
@@ -27,6 +20,15 @@ const getPairSelected = () => {
         }
     }
     return [selectedSnakesIDs, selectedSnakesName]
+}
+
+const deselectAllSelectedSnakes = async () =>{
+    const allSnakeFields = document.querySelectorAll("snake > fieldset")
+    for (const field of allSnakeFields) {
+        if (field.classList.contains("pairingSelected")) {
+           field.classList.remove("pairingSelected")
+        }
+    }
 }
 
 const pairingClick = el => {
@@ -56,16 +58,24 @@ const pairingClick = el => {
     }
 }
 
+// ----------------- CONTRACT FUNCTION ---------------
+
+const getParentNames = async childID =>{
+    console.log("getParents of ChildID: " + childID)
+    return await cryptoSnakeReproduction.methods.getNamesOfParents(childID).call();
+}
+
 const pairSnakes = async (sourceSnakeId = 0, targetSnakeId = 0) => {
     console.log("pairSnakes")
+    closeDialog()
     const res = await cryptoSnakeReproduction.methods.reproduction(sourceSnakeId, targetSnakeId).send({
         from: userAccount
     })
     console.log(res)
-    fireNotify("Snake paired", "green")
     pairingSnakes = []
-    closeDialog()
+    await deselectAllSelectedSnakes()
     await showAllSnakes()
+    fireNotify("New Snake created", "green")
 }
 
 const buySnakeFood = async () => {

@@ -137,8 +137,8 @@ const displaySnakes = async snakeIds => {
                      <h4>Send Snake to someone</h4>
                         <div style='display: flex'>
                              <label for="newOwnerAddressInput">New Owner Address:</label>
-                             <input  type="text" name="newOwnerAddressInput" class="form-control" placeholder="Account Address">
-                             <button type="button" onclick="" class="button">Send</button> 
+                             <input type="text" name="newOwnerAddressInput" class="form-control" placeholder="Account Address">
+                             <button type="button" onclick="transferSnakeTo(this)" class="button">Send</button> 
 
                         </div>
                     </div>
@@ -153,11 +153,49 @@ const displaySnakes = async snakeIds => {
     }
 }
 
+const coloringSnake = dna => {
+
+    const snakebodys = []
+    let chunks = [];
+    for (let i = 0, charsLength = dna.length; i < charsLength; i += 3) {
+        chunks.push(dna.substring(i, i + 3));
+    }
+
+    const head = chunks[3] + chunks[4] + chunks[5]
+    chunks[5] = head.substring(1, 4)
+    chunks.push(head.substring(4, 7))
+
+    const c1 = chunks[0] + chunks[1]
+    const c2 = chunks[1] + chunks[2]
+    const c3 = chunks[2] + chunks[3]
+    const c4 = chunks[3] + chunks[4]
+    const c5 = chunks[4] + chunks[5]
+    const c6 = chunks[5] + chunks[6]
+
+    snakebodys.push("#" + c1)
+    snakebodys.push("#" + newcolor(c1, c2))
+    snakebodys.push("#" + c2)
+    snakebodys.push("#" + newcolor(c2, c3))
+    snakebodys.push("#" + c3)
+    snakebodys.push("#" + newcolor(c3, c4))
+    snakebodys.push("#" + c4)
+    snakebodys.push("#" + newcolor(c4, c5))
+    snakebodys.push("#" + c5)
+    snakebodys.push("#" + newcolor(c5, c6))
+    snakebodys.push("#" + c6)
+
+    return snakebodys
+}
+
+
+// ----------------- CONTRACT FUNCTION ---------------
+
+
 const getSnakeDetails = async snakeId => {
     return await cryptoSnakeReproduction.methods.snakes(snakeId).call();
 }
 
-async function getOwnerOfSnake(snakeId) {
+const getOwnerOfSnake = async snakeId => {
     return await cryptoSnakeReproduction.methods.snakeToOwner(snakeId).call()
 }
 
@@ -199,37 +237,4 @@ function getSnakeByOwner(owner) {
     return cryptoSnakeReproduction.methods.getSnakesByOwner(owner).call()
 }
 
-const coloringSnake = dna => {
-
-    const snakebodys = []
-    let chunks = [];
-    for (let i = 0, charsLength = dna.length; i < charsLength; i += 3) {
-        chunks.push(dna.substring(i, i + 3));
-    }
-
-    const head = chunks[3] + chunks[4] + chunks[5]
-    chunks[5] = head.substring(1, 4)
-    chunks.push(head.substring(4, 7))
-
-    let c1 = chunks[0] + chunks[1]
-    let c2 = chunks[1] + chunks[2]
-    let c3 = chunks[2] + chunks[3]
-    let c4 = chunks[3] + chunks[4]
-    let c5 = chunks[4] + chunks[5]
-    let c6 = chunks[5] + chunks[6]
-
-    snakebodys.push("#" + c1)
-    snakebodys.push("#" + newcolor(c1, c2))
-    snakebodys.push("#" + c2)
-    snakebodys.push("#" + newcolor(c2, c3))
-    snakebodys.push("#" + c3)
-    snakebodys.push("#" + newcolor(c3, c4))
-    snakebodys.push("#" + c4)
-    snakebodys.push("#" + newcolor(c4, c5))
-    snakebodys.push("#" + c5)
-    snakebodys.push("#" + newcolor(c5, c6))
-    snakebodys.push("#" + c6)
-
-    return snakebodys
-}
 
