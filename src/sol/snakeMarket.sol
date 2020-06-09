@@ -35,13 +35,13 @@ contract SnakeMarket is Ownable {
         snakeToPrice[snakeId] = price;
         countOfSnakesOnMarket += 1;
         
-        snakeCreator.updateIsOnMarket(snakeId, true);
+        //snakeCreator.updateIsOnMarket(snakeId, true);
     }
 
     function removeSnakeFromMarketplace(uint snakeId) external ownerOfSnake(snakeId) {
         removeSnakeIdFromMarketplace(snakeId);
         
-        snakeCreator.updateIsOnMarket(snakeId, false);
+        //snakeCreator.updateIsOnMarket(snakeId, false);
     }
 
     function removeSnakeIdFromMarketplace(uint snakeId) private {
@@ -73,7 +73,7 @@ contract SnakeMarket is Ownable {
         removeSnakeIdFromMarketplace(snakeId);
         seller.transfer(msg.value);
         
-        snakeCreator.updateIsOnMarket(snakeId, false);
+        //snakeCreator.updateIsOnMarket(snakeId, false);
     }
 
     function getPriceOfSnake(uint snakeId) public view returns (uint){
