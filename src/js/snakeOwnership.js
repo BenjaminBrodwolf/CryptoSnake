@@ -2,11 +2,18 @@ const createReceiveList = async () =>{
     const receiveList = document.getElementById("receiveList");
 
     const ids = await getListOfReceivedSnakeIDs();
+    console.log(ids)
+
     if (ids.length > 0 ){
+        let i =0
 
         for (id in ids) {
+            console.log(ids[i])
+            console.log(id)
+
             const snake = await getSnakeDetails(id)
-            receiveList.innerHTML += `<p onclick='receiveSnakeFrom(${id})'> ${snake.name} </p>`
+            receiveList.innerHTML += `<p onclick='receiveSnakeFrom(${ids[i]})'> ${snake.name} </p>`
+            i++;
         }
 
     } else {
