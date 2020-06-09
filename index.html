@@ -74,7 +74,7 @@
         <label for="snakeInputName">Address of the old Snake-Owner:</label>
         <input id="snakeInputID" type="text" name="snakeInputName" class="form-control" placeholder="Account Address">
 
-        <button id="recieveSnake" type="button" class="button" onclick="">
+        <button id="recieveSnake" type="button" class="button" onclick="transferSnakeTo(this, ${snakeID})">
             Receive
         </button>
     </div>
@@ -124,8 +124,8 @@
     let userAccount;
 
     const startApp = () => {
-        const contractSnakeOwnership = "0x7c9D278469cB54f7156a1516eb866746194158F6";
-        const contractMarket = "0x4E63d73a658Ebc458aD6D8f4096D0b05977C8d47";
+        const contractSnakeOwnership = "0x6E908Be944a427D7B724Afe96c6Df9e5C5cF234F";
+        const contractMarket = "0x41a1a3c2E5afE3640AfaB51EfE2E963CB6DD2951";
 
         cryptoSnakeOwnership = new window.web3.eth.Contract(snakeOwnershipABI, contractSnakeOwnership);
         cryptoSnakeMarket = new window.web3.eth.Contract(snakeMarketABI, contractMarket);
@@ -144,6 +144,20 @@
         await showAllSnakes();
         await displaySnakesOnMarket()
         await initalSnakeCheck();
+
+        cryptoSnakeOwnership.events.NewSnake()
+            .on("data", function(event) {
+                const snake = event.returnValues;
+                console.log("A new Snake!", snake.snakeId, snake.name, snake.dna);
+                fireNotify(`New Snake arrived\n Say welcome to ${snake.name} \n ID:${snake.snakeId}`)
+            }).on("error", console.error);
+
+        cryptoSnakeOwnership.events.Approval()
+            .on("data", function(event) {
+                const approv = event.returnValues;
+                console.log("A new Approval!", approv._owner, approv._approved, approv._tokenId);
+            }).on("error", console.error);
+
     }
 
     window.addEventListener('load', () => {
@@ -160,6 +174,9 @@
     const nameInputField= document.getElementById("snakeInputName");
     const dialog = document.getElementById('pairingDialog');
     const backdrop = document.getElementById('backdrop');
+
+
+
 </script>
 
 </body>

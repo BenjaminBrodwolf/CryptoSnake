@@ -15,6 +15,24 @@
 
 }
 
+.isOnMarket{
+    font-size: 3rem;
+    font-family: sans-serif;
+    color: white;
+    text-shadow:
+             2px  2px 2px black,
+             2px -2px 2px black,
+            -2px  2px 2px black,
+            -2px -2px 2px black;
+
+    position: absolute;
+    left:20%;
+    top:50%;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    width:100px;
+}
+
 snake{
     min-width: 40px;
     float: left;
@@ -30,6 +48,7 @@ snake{
 }
 
 .snakeview{
+    position: relative;
     overflow: hidden;
     white-space: nowrap;
 }
