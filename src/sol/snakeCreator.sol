@@ -36,9 +36,12 @@ contract SnakeCreator is Ownable {
     mapping(uint => Snake) public snakeIdToSnake;
     
     
-    function updateIsOnMarket (uint snakeId, bool isOnMarket) external {
-        //snakeIdToSnake[snakeId].isOnMarket = isOnMarket;
+    function updateIsOnMarket (uint snakeId, bool isOnMarket) public {
         snakes[snakeId].isOnMarket = isOnMarket;
+    }
+    
+    function isOnMarket (uint snakeId) public returns(bool) {
+      return snakes[snakeId].isOnMarket;
     }
 
 

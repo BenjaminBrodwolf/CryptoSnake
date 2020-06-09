@@ -190,6 +190,25 @@ const snakeOwnershipABI = [
         "constant": false,
         "inputs": [
             {
+                "name": "snakeId",
+                "type": "uint256"
+            }
+        ],
+        "name": "isOnMarket",
+        "outputs": [
+            {
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
                 "name": "_name",
                 "type": "string"
             }
