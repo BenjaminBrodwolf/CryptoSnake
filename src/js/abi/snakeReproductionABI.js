@@ -3,11 +3,11 @@ const snakeReproductionABI = [
         "constant": true,
         "inputs": [
             {
-                "name": "snakeId",
+                "name": "",
                 "type": "uint256"
             }
         ],
-        "name": "isSnakeOnMarket",
+        "name": "snakeToIsOnMarket",
         "outputs": [
             {
                 "name": "",
@@ -98,10 +98,6 @@ const snakeReproductionABI = [
             {
                 "name": "readyTime",
                 "type": "uint32"
-            },
-            {
-                "name": "isOnMarket",
-                "type": "bool"
             }
         ],
         "payable": false,
@@ -336,41 +332,6 @@ const snakeReproductionABI = [
             {
                 "name": "",
                 "type": "uint256[]"
-            }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "constant": true,
-        "inputs": [
-            {
-                "name": "",
-                "type": "uint256"
-            }
-        ],
-        "name": "snakeIdToSnake",
-        "outputs": [
-            {
-                "name": "name",
-                "type": "string"
-            },
-            {
-                "name": "dna",
-                "type": "uint256"
-            },
-            {
-                "name": "level",
-                "type": "uint32"
-            },
-            {
-                "name": "readyTime",
-                "type": "uint32"
-            },
-            {
-                "name": "isOnMarket",
-                "type": "bool"
             }
         ],
         "payable": false,
