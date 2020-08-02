@@ -1,6 +1,9 @@
-# Blockhain Collectables – CryptoSnake
+# Blockhain Collectables
 
-## CryptoSnake
+
+ <img src="https://github.com/BenjaminBrodwolf/CryptoSnake/blob/master/images/cryptosnake.png" width="450" title="CryptoSnake">
+
+# CryptoSnake
 CryptoSnake ist eine Blockchain-Basierte Web-Applikation, mit welcher auf spielerische Art Schlangen gehalten, erzeugt, gefüttert und auf einem Markt gehandelt oder verschenkt werden können. Die Web-App wurde mit Smart-Contracts für die Ethereum-Blockchain entwickelt.
 
 ## Eigenschaften einer Schlange (CryptoSnake)
@@ -18,6 +21,7 @@ Eine initiale Schlange kann pro User gratis erzeugt werden. Weitere Schlangen k�
 
 **Erzeugen durch Paaren**
 Benutzer, welche über zwei Schlangen verfügen, können diese miteinander paaren, worauf eine neue Schlange entsteht. Die Schlange ist anschliessend ebenfalls im Besitz des Benutzers. Eine Schlange kann sich dabei allerdings höchstens alle 24h (beachte readyTime) einmal paaren. So ist es also nicht möglich, eine beliebige Anzahl Schlangen zu erzeugen. Die Eltern einer neu erzeugten Schlange werden zudem vermerkt, sodass sie zurückverfolgt werden kann. Die DNA der Schlange, welche durch Paarung entstanden ist, endet auf die Zahl 42. Somit kann anhand der DNA unterschieden werden ob diese Schlange durch Paarung oder durch einen Kauf entstanden ist.
+ <img src="https://github.com/BenjaminBrodwolf/CryptoSnake/blob/master/images/pairing.png" width="650" title="Paarung von zwei CryptoSnake">
 
 ### Schlangen füttern
 Schlangen können gefüttert werden, um so ein höheres Level zu erreichen. Das benötigte Futter kann gegen Ether gekauft werden. Beim Futterkauf gibt der Benutzer eine geheime Zutat (als Text) mit. Anhand dieser Zutat wird dann mathematisch berechnet wie viele Level aufgestiegen werden können und welchen Namen das Futter bekommt. Der Level-Upgrade Bereich liegt zwischen 1 und 5. Für den Namen des Futters gibt es auch 5 Möglichkeiten (Insects, Snails, Birds, Snakes, Deer). Nach dem Kauf von Schlangen-Futter, kann dies einer beliebigen Schlange zum Essen (feeding) gegeben werden.
@@ -98,3 +102,8 @@ Farben zwischen zwei Hexadezimal-Codes generieren kann, womit wir fünf zusätzl
 erhalten. Dies sorgt auch für einen schöneren Übergang der Farben.
 
 Folgendes Beispiels zeigt die ersten 3 Iterationen:
+ <img src="https://github.com/BenjaminBrodwolf/CryptoSnake/blob/master/images/snakeCreationDesign.png" width="650" title="Paarung von zwei CryptoSnake">
+ 
+ ## Frontend
+  <img src="https://github.com/BenjaminBrodwolf/CryptoSnake/blob/master/images/frontend.png" width="650" title="Paarung von zwei CryptoSnake">
+
